@@ -6,19 +6,19 @@ export function Navbar() {
     return (
         <nav className={Style.navbar}>
             <div className={Style.item}>
-                <a href="#0">Profile</a>
+                <a href="/profile">Profile</a>
             </div>
             <div className={Style.item}>
-                <a href="#0">Messages</a>
+                <a href="/dialogs">Messages</a>
             </div>
             <div className={Style.item}>
-                <a href="#0">News</a>
+                <a href="/news">News</a>
             </div>
             <div className={Style.item}>
-                <a href="#0">Music</a>
+                <a href="/music">Music</a>
             </div>
             <div className={Style.item}>
-                <a href="#0">Settings</a>
+                <a href="/settings">Settings</a>
             </div>
         </nav>
     )
