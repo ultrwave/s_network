@@ -1,8 +1,15 @@
 .navbar {
     grid-area: n;
-    background-color: darksalmon;
+    background-color: indigo;
+    padding: 20px;
 }
 
-.item {
-    color: darkgoldenrod;
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a.activeLink {
+    color: gold;
+    font-weight: bold;
 }

@@ -1,3 +1,22 @@
 .dialogs {
     background-color: skyblue;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems {
+    padding: 10px;
+}
+
+.dialogsItems .active {
+    color: lemonchiffon;
+    font-weight: bold;
+}
+
+.messages {
+    padding: 10px;
+}
+
+.messages .message {
+
 }

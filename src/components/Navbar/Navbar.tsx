@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Style from './Navbar.module.css';
 
 
@@ -6,19 +7,19 @@ export function Navbar() {
     return (
         <nav className={Style.navbar}>
             <div className={Style.item}>
-                <a href="/profile">Profile</a>
+                <NavLink to="/profile" activeClassName={Style.activeLink}>Profile</NavLink>
             </div>
             <div className={Style.item}>
-                <a href="/dialogs">Messages</a>
+                <NavLink to="/dialogs" activeClassName={Style.activeLink}>Messages</NavLink>
             </div>
             <div className={Style.item}>
-                <a href="/news">News</a>
+                <NavLink to="/news" activeClassName={Style.activeLink}>News</NavLink>
             </div>
             <div className={Style.item}>
-                <a href="/music">Music</a>
+                <NavLink to="/music" activeClassName={Style.activeLink}>Music</NavLink>
             </div>
             <div className={Style.item}>
-                <a href="/settings">Settings</a>
+                <NavLink to="/settings" activeClassName={Style.activeLink}>Settings</NavLink>
             </div>
         </nav>
     )
