@@ -6,9 +6,9 @@ import {Post} from './Post/Post';
 export function MyPosts() {
     return (
         <div>
-            My Posts
+            <span className={Style.postButton}>My Posts</span>
             <div>
-                New Post
+                <span className={Style.postButton}>New Post</span>
             </div>
             <div className={Style.posts}>
                 <Post message={"Hi!"} likesCount={5}/>

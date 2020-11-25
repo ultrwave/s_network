@@ -1,3 +1,8 @@
 .posts {
     color: darkgreen;
 }
+
+.postButton {
+    color: red;
+    padding: 15px;
+}
