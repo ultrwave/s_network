@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Style from './Dialogs.module.css';
 import {DialogItem} from './DialogItem';
 
@@ -13,17 +13,34 @@ function Message (props: PropsType) {
 }
 
 export function Dialogs(props: PropsType) {
+
+    const [dialogMessagesId, setDialogMessagesId] = useState<number>(0)
+
+    const setDialogMessagesCallbackId = (id: number) => setDialogMessagesId(id - 1)
+
+    let dialogsData = [
+        {id: 1, name: 'Jane'},
+        {id: 2, name: 'Tom'},
+        {id: 3, name: 'Steve'},
+        {id: 4, name: 'Jack'},
+        {id: 5, name: 'Anna'}
+    ]
+
+    let messagesData = [
+        {id: 1, message: 'Hi!'},
+        {id: 2, message: 'Hello!'},
+        {id: 3, message: 'Whats up?'},
+        {id: 4, message: 'Good day!'},
+        {id: 5, message: 'Yo!'}
+    ]
+
     return (
         <div className={Style.dialogs}>
             <div className={Style.dialogsItems}>
-                <DialogItem dialogId={1} name='Jane'/>
-                <DialogItem dialogId={2} name='Tom'/>
-                <DialogItem dialogId={3} name='Steve'/>
+                {dialogsData.map(d => <DialogItem dialogId={d.id} name={d.name} callback={setDialogMessagesCallbackId}/>)}
             </div>
             <div className={Style.messages}>
-                <Message message='Hi!'/>
-                <Message message='How are you?'/>
-                <Message message='Yo!'/>
+                <Message message={messagesData[dialogMessagesId].message}/>
             </div>
         </div>
     )
