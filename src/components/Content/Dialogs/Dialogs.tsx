@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Style from './Dialogs.module.css';
-import {DialogItem} from './DialogItem';
+import {DialogItem} from './DialogItem/DialogItem';
 
 type PropsType = {
     message: string
@@ -12,7 +12,7 @@ function Message (props: PropsType) {
     )
 }
 
-export function Dialogs(props: PropsType) {
+export function Dialogs() {
 
     const [dialogMessagesId, setDialogMessagesId] = useState<number>(0)
 
@@ -34,10 +34,12 @@ export function Dialogs(props: PropsType) {
         {id: 5, message: 'Yo!'}
     ]
 
+    let dialogs = dialogsData.map(d => <DialogItem dialogId={d.id} name={d.name} callback={setDialogMessagesCallbackId}/>)
+    
     return (
         <div className={Style.dialogs}>
             <div className={Style.dialogsItems}>
-                {dialogsData.map(d => <DialogItem dialogId={d.id} name={d.name} callback={setDialogMessagesCallbackId}/>)}
+                {dialogs}
             </div>
             <div className={Style.messages}>
                 <Message message={messagesData[dialogMessagesId].message}/>
