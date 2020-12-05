@@ -2,13 +2,17 @@ import React from 'react';
 import Style from './Profile.module.css';
 import {MyPosts} from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
+import {PostsDataType} from '../../../index';
 
+type MyPostsDataType = {
+    data: Array<PostsDataType>
+}
 
-export function Profile() {
+export function Profile(props: MyPostsDataType) {
     return (
         <div className={Style.content}>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts data={props.data}/>
         </div>
     )
 }
