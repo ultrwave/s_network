@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Style from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {DialogItemDataType, MessagesDataType} from '../../../index';
+import {DialogItemDataType, MessagesDataType} from '../../../redux/state';
 
 type DialogsDataType = {
     data: {
