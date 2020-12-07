@@ -2,30 +2,32 @@ import React, {useState} from 'react';
 import Style from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {DialogItemDataType, MessagesDataType} from '../../../redux/state';
+import {DialogItemType, MessageDataType} from '../../../redux/state';
 
-type DialogsDataType = {
+type DialogsContentType = {
     data: {
-        dialogItemData: Array<DialogItemDataType>,
-        messagesData: Array<MessagesDataType>
+        dialogItems: Array<DialogItemType>
+        dialogsData: any // type?
     }
 }
 
-export function Dialogs(props: DialogsDataType) {
+export function Dialogs(props: DialogsContentType) {
 
-    const [dialogMessagesId, setDialogMessagesId] = useState<number>(0)
+    const[dialogId, setDialogId] = useState<string>(props.data.dialogItems[0].id)
 
-    const setDialogMessagesCallbackId = (id: number) => setDialogMessagesId(id - 1)
+    const dialogItems = props.data.dialogItems.map(d => <DialogItem dialogId={d.id} name={d.name} callback={setDialogId}/>)
 
-    let dialogs = props.data.dialogItemData.map(d => <DialogItem dialogId={d.id} name={d.name} callback={setDialogMessagesCallbackId}/>)
+    const messages = props.data.dialogsData[dialogId].map((m: MessageDataType) => <Message id={m.id} isMine={m.isMine} message={m.message}/>)
 
     return (
         <div className={Style.dialogs}>
             <div className={Style.dialogsItems}>
-                {dialogs}
+                {dialogItems}
             </div>
-            <div className={Style.messages}>
-                <Message message={props.data.messagesData[dialogMessagesId].message}/>
+            <div className={Style.dialog}>
+                <div className={Style.messages}>
+                    {messages}
+                </div>
             </div>
         </div>
     )

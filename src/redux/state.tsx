@@ -3,14 +3,15 @@ import {v1} from 'uuid';
 
 //======== TYPES ======================================================
 
-export type DialogItemDataType = {
+
+export type DialogItemType = {
     id: string
     name: string
 }
 
-export type MessagesDataType = {
+export type MessageDataType = {
     id: string
-    senderIsMe: boolean
+    isMine: boolean
     message: string
 }
 
@@ -27,42 +28,42 @@ const dialogItemId2 = v1()
 const dialogItemId3 = v1()
 const dialogItemId4 = v1()
 
-const dialogItemData: Array<DialogItemDataType> = [
+const dialogItems: Array<DialogItemType> = [
     {id: dialogItemId1, name: 'Jane'},
     {id: dialogItemId2, name: 'Tom'},
     {id: dialogItemId3, name: 'Steve'},
     {id: dialogItemId4, name: 'Jack'},
 ]
 
-const dialogMessagesData1: Array<MessagesDataType> = [
-    {id: v1(), senderIsMe: true, message: 'Hi!'},
-    {id: v1(), senderIsMe: false, message: 'Hello!'},
-    {id: v1(), senderIsMe: true, message: 'Whats up?'},
-    {id: v1(), senderIsMe: true, message: 'Good day!'},
-    {id: v1(), senderIsMe: false, message: 'Yo!'}
+const dialogMessagesData1: Array<MessageDataType> = [
+    {id: v1(), isMine: true, message: 'Hi!'},
+    {id: v1(), isMine: false, message: 'Hello!'},
+    {id: v1(), isMine: true, message: 'Whats up?'},
+    {id: v1(), isMine: true, message: 'Good day!'},
+    {id: v1(), isMine: false, message: 'Yo!'}
 ]
-const dialogMessagesData2: Array<MessagesDataType> = [
-    {id: v1(), senderIsMe: false, message: 'Apple'},
-    {id: v1(), senderIsMe: true, message: 'Peanut'},
-    {id: v1(), senderIsMe: false, message: 'Banana'},
-    {id: v1(), senderIsMe: true, message: 'Peach'},
+const dialogMessagesData2: Array<MessageDataType> = [
+    {id: v1(), isMine: false, message: 'Apple'},
+    {id: v1(), isMine: true, message: 'Peanut'},
+    {id: v1(), isMine: false, message: 'Banana'},
+    {id: v1(), isMine: true, message: 'Peach'},
 ]
-const dialogMessagesData3: Array<MessagesDataType> = [
-    {id: v1(), senderIsMe: false, message: 'Tomato'},
-    {id: v1(), senderIsMe: false, message: 'Cucumber'},
-    {id: v1(), senderIsMe: true, message: 'Carrot'},
+const dialogMessagesData3: Array<MessageDataType> = [
+    {id: v1(), isMine: false, message: 'Tomato'},
+    {id: v1(), isMine: false, message: 'Cucumber'},
+    {id: v1(), isMine: true, message: 'Carrot'},
 ]
-const dialogMessagesData4: Array<MessagesDataType> = [
-    {id: v1(), senderIsMe: false, message: 'Winter'},
-    {id: v1(), senderIsMe: false, message: 'Spring'},
+const dialogMessagesData4: Array<MessageDataType> = [
+    {id: v1(), isMine: false, message: 'Winter'},
+    {id: v1(), isMine: false, message: 'Spring'},
 ]
 
-const dialogsData: Array<Object> = [
-    { [dialogItemId1]: dialogMessagesData1 },
-    { [dialogItemId2]: dialogMessagesData2 },
-    { [dialogItemId3]: dialogMessagesData3 },
-    { [dialogItemId4]: dialogMessagesData4 }
-]
+const dialogsData: any = { // type?
+     [dialogItemId1]: dialogMessagesData1,
+     [dialogItemId2]: dialogMessagesData2,
+     [dialogItemId3]: dialogMessagesData3,
+     [dialogItemId4]: dialogMessagesData4
+}
 
 
 const postsData: Array<PostsDataType> = [
@@ -75,8 +76,8 @@ const postsData: Array<PostsDataType> = [
 
 let state = {
     postsData: [...postsData],
-    dialogsData: [...dialogsData]
-    // dialogItemData: [...dialogItemData],
+    dialogsData: dialogsData,
+    dialogItems: [...dialogItems],
     // messagesData: [...messagesData]
 }
 

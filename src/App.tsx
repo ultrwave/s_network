@@ -8,21 +8,21 @@ import {Dialogs} from './components/Content/Dialogs/Dialogs';
 import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
-import {DialogItemDataType, MessagesDataType, PostsDataType} from './redux/state';
+import {DialogItemType, MessageDataType, PostsDataType} from './redux/state';
 
 type AppPropsType = {
     state: {
-        dialogItemData: Array<DialogItemDataType>
-        messagesData: Array<MessagesDataType>
+        dialogItems: Array<DialogItemType>
+        dialogsData: any // type?
         postsData: Array<PostsDataType>
     }
 }
 
 function App(props: AppPropsType) {
 
-    const dialogsData = {
-        dialogItemData: props.state.dialogItemData,
-        messagesData: props.state.messagesData
+    const dialogContent = {
+        dialogItems: props.state.dialogItems,
+        dialogsData: props.state.dialogsData
     }
 
     return (
@@ -31,7 +31,7 @@ function App(props: AppPropsType) {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs data={dialogsData}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
                     <Route path='/profile' render={() => <Profile data={props.state.postsData}/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
