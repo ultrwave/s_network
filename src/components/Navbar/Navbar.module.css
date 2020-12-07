@@ -13,3 +13,36 @@
     color: gold;
     font-weight: bold;
 }
+
+.friendsTitle {
+    font-size: 20px;
+    margin: 25px 0 0;
+    color: wheat;
+}
+
+.friendsOnline {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.friend {
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    justify-content: center;
+}
+
+.friendAvatar {
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    background-color: peru;
+    border-radius: 30px;
+    border: 2px solid white;
+}
+
+.friendName {
+    text-align: center;
+    color: white;
+}
