@@ -1,5 +1,5 @@
 .dialogs {
-    background-color: skyblue;
+    background-color: #d4c8c4;
     display: grid;
     grid-template-columns: 2fr 10fr;
 }
@@ -29,8 +29,67 @@
 
 .messages {
     padding: 10px;
+    margin: 10px;
+    background-color: #50555d;
 }
 
-.messages .message {
 
+/*===========*/
+
+.message {
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.msgAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: 3px solid #7ac7e5;
+}
+
+.messageBox {
+    width: 200px;
+    margin: auto 10px;
+    border-radius: 10px 10px 0 10px;
+    background: #5e73b0;
+    color: #fff;
+    padding: 10px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.message .name {
+    font-weight: 600;
+    color: #e0d298;
+}
+
+.message .text {
+    width: 220px;
+    font-weight: 400;
+    margin: 5px 0 0;
+}
+
+.message .time {
+    font-weight: 100;
+    color: #838383;
+    text-align: right;
+    line-height: 0;
+    margin-bottom: 5px;
+}
+
+.mineMessage {
+    flex-direction: row;
+}
+
+.mineMessage .messageBox {
+    border-radius: 10px 10px 10px 0;
+    background: #6caee7;
 }
