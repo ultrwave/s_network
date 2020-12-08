@@ -29,10 +29,10 @@ const dialogItemId3 = v1()
 const dialogItemId4 = v1()
 
 const dialogItems: Array<DialogItemType> = [
-    {id: dialogItemId1, name: 'Jane'},
-    {id: dialogItemId2, name: 'Tom'},
-    {id: dialogItemId3, name: 'Steve'},
-    {id: dialogItemId4, name: 'Jack'},
+    {id: dialogItemId1, name: 'Friend 1'},
+    {id: dialogItemId2, name: 'Friend 2'},
+    {id: dialogItemId3, name: 'Friend 3'},
+    {id: dialogItemId4, name: 'Friend 4'},
 ]
 
 const dialogMessagesData1: Array<MessageDataType> = [

@@ -17,7 +17,7 @@ export function DialogItem (props: DialogItemProps) {
     return (
         <div className={Style.dialog}>
             <img className={Style.avatar} src='https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'></img>
-            <NavLink to={path} onClick={setDialogIdCallback}>{props.name}</NavLink>
+            <NavLink to={path} onClick={setDialogIdCallback} activeClassName={Style.activeLink}>{props.name}</NavLink>
         </div>
     )
 }

@@ -18,12 +18,14 @@
     border: 1px solid red;
 }
 
-.dialogsItems {
+.dialogsItems a {
     padding: 10px;
+    color: #7e4b5b;
+    text-decoration: none;
 }
 
-.dialogsItems .active {
-    color: lemonchiffon;
+.dialogsItems a.activeLink {
+    color: #7a0b2a;
     font-weight: bold;
 }
 
