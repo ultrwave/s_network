@@ -8,12 +8,12 @@ import {Dialogs} from './components/Content/Dialogs/Dialogs';
 import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
-import {DialogItemType, MessageDataType, PostsDataType} from './redux/state';
+import {DialogItemType, DialogsDataType, PostsDataType} from './redux/state';
 
 type AppPropsType = {
     state: {
         dialogItems: Array<DialogItemType>
-        dialogsData: any // type?
+        dialogsData: DialogsDataType
         postsData: Array<PostsDataType>
     }
 }

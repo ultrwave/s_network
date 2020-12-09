@@ -3,6 +3,9 @@ import {v1} from 'uuid';
 
 //======== TYPES ======================================================
 
+export type DialogsDataType = {
+    [id: string]: Array<MessageDataType>
+}
 
 export type DialogItemType = {
     id: string
@@ -58,7 +61,7 @@ const dialogMessagesData4: Array<MessageDataType> = [
     {id: v1(), isMine: false, message: 'Spring'},
 ]
 
-const dialogsData: any = { // type?
+const dialogsData: DialogsDataType = {
      [dialogItemId1]: dialogMessagesData1,
      [dialogItemId2]: dialogMessagesData2,
      [dialogItemId3]: dialogMessagesData3,
