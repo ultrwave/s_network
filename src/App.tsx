@@ -28,7 +28,11 @@ function App(props: AppPropsType) {
 
     const dialogs = <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
 
-    const profile = <Route path='/profile' render={() => <Profile data={props.state.postsData} addPost={props.state.addPost}/>}/>
+    const profile = <Route path='/profile' render={() => <Profile
+        data={props.state.postsData}
+        addPost={props.state.addPost}
+    />
+    }/>
 
     return (
         <BrowserRouter>

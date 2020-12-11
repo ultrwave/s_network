@@ -78,7 +78,7 @@ const postsData: Array<PostsDataType> = [
 //====================================================================
 
 export const addPost = (postMessage: string) => {
-    let newPost = {
+    let newPost: PostsDataType = {
         id: v1(),
         message: postMessage,
         likesCount: 0
@@ -93,7 +93,6 @@ let state = {
     dialogsData: dialogsData,
     dialogItems: [...dialogItems],
     addPost: addPost
-    // messagesData: [...messagesData]
 }
 
 export default state
