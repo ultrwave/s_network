@@ -77,10 +77,22 @@ const postsData: Array<PostsDataType> = [
 
 //====================================================================
 
+export const addPost = (postMessage: string) => {
+    let newPost = {
+        id: v1(),
+        message: postMessage,
+        likesCount: 0
+    }
+    state.postsData = [newPost, ...state.postsData]
+}
+
+//====================== STATE =======================================
+
 let state = {
     postsData: [...postsData],
     dialogsData: dialogsData,
     dialogItems: [...dialogItems],
+    addPost: addPost
     // messagesData: [...messagesData]
 }
 

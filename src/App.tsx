@@ -15,6 +15,7 @@ type AppPropsType = {
         dialogItems: Array<DialogItemType>
         dialogsData: DialogsDataType
         postsData: Array<PostsDataType>
+        addPost: (msg: string) => void
     }
 }
 
@@ -25,14 +26,18 @@ function App(props: AppPropsType) {
         dialogsData: props.state.dialogsData
     }
 
+    const dialogs = <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
+
+    const profile = <Route path='/profile' render={() => <Profile data={props.state.postsData} addPost={props.state.addPost}/>}/>
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
-                    <Route path='/profile' render={() => <Profile data={props.state.postsData}/>}/>
+                    {dialogs}
+                    {profile}
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>

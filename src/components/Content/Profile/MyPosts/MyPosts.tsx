@@ -5,6 +5,7 @@ import {PostsDataType} from '../../../../redux/state';
 
 type MyPostsDataType = {
     data: Array<PostsDataType>
+    addPost: (msg: string) => void
 }
 
 export function MyPosts(props: MyPostsDataType) {
@@ -14,8 +15,9 @@ export function MyPosts(props: MyPostsDataType) {
     return (
         <div>
             <span className={Style.postButton}>My Posts</span>
-            <div>
-                <span className={Style.postButton}>New Post</span>
+            <div className={Style.addPostSection}>
+                <textarea className={Style.text} name="newPost"></textarea>
+                <button className={Style.postButton}>Send new post</button>
             </div>
             <div className={Style.posts}>
                 {posts}

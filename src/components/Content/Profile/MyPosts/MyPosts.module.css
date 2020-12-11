@@ -1,8 +1,22 @@
+.addPostSection {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 10px;
+}
+
+.text {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    margin: 5px auto;
+}
+
 .posts {
     color: darkgreen;
 }
 
 .postButton {
-    color: red;
-    padding: 15px;
+    width: 30%;
+    padding: 5px;
 }
