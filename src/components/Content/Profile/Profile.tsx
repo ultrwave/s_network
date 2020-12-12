@@ -7,13 +7,19 @@ import {PostsDataType} from '../../../redux/state';
 type MyPostsDataType = {
     data: Array<PostsDataType>
     addPost: (msg: string) => void
+    newPostInput: (t: string) => void
+    newPostText: string
 }
 
 export function Profile(props: MyPostsDataType) {
     return (
         <div className={Style.content}>
             <ProfileInfo/>
-            <MyPosts data={props.data} addPost={props.addPost}/>
+            <MyPosts data={props.data}
+                     addPost={props.addPost}
+                     newPostInput={props.newPostInput}
+                     newPostText={props.newPostText}
+            />
         </div>
     )
 }

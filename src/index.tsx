@@ -1,4 +1,3 @@
-import React from 'react';
 import reportWebVitals from './reportWebVitals';
 import {globalRender} from './render';
 import state from './redux/state';

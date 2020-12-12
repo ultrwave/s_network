@@ -63,10 +63,10 @@ const dialogMessagesData4: Array<MessageDataType> = [
 ]
 
 const dialogsData: DialogsDataType = {
-     [dialogItemId1]: dialogMessagesData1,
-     [dialogItemId2]: dialogMessagesData2,
-     [dialogItemId3]: dialogMessagesData3,
-     [dialogItemId4]: dialogMessagesData4
+    [dialogItemId1]: dialogMessagesData1,
+    [dialogItemId2]: dialogMessagesData2,
+    [dialogItemId3]: dialogMessagesData3,
+    [dialogItemId4]: dialogMessagesData4
 }
 
 
@@ -78,23 +78,36 @@ const postsData: Array<PostsDataType> = [
 
 //====================================================================
 
-export const addPost = (postMessage: string) => {
+const addPost = (postMessage: string) => {
     let newPost: PostsDataType = {
         id: v1(),
         message: postMessage,
         likesCount: 0
     }
-    state.postsData = [newPost, ...state.postsData]
+    state.pageProfile.postsData = [newPost, ...state.pageProfile.postsData]
+    state.pageProfile.newPostText = ''
     globalRender(state)
 }
+
+const newPostInput = (text: string) => {
+    state.pageProfile.newPostText = text
+    globalRender(state)
+}
+
 
 //====================== STATE =======================================
 
 let state = {
-    postsData: [...postsData],
-    dialogsData: dialogsData,
-    dialogItems: [...dialogItems],
-    addPost: addPost
+    pageProfile: {
+        postsData: [...postsData],
+        newPostText: '',
+        newPostInput: newPostInput,
+        addPost: addPost,
+    },
+    pageDialogs: {
+        dialogsData: dialogsData,
+        dialogItems: [...dialogItems],
+    }
 }
 
 export default state

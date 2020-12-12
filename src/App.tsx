@@ -12,25 +12,33 @@ import {DialogItemType, DialogsDataType, PostsDataType} from './redux/state';
 
 type AppPropsType = {
     state: {
-        dialogItems: Array<DialogItemType>
-        dialogsData: DialogsDataType
-        postsData: Array<PostsDataType>
-        addPost: (msg: string) => void
+        pageProfile: {
+            postsData: Array<PostsDataType>
+            newPostText: string
+            newPostInput: (t: string) => void
+            addPost: (msg: string) => void
+        },
+        pageDialogs: {
+            dialogItems: Array<DialogItemType>
+            dialogsData: DialogsDataType
+        }
     }
 }
 
 function App(props: AppPropsType) {
 
     const dialogContent = {
-        dialogItems: props.state.dialogItems,
-        dialogsData: props.state.dialogsData
+        dialogItems: props.state.pageDialogs.dialogItems,
+        dialogsData: props.state.pageDialogs.dialogsData
     }
 
     const dialogs = <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
 
     const profile = <Route path='/profile' render={() => <Profile
-        data={props.state.postsData}
-        addPost={props.state.addPost}
+        data={props.state.pageProfile.postsData}
+        addPost={props.state.pageProfile.addPost}
+        newPostInput={props.state.pageProfile.newPostInput}
+        newPostText={props.state.pageProfile.newPostText}
     />
     }/>
 
