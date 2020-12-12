@@ -1,4 +1,5 @@
 import {v1} from 'uuid';
+import {globalRender} from '../render';
 
 
 //======== TYPES ======================================================
@@ -84,6 +85,7 @@ export const addPost = (postMessage: string) => {
         likesCount: 0
     }
     state.postsData = [newPost, ...state.postsData]
+    globalRender(state)
 }
 
 //====================== STATE =======================================

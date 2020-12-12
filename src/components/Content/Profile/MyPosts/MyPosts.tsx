@@ -16,6 +16,10 @@ export function MyPosts(props: MyPostsDataType) {
         let text = newPostRef.current?.value
         if (text && text.trim()) {
             props.addPost(text)
+            if (newPostRef.current && newPostRef.current.value) {
+                newPostRef.current.value = ''
+                newPostRef.current.focus()
+            }
         }
     }
 
