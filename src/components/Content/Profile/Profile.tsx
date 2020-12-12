@@ -6,7 +6,7 @@ import {PostsDataType} from '../../../redux/state';
 
 type MyPostsDataType = {
     data: Array<PostsDataType>
-    addPost: (msg: string) => void
+    addPost: () => void
     newPostInput: (t: string) => void
     newPostText: string
 }

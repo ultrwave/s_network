@@ -16,7 +16,7 @@ type AppPropsType = {
             postsData: Array<PostsDataType>
             newPostText: string
             newPostInput: (t: string) => void
-            addPost: (msg: string) => void
+            addPost: () => void
         },
         pageDialogs: {
             dialogItems: Array<DialogItemType>

@@ -5,7 +5,7 @@ import {PostsDataType} from '../../../../redux/state';
 
 type MyPostsDataType = {
     data: Array<PostsDataType>
-    addPost: (msg: string) => void
+    addPost: () => void
     newPostInput: (t: string) => void
     newPostText: string
 }
@@ -17,7 +17,7 @@ export function MyPosts(props: MyPostsDataType) {
     const addPost = () => {
         let text = newPostRef.current?.value
         if (text && text.trim()) {
-            props.addPost(text)
+            props.addPost()
             if (newPostRef.current && newPostRef.current.value) {
                 newPostRef.current.focus()
             }

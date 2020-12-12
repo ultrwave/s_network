@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
-import {globalRender} from '../render';
 
+let globalRender = (s: any) => {}
 
 //======== TYPES ======================================================
 
@@ -78,10 +78,10 @@ const postsData: Array<PostsDataType> = [
 
 //====================================================================
 
-const addPost = (postMessage: string) => {
+const addPost = () => {
     let newPost: PostsDataType = {
         id: v1(),
-        message: postMessage,
+        message: state.pageProfile.newPostText,
         likesCount: 0
     }
     state.pageProfile.postsData = [newPost, ...state.pageProfile.postsData]
@@ -94,6 +94,9 @@ const newPostInput = (text: string) => {
     globalRender(state)
 }
 
+export const subscribe = (observer: any) => {
+    globalRender = observer
+}
 
 //====================== STATE =======================================
 
