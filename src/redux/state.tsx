@@ -1,8 +1,14 @@
 import {v1} from 'uuid';
 
-let globalRender = (s: any) => {}
+let globalRender = (s: StateType) => {}
 
 //======== TYPES ======================================================
+
+type StateType = {
+    [pageName: string]: {
+        [pageData: string]: any
+    }
+}
 
 export type DialogsDataType = {
     [id: string]: Array<MessageDataType>
@@ -100,7 +106,7 @@ export const subscribe = (observer: any) => {
 
 //====================== STATE =======================================
 
-let state = {
+let state: StateType = {
     pageProfile: {
         postsData: [...postsData],
         newPostText: '',
@@ -114,3 +120,4 @@ let state = {
 }
 
 export default state
+
