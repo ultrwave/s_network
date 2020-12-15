@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Style from './Profile.module.css';
 import {MyPosts} from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
@@ -12,9 +12,15 @@ type MyPostsDataType = {
 }
 
 export function Profile(props: MyPostsDataType) {
+
+    const [animFrame, setAnimFrame] = useState('Profile')
+
+    const setFrameDelay = (f:string) => {setTimeout(() => setAnimFrame(f), 1000 )}
+
+
     return (
         <div className={Style.content}>
-            <ProfileInfo/>
+            <ProfileInfo animation={setFrameDelay} frame={animFrame}/>
             <MyPosts data={props.data}
                      addPost={props.addPost}
                      newPostInput={props.newPostInput}
