@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Style from '../Profile.module.css';
 
 type ProfileInfoProps = {

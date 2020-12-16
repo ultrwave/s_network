@@ -3,20 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state, {subscribe} from './redux/state';
+import store from './redux/state';
 
 export const globalRender = (state: any) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state}/>
+            <App state={store.getState()}/>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
 
-globalRender(state)
+globalRender(store.getState())
 
-subscribe(globalRender)
+store.subscribe(globalRender)
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

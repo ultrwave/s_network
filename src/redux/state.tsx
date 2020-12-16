@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 
-let globalRender = (s: StateType) => {}
+
 
 //======== TYPES ======================================================
 
@@ -84,40 +84,51 @@ const postsData: Array<PostsDataType> = [
 
 //====================================================================
 
-const addPost = () => {
-    let newPost: PostsDataType = {
-        id: v1(),
-        message: state.pageProfile.newPostText,
-        likesCount: 0
-    }
-    state.pageProfile.postsData = [newPost, ...state.pageProfile.postsData]
-    state.pageProfile.newPostText = ''
-    globalRender(state)
-}
 
-const newPostInput = (text: string) => {
-    state.pageProfile.newPostText = text
-    globalRender(state)
-}
 
-export const subscribe = (observer: any) => {
-    globalRender = observer
-}
+
+
+
 
 //====================== STATE =======================================
 
-let state: StateType = {
-    pageProfile: {
-        postsData: [...postsData],
-        newPostText: '',
-        newPostInput: newPostInput,
-        addPost: addPost,
-    },
-    pageDialogs: {
-        dialogsData: dialogsData,
-        dialogItems: [...dialogItems],
-    }
+type StoreType = {
+    _state: StateType
+    [key: string]: any
 }
 
-export default state
+const store: StoreType = {
+    _state: {
+        pageProfile: {
+            postsData: [...postsData],
+            newPostText: '',
+            newPostInput (text: string) {
+                this._state.pageProfile.newPostText = text
+                this._callSubscriber(this._state)
+            },
+            addPost () {
+                let newPost: PostsDataType = {
+                    id: v1(),
+                    message: this._state.pageProfile.newPostText,
+                    likesCount: 0
+                }
+                this._state.pageProfile.postsData = [newPost, ...this._state.pageProfile.postsData]
+                this._state.pageProfile.newPostText = ''
+                this._callSubscriber(this._state)
+            },
+        },
+        pageDialogs: {
+            dialogsData: dialogsData,
+            dialogItems: [...dialogItems],
+        }
+    },
+    getState() {
+        return this._state
+    },
+    subscribe (observer: any) {
+        this._callSubscriber = observer
+    },
+    _callSubscriber (s: StateType) {},
+}
 
+export default store
