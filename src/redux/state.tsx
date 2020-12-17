@@ -87,6 +87,9 @@ type StoreType = {
     [key: string]: any
 }
 
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
 const store: StoreType = {
     _state: {
         pageProfile: {
@@ -108,7 +111,7 @@ const store: StoreType = {
     },
 
     dispatch(action: any) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost: PostsDataType = {
                 id: v1(),
                 message: this._state.pageProfile.newPostText,
@@ -122,7 +125,20 @@ const store: StoreType = {
             this._callSubscriber(this._state)
         }
     },
-
 }
+
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST
+    }
+}
+
+export const updateNewPostTextActionCreator = (text: string) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        text: text
+    }
+}
+
 
 export default store
