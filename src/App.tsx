@@ -21,6 +21,7 @@ type AppPropsType = {
         pageDialogs: {
             dialogItems: Array<DialogItemType>
             dialogsData: DialogsDataType
+            newMessageText: string
         }
     }
     dispatch: any
@@ -30,10 +31,15 @@ function App(props: AppPropsType) {
 
     const dialogContent = {
         dialogItems: props.state.pageDialogs.dialogItems,
-        dialogsData: props.state.pageDialogs.dialogsData
+        dialogsData: props.state.pageDialogs.dialogsData,
+        newMessageText: props.state.pageDialogs.newMessageText
     }
 
-    const dialogs = <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
+    const dialogs = <Route path='/dialogs' render={() => <Dialogs
+        data={dialogContent}
+        dispatch={props.dispatch}
+    />}
+    />
 
     const profile = <Route path='/profile' render={() => <Profile
         data={props.state.pageProfile}

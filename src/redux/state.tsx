@@ -89,6 +89,8 @@ type StoreType = {
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 const store: StoreType = {
     _state: {
@@ -99,6 +101,7 @@ const store: StoreType = {
         pageDialogs: {
             dialogsData: dialogsData,
             dialogItems: [...dialogItems],
+            newMessageText: 'Shift+click to send as friend',
         }
     },
     _callSubscriber(s: StateType) {
@@ -111,7 +114,7 @@ const store: StoreType = {
     },
 
     dispatch(action: any) {
-        if (action.type === ADD_POST) {
+        if (action.type === ADD_POST) { // Add post (profile)
             let newPost: PostsDataType = {
                 id: v1(),
                 message: this._state.pageProfile.newPostText,
@@ -120,12 +123,32 @@ const store: StoreType = {
             this._state.pageProfile.postsData = [newPost, ...this._state.pageProfile.postsData]
             this._state.pageProfile.newPostText = ''
             this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+
+        } else if (action.type === UPDATE_NEW_POST_TEXT) { // New post input
             this._state.pageProfile.newPostText = action.text
             this._callSubscriber(this._state)
+
+        } else if (action.type === ADD_MESSAGE) { // Add message(dialogs)
+            let newMessage: MessageDataType = {
+                id: v1(),
+                isMine: action.isMine,
+                message: this._state.pageDialogs.newMessageText,
+            }
+            if (newMessage.message === 'Shift+click to send as friend') {
+                newMessage.message = 'New Message!'
+            }
+            this._state.pageDialogs.dialogsData[action.dialogId] = [newMessage, ...this._state.pageDialogs.dialogsData[action.dialogId]]
+            this._state.pageDialogs.newMessageText = ''
+            this._callSubscriber(this._state)
+
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) { // New message input
+            this._state.pageDialogs.newMessageText = action.text
+            this._callSubscriber(this._state)
         }
-    },
+    }
 }
+
+
 
 export const addPostActionCreator = () => {
     return {
@@ -138,7 +161,26 @@ export const updateNewPostTextActionCreator = (text: string) => {
         type: UPDATE_NEW_POST_TEXT,
         text: text
     }
+
+}
+
+export const addMessageActionCreator = (dialogId: string, isMine: boolean) => {
+    return {
+        type: ADD_MESSAGE,
+        dialogId: dialogId,
+        isMine: isMine
+    }
+}
+
+export const updateNewMessageTextActionCreator = (text: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        text: text
+    }
 }
 
 
 export default store
+
+
+
