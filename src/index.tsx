@@ -8,7 +8,7 @@ import store from './redux/state';
 export const globalRender = (state: any) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App state={store.getState()}/>
+            <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>
         </React.StrictMode>,
         document.getElementById('root')
     );

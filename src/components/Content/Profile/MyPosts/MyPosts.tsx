@@ -3,21 +3,20 @@ import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {PostsDataType} from '../../../../redux/state';
 
-type MyPostsDataType = {
+type MyPostsType = {
     data: Array<PostsDataType>
-    addPost: () => void
-    newPostInput: (t: string) => void
     newPostText: string
+    dispatch: any
 }
 
-export function MyPosts(props: MyPostsDataType) {
+export function MyPosts(props: MyPostsType) {
 
     const newPostRef = createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
         let text = newPostRef.current?.value
         if (text && text.trim()) {
-            props.addPost()
+            props.dispatch({ type: 'ADD-POST' })
             if (newPostRef.current && newPostRef.current.value) {
                 newPostRef.current.focus()
             }
@@ -25,7 +24,7 @@ export function MyPosts(props: MyPostsDataType) {
     }
 
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newPostInput(e.currentTarget.value)
+        props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', text: e.currentTarget.value})
     }
 
     const posts = props.data.map(p => <Post message={p.message} likesCount={p.likesCount}/>)

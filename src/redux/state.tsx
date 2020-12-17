@@ -1,7 +1,6 @@
 import {v1} from 'uuid';
 
 
-
 //======== TYPES ======================================================
 
 type StateType = {
@@ -75,7 +74,6 @@ const dialogsData: DialogsDataType = {
     [dialogItemId4]: dialogMessagesData4
 }
 
-
 const postsData: Array<PostsDataType> = [
     {id: v1(), message: 'It\'s my first post!', likesCount: 12},
     {id: v1(), message: 'Hello!', likesCount: 432},
@@ -83,14 +81,6 @@ const postsData: Array<PostsDataType> = [
 ]
 
 //====================================================================
-
-
-
-
-
-
-
-//====================== STATE =======================================
 
 type StoreType = {
     _state: StateType
@@ -102,33 +92,37 @@ const store: StoreType = {
         pageProfile: {
             postsData: [...postsData],
             newPostText: '',
-            newPostInput (text: string) {
-                this._state.pageProfile.newPostText = text
-                this._callSubscriber(this._state)
-            },
-            addPost () {
-                let newPost: PostsDataType = {
-                    id: v1(),
-                    message: this._state.pageProfile.newPostText,
-                    likesCount: 0
-                }
-                this._state.pageProfile.postsData = [newPost, ...this._state.pageProfile.postsData]
-                this._state.pageProfile.newPostText = ''
-                this._callSubscriber(this._state)
-            },
         },
         pageDialogs: {
             dialogsData: dialogsData,
             dialogItems: [...dialogItems],
         }
     },
+    _callSubscriber(s: StateType) {
+    },
     getState() {
         return this._state
     },
-    subscribe (observer: any) {
+    subscribe(observer: any) {
         this._callSubscriber = observer
     },
-    _callSubscriber (s: StateType) {},
+
+    dispatch(action: any) {
+        if (action.type === 'ADD-POST') {
+            let newPost: PostsDataType = {
+                id: v1(),
+                message: this._state.pageProfile.newPostText,
+                likesCount: 0
+            }
+            this._state.pageProfile.postsData = [newPost, ...this._state.pageProfile.postsData]
+            this._state.pageProfile.newPostText = ''
+            this._callSubscriber(this._state)
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.pageProfile.newPostText = action.text
+            this._callSubscriber(this._state)
+        }
+    },
+
 }
 
 export default store

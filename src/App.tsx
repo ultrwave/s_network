@@ -8,21 +8,22 @@ import {Dialogs} from './components/Content/Dialogs/Dialogs';
 import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
-import store, {DialogItemType, DialogsDataType, PostsDataType} from './redux/state';
+import {DialogItemType, DialogsDataType, PostsDataType} from './redux/state';
 
 type AppPropsType = {
     state: {
         pageProfile: {
             postsData: Array<PostsDataType>
             newPostText: string
-            newPostInput: (t: string) => void
-            addPost: () => void
+            // newPostInput: (t: string) => void
+            // addPost: () => void
         },
         pageDialogs: {
             dialogItems: Array<DialogItemType>
             dialogsData: DialogsDataType
         }
     }
+    dispatch: any
 }
 
 function App(props: AppPropsType) {
@@ -35,10 +36,8 @@ function App(props: AppPropsType) {
     const dialogs = <Route path='/dialogs' render={() => <Dialogs data={dialogContent}/>}/>
 
     const profile = <Route path='/profile' render={() => <Profile
-        data={props.state.pageProfile.postsData}
-        addPost={props.state.pageProfile.addPost.bind(store)}
-        newPostInput={props.state.pageProfile.newPostInput.bind(store)}
-        newPostText={props.state.pageProfile.newPostText}
+        data={props.state.pageProfile}
+        dispatch={props.dispatch}
     />
     }/>
 
