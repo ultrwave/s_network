@@ -1,4 +1,6 @@
 import {v1} from 'uuid';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
 
 
 //======== TYPES ======================================================
@@ -51,17 +53,20 @@ const dialogMessagesData1: Array<MessageDataType> = [
     {id: v1(), isMine: true, message: 'Good day!'},
     {id: v1(), isMine: false, message: 'Yo!'}
 ]
+
 const dialogMessagesData2: Array<MessageDataType> = [
     {id: v1(), isMine: false, message: 'Apple'},
     {id: v1(), isMine: true, message: 'Peanut'},
     {id: v1(), isMine: false, message: 'Banana'},
     {id: v1(), isMine: true, message: 'Peach'},
 ]
+
 const dialogMessagesData3: Array<MessageDataType> = [
     {id: v1(), isMine: false, message: 'Tomato'},
     {id: v1(), isMine: false, message: 'Cucumber'},
     {id: v1(), isMine: true, message: 'Carrot'},
 ]
+
 const dialogMessagesData4: Array<MessageDataType> = [
     {id: v1(), isMine: false, message: 'Winter'},
     {id: v1(), isMine: false, message: 'Spring'},
@@ -114,41 +119,14 @@ const store: StoreType = {
     },
 
     dispatch(action: any) {
-        if (action.type === ADD_POST) { // Add post (profile)
-            let newPost: PostsDataType = {
-                id: v1(),
-                message: this._state.pageProfile.newPostText,
-                likesCount: 0
-            }
-            this._state.pageProfile.postsData = [newPost, ...this._state.pageProfile.postsData]
-            this._state.pageProfile.newPostText = ''
-            this._callSubscriber(this._state)
 
-        } else if (action.type === UPDATE_NEW_POST_TEXT) { // New post input
-            this._state.pageProfile.newPostText = action.text
-            this._callSubscriber(this._state)
+        this._state.pageProfile = profileReducer(this._state.pageProfile, action)
+        this._state.pageDialogs = dialogsReducer(this._state.pageDialogs, action)
 
-        } else if (action.type === ADD_MESSAGE) { // Add message(dialogs)
-            let newMessage: MessageDataType = {
-                id: v1(),
-                isMine: action.isMine,
-                message: this._state.pageDialogs.newMessageText,
-            }
-            if (newMessage.message === 'Shift+click to send as friend') {
-                newMessage.message = 'New Message!'
-            }
-            this._state.pageDialogs.dialogsData[action.dialogId] = [newMessage, ...this._state.pageDialogs.dialogsData[action.dialogId]]
-            this._state.pageDialogs.newMessageText = ''
-            this._callSubscriber(this._state)
+        this._callSubscriber(this._state)
 
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) { // New message input
-            this._state.pageDialogs.newMessageText = action.text
-            this._callSubscriber(this._state)
-        }
     }
 }
-
-
 
 export const addPostActionCreator = () => {
     return {
@@ -178,7 +156,6 @@ export const updateNewMessageTextActionCreator = (text: string) => {
         text: text
     }
 }
-
 
 export default store
 
