@@ -128,34 +128,6 @@ const store: StoreType = {
     }
 }
 
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
-    }
-}
-
-export const updateNewPostTextActionCreator = (text: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        text: text
-    }
-
-}
-
-export const addMessageActionCreator = (dialogId: string, isMine: boolean) => {
-    return {
-        type: ADD_MESSAGE,
-        dialogId: dialogId,
-        isMine: isMine
-    }
-}
-
-export const updateNewMessageTextActionCreator = (text: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        text: text
-    }
-}
 
 export default store
 

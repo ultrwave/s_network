@@ -3,11 +3,11 @@ import Style from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {
-    addMessageActionCreator,
     DialogItemType,
     DialogsDataType,
-    MessageDataType, updateNewMessageTextActionCreator, updateNewPostTextActionCreator
+    MessageDataType,
 } from '../../../redux/state';
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../../redux/dialogs-reducer';
 
 type DialogsContentType = {
     data: {

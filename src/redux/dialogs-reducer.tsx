@@ -6,23 +6,43 @@ const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 const dialogsReducer = (state: any, action: any) => {
 
-    if (action.type === ADD_MESSAGE) { // Add message(dialogs)
-        let newMessage: MessageDataType = {
-            id: v1(),
-            isMine: action.isMine,
-            message: state.newMessageText,
-        }
-        if (newMessage.message === 'Shift+click to send as friend') {
-            newMessage.message = 'New Message!'
-        }
-        state.dialogsData[action.dialogId] = [newMessage, ...state.dialogsData[action.dialogId]]
-        state.newMessageText = ''
+    switch (action.type) {
 
-    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) { // New message input
-        state.newMessageText = action.text
+        case ADD_MESSAGE: // Add message(dialogs)
+            let newMessage: MessageDataType = {
+                id: v1(),
+                isMine: action.isMine,
+                message: state.newMessageText,
+            }
+            if (newMessage.message === 'Shift+click to send as friend') {
+                newMessage.message = 'New Message!'
+            }
+            state.dialogsData[action.dialogId] = [newMessage, ...state.dialogsData[action.dialogId]]
+            state.newMessageText = ''
+            return state
+
+        case UPDATE_NEW_MESSAGE_TEXT: // New message input
+            state.newMessageText = action.text
+            return state
+
+        default:
+            return state
     }
+}
 
-    return state
+export const addMessageActionCreator = (dialogId: string, isMine: boolean) => {
+    return {
+        type: ADD_MESSAGE,
+        dialogId: dialogId,
+        isMine: isMine
+    }
+}
+
+export const updateNewMessageTextActionCreator = (text: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        text: text
+    }
 }
 
 export default dialogsReducer
