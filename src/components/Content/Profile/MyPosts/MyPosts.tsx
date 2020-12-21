@@ -28,7 +28,7 @@ export function MyPosts(props: MyPostsType) {
         props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
     }
 
-    const posts = props.data.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    const posts = props.data.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     return (
         <div>

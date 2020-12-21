@@ -5,9 +5,23 @@ import dialogsReducer from './dialogs-reducer';
 
 //======== TYPES ======================================================
 
-type StateType = {
-    [pageName: string]: {
-        [pageData: string]: any
+type StoreType = {
+    _state: StateType
+    _callSubscriber: (s: StateType) => void
+    getState: () => StateType
+    subscribe: (callback: any) => void // ?
+    dispatch: (action: ActionTypes) => void
+}
+
+export type StateType = {
+    pageProfile: {
+        postsData: Array<PostsDataType>
+        newPostText: string
+    }
+    pageDialogs: {
+        dialogsData: DialogsDataType
+        dialogItems: Array<DialogItemType>
+        newMessageText: string
     }
 }
 
@@ -31,6 +45,38 @@ export type PostsDataType = {
     message: string
     likesCount: number
 }
+
+export type DialogsAddMessageActionType = {
+    type: 'ADD-MESSAGE'
+    dialogId: string,
+    isMine: boolean
+}
+
+export type DialogsUpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    text: string
+}
+
+export type ProfileAddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type ProfileUpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    text: string
+}
+
+export type PageProfileActionType =
+    ProfileAddPostActionType |
+    ProfileUpdateNewPostTextActionType
+
+export type PageDialogsActionType =
+    DialogsAddMessageActionType |
+    DialogsUpdateNewMessageTextActionType
+
+export type ActionTypes = // ?
+    PageProfileActionType |
+    PageDialogsActionType
 
 //======== DATA ======================================================
 
@@ -85,17 +131,7 @@ const postsData: Array<PostsDataType> = [
     {id: v1(), message: 'Good day!', likesCount: 2}
 ]
 
-//====================================================================
-
-type StoreType = {
-    _state: StateType
-    [key: string]: any
-}
-
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+//========= STORE =====================================================
 
 const store: StoreType = {
     _state: {
@@ -114,11 +150,11 @@ const store: StoreType = {
     getState() {
         return this._state
     },
-    subscribe(observer: any) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
 
-    dispatch(action: any) {
+    dispatch(action: ActionTypes) {
 
         this._state.pageProfile = profileReducer(this._state.pageProfile, action)
         this._state.pageDialogs = dialogsReducer(this._state.pageDialogs, action)
@@ -127,7 +163,6 @@ const store: StoreType = {
 
     }
 }
-
 
 export default store
 

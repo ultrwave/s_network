@@ -1,10 +1,20 @@
 import {v1} from 'uuid';
-import {PostsDataType} from './state';
+import {
+    ActionTypes,
+    PostsDataType,
+    ProfileAddPostActionType,
+    ProfileUpdateNewPostTextActionType
+} from './state';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-const profileReducer = (state: any, action: any) => {
+type PageStateType = {
+    postsData: Array<PostsDataType>
+    newPostText: string
+}
+
+const profileReducer = (state: PageStateType, action: ActionTypes) => {
 
     switch (action.type) {
 
@@ -27,19 +37,18 @@ const profileReducer = (state: any, action: any) => {
     }
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = ():ProfileAddPostActionType => {
     return {
         type: ADD_POST
     }
 }
 
-export const updateNewPostTextActionCreator = (text: string) => {
+export const updateNewPostTextActionCreator = (text: string):ProfileUpdateNewPostTextActionType => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         text: text
     }
 
 }
-
 
 export default profileReducer

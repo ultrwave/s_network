@@ -22,7 +22,7 @@ export function Dialogs(props: DialogsContentType) {
 
     const [dialogId, setDialogId] = useState<string>(props.data.dialogItems[0].id)
 
-    const dialogItems = props.data.dialogItems.map(d => <DialogItem dialogId={d.id} name={d.name}
+    const dialogItems = props.data.dialogItems.map(d => <DialogItem key={d.id} dialogId={d.id} name={d.name}
                                                                     callback={setDialogId}/>)
 
     const newMessageRef = createRef<HTMLTextAreaElement>()
@@ -56,7 +56,7 @@ export function Dialogs(props: DialogsContentType) {
         }
     }
 
-    const messages = props.data.dialogsData[dialogId].map((m: MessageDataType) => <Message id={m.id} isMine={m.isMine}
+    const messages = props.data.dialogsData[dialogId].map((m: MessageDataType) => <Message key={m.id} id={m.id} isMine={m.isMine}
                                                                                            message={m.message}/>)
 
     return (

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './redux/state';
+import store, {StateType} from './redux/state';
 
-export const globalRender = (state: any) => {
+export const globalRender = (state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>

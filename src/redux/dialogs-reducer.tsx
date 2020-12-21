@@ -1,10 +1,23 @@
 import {v1} from 'uuid';
-import {MessageDataType} from './state';
+import {
+    ActionTypes,
+    DialogItemType,
+    DialogsAddMessageActionType,
+    DialogsDataType,
+    DialogsUpdateNewMessageTextActionType,
+    MessageDataType
+} from './state';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-const dialogsReducer = (state: any, action: any) => {
+type PageStateType = {
+        dialogsData: DialogsDataType
+        dialogItems: Array<DialogItemType>
+        newMessageText: string
+}
+
+const dialogsReducer = (state: PageStateType, action: ActionTypes) => {
 
     switch (action.type) {
 
@@ -30,7 +43,7 @@ const dialogsReducer = (state: any, action: any) => {
     }
 }
 
-export const addMessageActionCreator = (dialogId: string, isMine: boolean) => {
+export const addMessageActionCreator = (dialogId: string, isMine: boolean): DialogsAddMessageActionType => {
     return {
         type: ADD_MESSAGE,
         dialogId: dialogId,
@@ -38,7 +51,7 @@ export const addMessageActionCreator = (dialogId: string, isMine: boolean) => {
     }
 }
 
-export const updateNewMessageTextActionCreator = (text: string) => {
+export const updateNewMessageTextActionCreator = (text: string): DialogsUpdateNewMessageTextActionType => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         text: text
