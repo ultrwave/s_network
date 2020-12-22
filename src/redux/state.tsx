@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
-import profileReducer from './profile-reducer';
-import dialogsReducer from './dialogs-reducer';
+import profileReducer, {addPostAC, updateNewPostTextAC} from './profile-reducer';
+import dialogsReducer, {addMessageAC, updateNewMessageTextAC} from './dialogs-reducer';
 
 
 //======== TYPES ======================================================
@@ -46,33 +46,13 @@ export type PostsDataType = {
     likesCount: number
 }
 
-export type DialogsAddMessageActionType = {
-    type: 'ADD-MESSAGE'
-    dialogId: string,
-    isMine: boolean
-}
-
-export type DialogsUpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    text: string
-}
-
-export type ProfileAddPostActionType = {
-    type: 'ADD-POST'
-}
-
-export type ProfileUpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    text: string
-}
-
 export type PageProfileActionType =
-    ProfileAddPostActionType |
-    ProfileUpdateNewPostTextActionType
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostTextAC>
 
 export type PageDialogsActionType =
-    DialogsAddMessageActionType |
-    DialogsUpdateNewMessageTextActionType
+    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof updateNewMessageTextAC>
 
 export type ActionTypes = // ?
     PageProfileActionType |

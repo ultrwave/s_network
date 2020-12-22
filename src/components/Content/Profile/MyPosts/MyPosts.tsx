@@ -2,7 +2,7 @@ import React, {ChangeEvent, createRef} from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {PostsDataType} from '../../../../redux/state';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../../redux/profile-reducer';
+import {addPostAC, updateNewPostTextAC} from '../../../../redux/profile-reducer';
 
 type MyPostsType = {
     data: Array<PostsDataType>
@@ -17,7 +17,7 @@ export function MyPosts(props: MyPostsType) {
     const addPost = () => {
         let text = newPostRef.current?.value
         if (text && text.trim()) {
-            props.dispatch(addPostActionCreator())
+            props.dispatch(addPostAC())
             if (newPostRef.current && newPostRef.current.value) {
                 newPostRef.current.focus()
             }
@@ -25,7 +25,7 @@ export function MyPosts(props: MyPostsType) {
     }
 
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
+        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
     }
 
     const posts = props.data.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)

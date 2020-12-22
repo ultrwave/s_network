@@ -7,7 +7,7 @@ import {
     DialogsDataType,
     MessageDataType,
 } from '../../../redux/state';
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../../redux/dialogs-reducer';
+import {addMessageAC, updateNewMessageTextAC} from '../../../redux/dialogs-reducer';
 
 type DialogsContentType = {
     data: {
@@ -34,7 +34,7 @@ export function Dialogs(props: DialogsContentType) {
             if (e.shiftKey) {
                 isMine = false
             }
-            props.dispatch(addMessageActionCreator(dialogId, isMine))
+            props.dispatch(addMessageAC(dialogId, isMine))
             if (newMessageRef.current && newMessageRef.current.value) {
                 newMessageRef.current.focus()
             }
@@ -42,17 +42,17 @@ export function Dialogs(props: DialogsContentType) {
     }
 
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value))
+        props.dispatch(updateNewMessageTextAC(e.currentTarget.value))
     }
 
     const focusHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (e.currentTarget.value === 'Shift+click to send as friend') {
-            props.dispatch(updateNewMessageTextActionCreator(''))
+            props.dispatch(updateNewMessageTextAC(''))
         }
     }
     const blurHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (!e.currentTarget.value.trim()) {
-            props.dispatch(updateNewMessageTextActionCreator('Shift+click to send as friend'))
+            props.dispatch(updateNewMessageTextAC('Shift+click to send as friend'))
         }
     }
 
