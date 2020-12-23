@@ -6,7 +6,7 @@ import {
     DialogItemType,
     DialogsDataType,
     MessageDataType,
-} from '../../../redux/state';
+} from '../../../redux/store';
 import {addMessageAC, updateNewMessageTextAC} from '../../../redux/dialogs-reducer';
 
 type DialogsContentType = {

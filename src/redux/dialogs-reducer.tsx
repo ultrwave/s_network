@@ -4,7 +4,7 @@ import {
     DialogItemType,
     DialogsDataType,
     MessageDataType
-} from './state';
+} from './store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
