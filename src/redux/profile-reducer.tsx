@@ -12,7 +12,16 @@ type PageStateType = {
     newPostText: string
 }
 
-const profileReducer = (state: PageStateType, action: ActionTypes) => {
+let initialState = {
+    postsData: [
+        {id: v1(), message: 'It\'s my first post!', likesCount: 12},
+        {id: v1(), message: 'Hello!', likesCount: 432},
+        {id: v1(), message: 'Good day!', likesCount: 2}
+    ],
+    newPostText: ''
+}
+
+const profileReducer = (state: PageStateType = initialState, action: ActionTypes) => {
 
     switch (action.type) {
 

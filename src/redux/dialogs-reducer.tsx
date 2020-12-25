@@ -3,7 +3,9 @@ import {
     ActionTypes,
     DialogItemType,
     DialogsDataType,
-    MessageDataType
+    MessageDataType,
+    dialogsData,
+    dialogItems
 } from './store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
@@ -15,11 +17,17 @@ type PageStateType = {
         newMessageText: string
 }
 
-const dialogsReducer = (state: PageStateType, action: ActionTypes) => {
+const initialState = {
+    dialogsData: dialogsData,
+    dialogItems: [...dialogItems],
+    newMessageText: 'Shift+click to send as friend',
+}
+
+const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes) => {
 
     switch (action.type) {
 
-        case ADD_MESSAGE: // Add message(dialogs)
+        case ADD_MESSAGE:
             let newMessage: MessageDataType = {
                 id: v1(),
                 isMine: action.isMine,
@@ -32,7 +40,7 @@ const dialogsReducer = (state: PageStateType, action: ActionTypes) => {
             state.newMessageText = ''
             return state
 
-        case UPDATE_NEW_MESSAGE_TEXT: // New message input
+        case UPDATE_NEW_MESSAGE_TEXT:
             state.newMessageText = action.text
             return state
 

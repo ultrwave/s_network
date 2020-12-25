@@ -65,7 +65,7 @@ const dialogItemId2 = v1()
 const dialogItemId3 = v1()
 const dialogItemId4 = v1()
 
-const dialogItems: Array<DialogItemType> = [
+export const dialogItems: Array<DialogItemType> = [
     {id: dialogItemId1, name: 'Friend 1'},
     {id: dialogItemId2, name: 'Friend 2'},
     {id: dialogItemId3, name: 'Friend 3'},
@@ -98,7 +98,7 @@ const dialogMessagesData4: Array<MessageDataType> = [
     {id: v1(), isMine: false, message: 'Spring'},
 ]
 
-const dialogsData: DialogsDataType = {
+export const dialogsData: DialogsDataType = {
     [dialogItemId1]: dialogMessagesData1,
     [dialogItemId2]: dialogMessagesData2,
     [dialogItemId3]: dialogMessagesData3,
