@@ -9,8 +9,9 @@ import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
 import {ActionTypes, DialogItemType, DialogsDataType, PostsDataType} from './redux/store';
+import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
 
-type AppPropsType = {
+type AppStoreType = {
     state: {
         pageProfile: {
             postsData: Array<PostsDataType>
@@ -25,9 +26,9 @@ type AppPropsType = {
     dispatch: (action: ActionTypes) => void
 }
 
-function App(props: AppPropsType) {
+function App(props: AppStoreType) {
 
-       const dialogs = <Route path='/dialogs' render={() => <Dialogs
+       const dialogs = <Route path='/dialogs' render={() => <DialogsContainer
         data={props.state.pageDialogs}
         dispatch={props.dispatch}
     />}

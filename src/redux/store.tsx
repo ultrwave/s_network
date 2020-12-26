@@ -5,7 +5,7 @@ import dialogsReducer, {addMessageAC, updateNewMessageTextAC} from './dialogs-re
 
 //======== TYPES ======================================================
 
-type StoreType = {
+export type StoreType = {
     _state: StateType
     _callSubscriber: (s: StateType) => void
     getState: () => StateType
