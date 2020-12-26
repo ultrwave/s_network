@@ -1,34 +1,24 @@
-import React, {ChangeEvent, createRef} from 'react';
+import React, {ChangeEvent, createRef, ReactComponentElement, ReactElement} from 'react';
 import Style from './MyPosts.module.css';
-import {Post} from './Post/Post';
-import {PostsDataType} from '../../../../redux/store';
-import {addPostAC, updateNewPostTextAC} from '../../../../redux/profile-reducer';
 
 type MyPostsType = {
-    data: Array<PostsDataType>
+    posts: Array<ReactElement> // type ?
+    inputHandler: (text: string) => void
     newPostText: string
-    dispatch: any
+    addPost: (ref: any) => void // type ?
 }
 
 export function MyPosts(props: MyPostsType) {
 
     const newPostRef = createRef<HTMLTextAreaElement>()
 
-    const addPost = () => {
-        let text = newPostRef.current?.value
-        if (text && text.trim()) {
-            props.dispatch(addPostAC())
-            if (newPostRef.current && newPostRef.current.value) {
-                newPostRef.current.focus()
-            }
-        }
-    }
+    const addPost = () => props.addPost(newPostRef)
 
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
+        props.inputHandler(e.target.value)
     }
 
-    const posts = props.data.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+    const posts = props.posts
 
     return (
         <div>
