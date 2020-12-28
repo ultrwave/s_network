@@ -1,8 +1,9 @@
 import React from 'react';
 import {Post} from './Post/Post';
-import {ActionTypes, PostsDataType} from '../../../../redux/store';
+import {ActionTypes, PostsDataType, StoreType} from '../../../../redux/store';
 import {addPostAC, updateNewPostTextAC} from '../../../../redux/profile-reducer';
 import {MyPosts} from './MyPosts';
+import StoreContext from '../../../../StoreContext';
 
 type MyPostsType = {
     postsData: Array<PostsDataType>
@@ -10,23 +11,38 @@ type MyPostsType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export function MyPostsContainer(props: MyPostsType) {
+export function MyPostsContainer() {
 
-    const addPost = (ref: any) => {
-        let text = ref.current?.value
-        if (text && text.trim()) {
-            props.dispatch(addPostAC())
-            if (ref.current && ref.current.value) {
-                ref.current.focus()
+    return (
+        <StoreContext.Consumer>
+            { (store: StoreType) => {
+
+                const addPost = (ref: any) => {
+                    let text = ref.current?.value
+                    if (text && text.trim()) {
+                        store.dispatch(addPostAC())
+                        if (ref.current && ref.current.value) {
+                            ref.current.focus()
+                        }
+                    }
+                }
+
+                const inputHandler = (text: string) => {
+                    store.dispatch(updateNewPostTextAC(text))
+                }
+
+                const posts = store.getState().pageProfile.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+
+                return (
+                    <MyPosts
+                        posts={posts}
+                        inputHandler={inputHandler}
+                        newPostText={store.getState().pageProfile.newPostText}
+                        addPost={addPost}
+                    />
+                )
             }
         }
-    }
-
-    const inputHandler = (text: string) => {
-        props.dispatch(updateNewPostTextAC(text))
-    }
-
-    const posts = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
-
-    return <MyPosts posts={posts} inputHandler={inputHandler} newPostText={props.newPostText} addPost={addPost}/>
+        </StoreContext.Consumer>
+    )
 }

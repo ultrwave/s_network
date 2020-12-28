@@ -12,7 +12,7 @@ export function DialogItem (props: DialogItemProps) {
 
     let path: string = '/dialogs/' + props.dialogId;
 
-    const setDialogIdCallback = () => {props.callback(props.dialogId)}
+    const setDialogIdCallback = () => { props.callback(props.dialogId) }
 
     return (
         <div className={Style.dialog}>

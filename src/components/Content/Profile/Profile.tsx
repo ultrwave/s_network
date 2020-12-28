@@ -12,15 +12,15 @@ type ProfileType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export function Profile(props: ProfileType) {
+export function Profile() {
 
     return (
         <div className={Style.content}>
             <ProfileInfo/>
             <MyPostsContainer
-                postsData={props.data.postsData}
-                newPostText={props.data.newPostText}
-                dispatch={props.dispatch}
+                // postsData={props.data.postsData}
+                // newPostText={props.data.newPostText}
+                // dispatch={props.dispatch}
             />
         </div>
     )

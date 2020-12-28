@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 import profileReducer, {addPostAC, updateNewPostTextAC} from './profile-reducer';
-import dialogsReducer, {addMessageAC, updateNewMessageTextAC} from './dialogs-reducer';
+import dialogsReducer, {addMessageAC, setDialogIdAC, updateNewMessageTextAC} from './dialogs-reducer';
 
 
 //======== TYPES ======================================================
@@ -21,6 +21,7 @@ export type StateType = {
     pageDialogs: {
         dialogsData: DialogsDataType
         dialogItems: Array<DialogItemType>
+        activeDialogId: string
         newMessageText: string
     }
 }
@@ -52,7 +53,8 @@ export type PageProfileActionType =
 
 export type PageDialogsActionType =
     ReturnType<typeof addMessageAC> |
-    ReturnType<typeof updateNewMessageTextAC>
+    ReturnType<typeof updateNewMessageTextAC> |
+    ReturnType<typeof setDialogIdAC>
 
 export type ActionTypes = // ?
     PageProfileActionType |
@@ -122,6 +124,7 @@ const store: StoreType = {
         pageDialogs: {
             dialogsData: dialogsData,
             dialogItems: [...dialogItems],
+            activeDialogId: [...dialogItems][0].id,
             newMessageText: 'Shift+click to send as friend',
         }
     },

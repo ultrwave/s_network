@@ -25,17 +25,17 @@ type AppStoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-function App(props: AppStoreType) {
+function App() {
 
        const dialogs = <Route path='/dialogs' render={() => <DialogsContainer
-        data={props.state.pageDialogs}
-        dispatch={props.dispatch}
+        // data={props.state.pageDialogs}
+        // dispatch={props.dispatch}
     />}
     />
 
     const profile = <Route path='/profile' render={() => <Profile
-        data={props.state.pageProfile}
-        dispatch={props.dispatch}
+        // data={props.state.pageProfile}
+        // dispatch={props.dispatch}
     />
     }/>
 
