@@ -26,7 +26,7 @@ const initialState = {
     newMessageText: 'Shift+click to send as friend',
 }
 
-const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes) => {
+const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
 
     switch (action.type) {
 

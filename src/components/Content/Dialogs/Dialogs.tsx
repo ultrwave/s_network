@@ -17,10 +17,6 @@ export function Dialogs(props: DialogsContentType) {
 
     const newMessageRef = createRef<HTMLTextAreaElement>()
 
-    // ?
-    // let addMessageEvent: React.MouseEvent<HTMLButtonElement>
-    // const addMessage = props.addMessage(addMessageEvent, newMessageRef)
-
     const addMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
         props.addMessage(e, newMessageRef)
     }
@@ -33,6 +29,7 @@ export function Dialogs(props: DialogsContentType) {
 
     return (
         <div className={Style.dialogs}>
+            {console.log('dialogs rendered')}
             <div className={Style.dialogsItems}>
                 {props.dialogItems}
             </div>

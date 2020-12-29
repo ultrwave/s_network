@@ -21,7 +21,7 @@ let initialState = {
     newPostText: ''
 }
 
-const profileReducer = (state: PageStateType = initialState, action: ActionTypes) => {
+const profileReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
 
     switch (action.type) {
 
@@ -31,13 +31,16 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
                 message: state.newPostText,
                 likesCount: 0
             }
-            state.postsData = [newPost, ...state.postsData]
-            state.newPostText = ''
-            return state
+            let newState = {...state}
+            newState.postsData = [newPost, ...state.postsData]
+            newState.newPostText = ''
+            return newState
 
         case UPDATE_NEW_POST_TEXT: // New post input
-            state.newPostText = action.text
-            return state
+            return {
+                ...state,
+                newPostText: action.text
+            }
 
         default:
             return state
