@@ -9,7 +9,7 @@ export type StoreType = {
     _state: StateType
     _callSubscriber: (s: StateType) => void
     getState: () => StateType
-    subscribe: (callback: any) => void // ?
+    subscribe: (callback: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
 
@@ -56,7 +56,7 @@ export type PageDialogsActionType =
     ReturnType<typeof updateNewMessageTextAC> |
     ReturnType<typeof setDialogIdAC>
 
-export type ActionTypes = // ?
+export type ActionTypes =
     PageProfileActionType |
     PageDialogsActionType
 
