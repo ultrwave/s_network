@@ -1,13 +1,16 @@
-import React, {ChangeEvent, createRef, ReactElement} from 'react';
+import React, {ChangeEvent, createRef} from 'react';
 import Style from './Dialogs.module.css';
-import { DialogsDataType, } from '../../../redux/store';
+import {DialogItemType, DialogsDataType, MessageDataType,} from '../../../redux/store';
+import {DialogItem} from './DialogItem/DialogItem';
+import {Message} from './Message/Message';
 
 type DialogsContentType = {
-    dialogItems: Array<ReactElement> // type ?
+    dialogItems: Array<DialogItemType>
     dialogsData: DialogsDataType
     newMessageText: string
-    messages: Array<ReactElement> // type ?
-    addMessage: (e: React.MouseEvent<HTMLButtonElement>, ref: any) => void // type ?
+    activeDialogId: string
+    setDialogId: (id: string) => void
+    addMessage: (e: React.MouseEvent<HTMLButtonElement>, ref: any, activeDialogId: string) => void
     inputHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
     focusHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
     blurHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
@@ -15,10 +18,24 @@ type DialogsContentType = {
 
 export function Dialogs(props: DialogsContentType) {
 
+    const dialogItems = props.dialogItems.map(d => <DialogItem
+        key={d.id}
+        dialogId={d.id}
+        name={d.name}
+        callback={props.setDialogId}
+    />)
+
+    const messages = props.dialogsData[props.activeDialogId].map((m: MessageDataType) => <Message
+        key={m.id}
+        id={m.id}
+        isMine={m.isMine}
+        message={m.message}
+    />)
+
     const newMessageRef = createRef<HTMLTextAreaElement>()
 
     const addMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
-        props.addMessage(e, newMessageRef)
+        props.addMessage(e, newMessageRef, props.activeDialogId)
     }
 
     const inputHandler = props.inputHandler
@@ -31,12 +48,12 @@ export function Dialogs(props: DialogsContentType) {
         <div className={Style.dialogs}>
             {console.log('dialogs rendered')}
             <div className={Style.dialogsItems}>
-                {props.dialogItems}
+                {dialogItems}
             </div>
             <div className={Style.dialogContent}>
                 <div className={Style.dialog}>
                     <div className={Style.messages}>
-                        {props.messages}
+                        {messages}
                     </div>
                 </div>
                 <div className={Style.addMessageSection}>

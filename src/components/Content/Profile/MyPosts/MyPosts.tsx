@@ -1,14 +1,18 @@
 import React, {ChangeEvent, createRef, ReactComponentElement, ReactElement} from 'react';
 import Style from './MyPosts.module.css';
+import {Post} from './Post/Post';
+import {PostsDataType} from '../../../../redux/store';
 
 type MyPostsType = {
-    posts: Array<ReactElement> // type ?
+    postsData: Array<PostsDataType>
     inputHandler: (text: string) => void
     newPostText: string
-    addPost: (ref: any) => void // type ?
+    addPost: (ref: any) => void // todo: fix type
 }
 
 export function MyPosts(props: MyPostsType) {
+
+    const posts = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     const newPostRef = createRef<HTMLTextAreaElement>()
 
@@ -17,8 +21,6 @@ export function MyPosts(props: MyPostsType) {
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.inputHandler(e.target.value)
     }
-
-    const posts = props.posts
 
     return (
         <div>
