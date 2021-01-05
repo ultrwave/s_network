@@ -39,20 +39,23 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
             if (newMessage.message === 'Shift+click to send as friend') {
                 newMessage.message = 'New Message!'
             }
-            state.dialogsData[action.dialogId] = [newMessage, ...state.dialogsData[action.dialogId]]
-            state.newMessageText = ''
-            return {...state}
+            let newState = {...state}
+            newState.dialogsData[action.dialogId] = [newMessage, ...newState.dialogsData[action.dialogId]]
+            newState.newMessageText = ''
+            // return {...state} // todo: почему не срабатывает ререндер?
+            return newState
 
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.text
             return {
                 ...state,
                 newMessageText: action.text
             }
 
         case SET_DIALOG_ID:
-            state.activeDialogId = action.id
-            return {...state}
+            return {
+                ...state,
+                activeDialogId: action.id
+            }
 
         default:
             return state

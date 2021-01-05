@@ -40,10 +40,10 @@ const mapDispatchToProps = (dispatch: Function) => { // todo: fix type
                 }
             }
         },
-        inputHandler: () => (e: ChangeEvent<HTMLTextAreaElement>) => {
+        inputHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
             dispatch(updateNewMessageTextAC(e.currentTarget.value))
         },
-        focusHandler: () => (e: ChangeEvent<HTMLTextAreaElement>) => {
+        focusHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
             if (e.currentTarget.value === 'Shift+click to send as friend') {
                 dispatch(updateNewMessageTextAC(''))
             }
