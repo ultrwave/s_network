@@ -39,11 +39,11 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
             if (newMessage.message === 'Shift+click to send as friend') {
                 newMessage.message = 'New Message!'
             }
-            let newState = {...state}
+            let newState = {...state} // todo - как написать без создания новой переменной?
             newState.dialogsData[action.dialogId] = [newMessage, ...newState.dialogsData[action.dialogId]]
             newState.newMessageText = ''
-            // return {...state} // todo: почему не срабатывает ререндер?
             return newState
+
 
         case UPDATE_NEW_MESSAGE_TEXT:
             return {
