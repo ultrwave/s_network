@@ -30,6 +30,7 @@ export function Navbar() {
                 <NavbarItem to='/dialogs' title='Dialogs'/>
                 <NavbarItem to='/news' title='News'/>
                 <NavbarItem to='/settings' title='Settings'/>
+                <NavbarItem to='/users' title='Users'/>
             </div>
             <FriendsOnline/>
         </nav>
