@@ -1,0 +1,53 @@
+.users {
+
+}
+
+.user {
+    margin: 10px;
+    padding: 2px;
+    height: 130px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 2px dotted #888791;
+    background-color: #e5d9c4;
+}
+
+.user div {
+    padding: 2px;
+    display: flex;
+}
+
+.name {
+    color: #dd769a;
+    font-weight: bold;
+}
+
+.info {
+    margin-top: 5px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-items: start;
+}
+
+.status {
+    color: #888075;
+    font-style: italic;
+}
+
+.location {
+    color: #506bac;
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+}
+
+.avatar img {
+    width: 80px;
+    border: 7px solid antiquewhite;
+    border-radius: 100px;
+    margin: 2px;
+}

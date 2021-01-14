@@ -20,7 +20,6 @@ export const globalRender = (state: StateType) => {
         document.getElementById('root')
     );
 }
-
 globalRender(store.getState())
 
 store.subscribe(() => {

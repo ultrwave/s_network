@@ -7,9 +7,9 @@ import {Profile} from './components/Content/Profile/Profile';
 import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
-import {Users} from './components/Users/Users';
 import {ActionTypes, DialogItemType, DialogsDataType, PostsDataType} from './redux/store';
 import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
+import {UsersContainer} from './components/Users/UsersContainer';
 
 
 type AppStoreType = {
@@ -41,6 +41,8 @@ function App() {
     />
     }/>
 
+    const users = <Route path='/users' render={() => <UsersContainer/>}/>
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -52,7 +54,7 @@ function App() {
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
-                    <Route path='/users' component={Users}/>
+                    {users}
                 </div>
             </div>
         </BrowserRouter>

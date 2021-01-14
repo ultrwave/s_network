@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
 import profileReducer, {addPostAC, updateNewPostTextAC} from './profile-reducer';
 import dialogsReducer, {addMessageAC, setDialogIdAC, updateNewMessageTextAC} from './dialogs-reducer';
+import {setUsersAC, toggleFollowAC, UserType} from './users-reducer';
 
 
 //======== TYPES ======================================================
@@ -23,6 +24,9 @@ export type StateType = {
         dialogItems: Array<DialogItemType>
         activeDialogId: string
         newMessageText: string
+    }
+    pageUsers: {
+        users: Array<UserType>
     }
 }
 
@@ -56,9 +60,14 @@ export type PageDialogsActionType =
     ReturnType<typeof updateNewMessageTextAC> |
     ReturnType<typeof setDialogIdAC>
 
+export type UsersActionType =
+    ReturnType<typeof toggleFollowAC> |
+    ReturnType<typeof setUsersAC>
+
 export type ActionTypes =
     PageProfileActionType |
-    PageDialogsActionType
+    PageDialogsActionType |
+    UsersActionType
 
 //======== DATA ======================================================
 
@@ -126,7 +135,27 @@ const store: StoreType = {
             dialogItems: [...dialogItems],
             activeDialogId: [...dialogItems][0].id,
             newMessageText: 'Shift+click to send as friend',
-        }
+        },
+       pageUsers: {
+           users: [
+               {
+                   id: v1(),
+                   firstName: 'StoreDmitry',
+                   photoUrl: 'https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png',
+                   status: 'one two three',
+                   location: {city: 'Minsk', country: 'Belarus'},
+                   isFollowed: false
+               },
+               {
+                   id: v1(),
+                   firstName: 'StoreEgor',
+                   photoUrl: 'https://i.dlpng.com/static/png/6728131_preview.png',
+                   status: 'hey hey hey',
+                   location: {city: 'Moscow', country: 'Russia'},
+                   isFollowed: false
+               },
+           ],
+       }
     },
     _callSubscriber(s: StateType) {
     },
@@ -139,8 +168,8 @@ const store: StoreType = {
 
     dispatch(action: ActionTypes) {
 
-        this._state.pageProfile = profileReducer(this._state.pageProfile, action)
-        this._state.pageDialogs = dialogsReducer(this._state.pageDialogs, action)
+        this._state.pageProfile = profileReducer({...this._state.pageProfile}, action)
+        this._state.pageDialogs = dialogsReducer({...this._state.pageDialogs}, action)
 
         this._callSubscriber(this._state)
 
