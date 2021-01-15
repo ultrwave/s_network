@@ -23,7 +23,7 @@ export function Users(props: UsersPropsType) {
         {
             id: v1(),
             firstName: 'Egor',
-            photoUrl: 'https://i.dlpng.com/static/png/6728131_preview.png',
+            photoUrl: 'https://cdn.iconscout.com/icon/free/png-512/manager-2506834-2130095.png',
             status: 'hey hey hey',
             location: {city: 'Moscow', country: 'Russia'},
             isFollowed: false
@@ -31,8 +31,8 @@ export function Users(props: UsersPropsType) {
         {
             id: v1(),
             firstName: 'Sasha',
-            photoUrl: 'https://baikaltravelclub.ru/upload/iblock/395/3951a576f159d0432e0d91d38de606be.png',
-            status: ':3',
+            photoUrl: 'https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png',
+            status: 'what a wonderful day!',
             location: {city: 'Saint Petersburg', country: 'Russia'},
             isFollowed: false
         },

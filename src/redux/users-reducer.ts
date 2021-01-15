@@ -1,6 +1,4 @@
 import {ActionTypes} from './store';
-import {v1} from 'uuid';
-
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 // todo - подсвечивает case: 'TOGGLE-FOLLOW' как unreachable если убрать as const
@@ -11,7 +9,7 @@ export type UserType = {
     firstName: string
     photoUrl: string
     status: string
-    location: {city: string, country: string}
+    location: { city: string, country: string }
     isFollowed: boolean
 }
 
@@ -38,13 +36,24 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
                 )
             }
 
-        default: return state
+        default:
+            return state
     }
 }
 
 
-export const toggleFollowAC = (userId: string) => ({type: TOGGLE_FOLLOW, userId} as const)
+export const toggleFollowAC = (userId: string) => (
+    {
+        type: TOGGLE_FOLLOW,
+        userId
+    } as const
+)
 
-export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users} as const)
+export const setUsersAC = (users: Array<UserType>) => (
+    {
+        type: SET_USERS,
+        users
+    } as const
+)
 
 export default usersReducer
