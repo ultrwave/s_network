@@ -1,22 +1,18 @@
 import {v1} from 'uuid';
-import {
-    ActionTypes,
-    DialogItemType,
-    DialogsDataType,
-    MessageDataType,
-    dialogsData,
-    dialogItems
-} from './store';
+import {ActionTypes, DialogItemType, DialogsDataType, MessageDataType} from '../types/types';
+import {dialogItems, dialogsData} from './store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
-const SET_DIALOG_ID = 'SET-DIALOG-ID'
+const SET_DIALOG_ID = 'SET-DIALOG-ID' // todo - as const?
+
+// email: null as string | null // ?
 
 type PageStateType = {
-        dialogsData: DialogsDataType
-        dialogItems: Array<DialogItemType>
-        newMessageText: string
-        activeDialogId: string
+    dialogsData: DialogsDataType
+    dialogItems: Array<DialogItemType>
+    newMessageText: string
+    activeDialogId: string
 }
 
 const initialState = {

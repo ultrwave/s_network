@@ -1,8 +1,5 @@
 import {v1} from 'uuid';
-import {
-    ActionTypes,
-    PostsDataType,
-} from './store';
+import {ActionTypes, PostsDataType} from '../types/types';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'

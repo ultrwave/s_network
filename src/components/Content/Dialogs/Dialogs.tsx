@@ -1,8 +1,8 @@
 import React, {ChangeEvent, createRef} from 'react';
 import Style from './Dialogs.module.css';
-import {DialogItemType, DialogsDataType, MessageDataType,} from '../../../redux/store';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
+import {DialogItemType, DialogsDataType, MessageDataType} from '../../../types/types';
 
 type DialogsContentType = {
     dialogItems: Array<DialogItemType>

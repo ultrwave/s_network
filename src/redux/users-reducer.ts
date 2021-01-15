@@ -1,17 +1,8 @@
-import {ActionTypes} from './store';
+import {ActionTypes, UserType} from '../types/types';
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 // todo - подсвечивает case: 'TOGGLE-FOLLOW' как unreachable если убрать as const
 const SET_USERS = 'SET-USERS'
-
-export type UserType = {
-    id: string
-    firstName: string
-    photoUrl: string
-    status: string
-    location: { city: string, country: string }
-    isFollowed: boolean
-}
 
 type PageStateType = {
     users: Array<UserType>

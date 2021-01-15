@@ -1,22 +1,8 @@
 import React, {ChangeEvent} from 'react';
-import {
-    ActionTypes,
-    DialogItemType,
-    DialogsDataType,
-    StateType,
-} from '../../../redux/store';
 import {addMessageAC, updateNewMessageTextAC, setDialogIdAC} from '../../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
-
-type DialogsContentType = {
-    data: {
-        dialogItems: Array<DialogItemType>
-        dialogsData: DialogsDataType
-        newMessageText: string
-    }
-    dispatch: (action: ActionTypes) => void
-}
+import {StateType} from '../../../types/types';
 
 const mapStateToProps = (state: StateType) => {
     return state.pageDialogs

@@ -1,7 +1,7 @@
-import React, {ChangeEvent, createRef, ReactComponentElement, ReactElement} from 'react';
+import React, {ChangeEvent, createRef} from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
-import {PostsDataType} from '../../../../redux/store';
+import {PostsDataType} from '../../../../types/types';
 
 type MyPostsType = {
     postsData: Array<PostsDataType>

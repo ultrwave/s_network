@@ -1,73 +1,20 @@
 import {v1} from 'uuid';
-import profileReducer, {addPostAC, updateNewPostTextAC} from './profile-reducer';
-import dialogsReducer, {addMessageAC, setDialogIdAC, updateNewMessageTextAC} from './dialogs-reducer';
-import {setUsersAC, toggleFollowAC, UserType} from './users-reducer';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
+import {
+    ActionTypes,
+    DialogItemType,
+    DialogsDataType,
+    MessageDataType,
+    PostsDataType,
+    StateType,
+    StoreType
+} from '../types/types';
 
 
 //======== TYPES ======================================================
 
-export type StoreType = {
-    _state: StateType
-    _callSubscriber: (s: StateType) => void
-    getState: () => StateType
-    subscribe: (callback: () => void) => void
-    dispatch: (action: ActionTypes) => void
-}
-
-export type StateType = {
-    pageProfile: {
-        postsData: Array<PostsDataType>
-        newPostText: string
-    }
-    pageDialogs: {
-        dialogsData: DialogsDataType
-        dialogItems: Array<DialogItemType>
-        activeDialogId: string
-        newMessageText: string
-    }
-    pageUsers: {
-        users: Array<UserType>
-    }
-}
-
-export type DialogsDataType = {
-    [id: string]: Array<MessageDataType>
-}
-
-export type DialogItemType = {
-    id: string
-    name: string
-}
-
-export type MessageDataType = {
-    id: string
-    isMine: boolean
-    message: string
-}
-
-export type PostsDataType = {
-    id: string
-    message: string
-    likesCount: number
-}
-
-export type PageProfileActionType =
-    ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostTextAC>
-
-export type PageDialogsActionType =
-    ReturnType<typeof addMessageAC> |
-    ReturnType<typeof updateNewMessageTextAC> |
-    ReturnType<typeof setDialogIdAC>
-
-export type UsersActionType =
-    ReturnType<typeof toggleFollowAC> |
-    ReturnType<typeof setUsersAC>
-
-export type ActionTypes =
-    PageProfileActionType |
-    PageDialogsActionType |
-    UsersActionType
+// moved to src/types/types.ts
 
 //======== DATA ======================================================
 

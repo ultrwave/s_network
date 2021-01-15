@@ -1,7 +1,7 @@
 import React from 'react';
-import {UserType} from '../../redux/users-reducer';
 import Style from './Users.module.css';
 import {v1} from 'uuid';
+import {UserType} from '../../types/types';
 
 type UsersPropsType = {
     users: Array<UserType>

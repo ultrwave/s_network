@@ -8,8 +8,6 @@ type NavbarItemPropsType = {
     title: string
 }
 
-
-
 export function Navbar() {
 
     function NavbarItem(props: NavbarItemPropsType) {

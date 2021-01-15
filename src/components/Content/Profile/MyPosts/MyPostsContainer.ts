@@ -1,14 +1,7 @@
-import React from 'react';
-import {ActionTypes, PostsDataType, StateType} from '../../../../redux/store';
 import {addPostAC, updateNewPostTextAC} from '../../../../redux/profile-reducer';
 import {MyPosts} from './MyPosts';
 import {connect} from 'react-redux';
-
-type MyPostsType = {
-    postsData: Array<PostsDataType>
-    newPostText: string
-    dispatch: (action: ActionTypes) => void
-}
+import {StateType} from '../../../../types/types';
 
 const mapStateToProps = (state: StateType) => {
     return state.pageProfile
