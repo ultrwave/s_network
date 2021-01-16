@@ -84,24 +84,7 @@ const store: StoreType = {
             newMessageText: 'Shift+click to send as friend',
         },
        pageUsers: {
-           users: [
-               {
-                   id: v1(),
-                   firstName: 'StoreDmitry',
-                   photoUrl: 'https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png',
-                   status: 'one two three',
-                   location: {city: 'Minsk', country: 'Belarus'},
-                   isFollowed: false
-               },
-               {
-                   id: v1(),
-                   firstName: 'StoreEgor',
-                   photoUrl: 'https://i.dlpng.com/static/png/6728131_preview.png',
-                   status: 'hey hey hey',
-                   location: {city: 'Moscow', country: 'Russia'},
-                   isFollowed: false
-               },
-           ],
+           users: [],
        }
     },
     _callSubscriber(s: StateType) {

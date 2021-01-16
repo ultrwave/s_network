@@ -1,4 +1,4 @@
-import React, {ChangeEvent, createRef} from 'react';
+import React, {ChangeEvent, createRef, RefObject} from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {PostsDataType} from '../../../../types/types';
@@ -7,7 +7,7 @@ type MyPostsType = {
     postsData: Array<PostsDataType>
     inputHandler: (text: string) => void
     newPostText: string
-    addPost: (ref: any) => void // todo: fix type
+    addPost: (ref: RefObject<HTMLTextAreaElement> ) => void
 }
 
 export function MyPosts(props: MyPostsType) {

@@ -9,14 +9,12 @@ import {StateType} from './types/types';
 
 export const globalRender = (state: StateType) => {
     ReactDOM.render(
-        <React.StrictMode>
+        // <React.StrictMode>
             <Provider store={store}>
-                <App
-                    // state={state}
-                    // dispatch={store.dispatch.bind(store)}
-                />
+                <App/>
             </Provider>
-        </React.StrictMode>,
+        // </React.StrictMode>
+        ,
         document.getElementById('root')
     );
 }

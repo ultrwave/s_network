@@ -1,7 +1,6 @@
 import {ActionTypes, UserType} from '../types/types';
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
-// todo - подсвечивает case: 'TOGGLE-FOLLOW' как unreachable если убрать as const
 const SET_USERS = 'SET-USERS'
 
 type PageStateType = {
@@ -23,7 +22,7 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
             return {
                 ...state,
                 users: state.users.map(
-                    user => user.id === action.userId ? {...user, isFollowed: !user.isFollowed} : user
+                    user => user.id === action.userId ? {...user, followed: !user.followed} : user
                 )
             }
 

@@ -28,11 +28,14 @@ export type StateType = { // todo - заменить на typeof
 
 export type UserType = {
     id: string
-    firstName: string
-    photoUrl: string
-    status: string
-    location: { city: string, country: string }
-    isFollowed: boolean
+    name: string
+    uniqueUrlName: string | null
+    status: string | null
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    followed: boolean
 }
 
 export type DialogsDataType = {
