@@ -9,7 +9,7 @@ type PropsType = {
 export function Post(props: PropsType) {
     return (
         <div className={Style.item}>
-            <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-371-456323.png"
+            <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-372-456324.png"
                  alt="avatar"
                  className={Style.avatar}
             />
