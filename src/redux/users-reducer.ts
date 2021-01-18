@@ -2,13 +2,22 @@ import {ActionTypes, UserType} from '../types/types';
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 
 type PageStateType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 const initialState: PageStateType = {
-    users: []
+    users: [],
+    totalUsersCount: 0,
+    pageSize: 5,
+    currentPage: 1,
+
 }
 
 const usersReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
@@ -16,7 +25,7 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
     switch (action.type) {
 
         case 'SET-USERS':
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
 
         case 'TOGGLE-FOLLOW':
             return {
@@ -24,6 +33,18 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
                 users: state.users.map(
                     user => user.id === action.userId ? {...user, followed: !user.followed} : user
                 )
+            }
+
+        case 'SET_CURRENT_PAGE':
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+
+        case 'SET-TOTAL-USERS-COUNT':
+            return {
+                ...state,
+                totalUsersCount: action.totalUsersCount
             }
 
         default:
@@ -43,6 +64,20 @@ export const setUsersAC = (users: Array<UserType>) => (
     {
         type: SET_USERS,
         users
+    } as const
+)
+
+export const setCurrentPageAC = (currentPage: number) => (
+    {
+        type: SET_CURRENT_PAGE,
+        currentPage
+    } as const
+)
+
+export const setTotalUsersCountAC = (totalUsersCount: number) => (
+    {
+        type: SET_TOTAL_USERS_COUNT,
+        totalUsersCount
     } as const
 )
 

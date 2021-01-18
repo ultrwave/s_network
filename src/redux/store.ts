@@ -85,6 +85,9 @@ const store: StoreType = {
         },
        pageUsers: {
            users: [],
+           pageSize: 1,
+           totalUsersCount: 0,
+           currentPage: 1,
        }
     },
     _callSubscriber(s: StateType) {

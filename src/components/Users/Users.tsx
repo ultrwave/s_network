@@ -7,6 +7,11 @@ type UsersPropsType = {
     users: Array<UserType>
     toggleFollow: (userId: string) => void
     setUsers: (users: Array<UserType>) => void
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
 }
 
 
@@ -16,21 +21,36 @@ export class Users extends React.Component<UsersPropsType> {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
                 this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
             })
     }
 
-    getUsers = () => {
+    changePage = (page: number) => {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        this.props.setCurrentPage(page)
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`) // todo - $ ?
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
     }
     // todo - почему в классе нужен метод рендер для отрисовки а в обычных компонентах не нужен?
     render() {
+
+        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        const pages = [];
+        for (let i=1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <div className={Style.users}>
-                <button onClick={this.getUsers}>Get Users</button>
+                <div className={Style.pageButtons}>
+                    {pages.map((p) => <span onClick={() => {this.changePage(p)}}
+                        className={this.props.currentPage === p ? Style.selectedPage : ''}>{p}</span>)}
+
+                </div>
                 {this.props.users.map(
                     u =>
                         <div key={u.id} className={Style.user}>
