@@ -12,14 +12,11 @@ type UsersPropsType = {
 
 export class Users extends React.Component<UsersPropsType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
-
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
-
     }
 
     getUsers = () => {
@@ -29,8 +26,7 @@ export class Users extends React.Component<UsersPropsType> {
                 this.props.setUsers(response.data.items)
             })
     }
-
-
+    // todo - почему в классе нужен метод рендер для отрисовки а в обычных компонентах не нужен?
     render() {
         return (
             <div className={Style.users}>
