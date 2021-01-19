@@ -1,17 +1,15 @@
 import {connect} from 'react-redux';
 import {
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleFetchingAC,
-    toggleFollowAC
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleFetching,
+    toggleFollow
 } from '../../redux/users-reducer';
 import {StateType, UserType} from '../../types/types';
 import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
-import Style from './Users.module.css';
-import preloader from '../../assets/images/loader.gif'
 import {Preloader} from '../common/Preloader/Preloader';
 
 
@@ -81,24 +79,10 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Function) => {
-    return {
-        toggleFollow: (userId: string) => {
-            dispatch(toggleFollowAC(userId))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
-        },
-        toggleFetching: (isFetching: boolean) => {
-            dispatch(toggleFetchingAC(isFetching))
-        }
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(mapStateToProps, {
+    toggleFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleFetching
+})(UsersAPIComponent)
