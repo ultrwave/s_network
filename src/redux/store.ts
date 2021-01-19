@@ -88,6 +88,7 @@ const store: StoreType = {
            pageSize: 1,
            totalUsersCount: 0,
            currentPage: 1,
+           isFetching: false
        }
     },
     _callSubscriber(s: StateType) {

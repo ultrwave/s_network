@@ -1,9 +1,19 @@
 import {connect} from 'react-redux';
-import {setCurrentPageAC, setTotalUsersCountAC, setUsersAC, toggleFollowAC} from '../../redux/users-reducer';
+import {
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    toggleFetchingAC,
+    toggleFollowAC
+} from '../../redux/users-reducer';
 import {StateType, UserType} from '../../types/types';
 import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
+import Style from './Users.module.css';
+import preloader from '../../assets/images/loader.gif'
+import {Preloader} from '../common/Preloader/Preloader';
+
 
 type UsersAPIPropsType = {
     users: Array<UserType>
@@ -14,13 +24,18 @@ type UsersAPIPropsType = {
     currentPage: number
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
+    isFetching: boolean
+    toggleFetching: (isFetching: boolean) => void
 }
 
 class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
+
     componentDidMount() {
+        this.props.toggleFetching(true)
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
+                this.props.toggleFetching(false)
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount)
             })
@@ -28,8 +43,11 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
     onPageChange = (page: number) => {
 
+        this.props.toggleFetching(true)
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`) // todo - $ ?
             .then(response => {
+                this.props.toggleFetching(false)
                 this.props.setUsers(response.data.items)
             })
 
@@ -38,15 +56,18 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
     // todo - почему в классе нужен метод рендер для отрисовки а в обычных компонентах не нужен?
     render() {
-        return <Users
-            totalUsersCount={this.props.totalUsersCount}
-            users={this.props.users}
-            currentPage={this.props.currentPage}
-            pageSize={this.props.pageSize}
-            onPageChange={this.onPageChange}
-            toggleFollow={this.props.toggleFollow}
-        />
-
+        return <>
+            {this.props.isFetching &&
+            <Preloader/> ||
+            <Users
+                totalUsersCount={this.props.totalUsersCount}
+                users={this.props.users}
+                currentPage={this.props.currentPage}
+                pageSize={this.props.pageSize}
+                onPageChange={this.onPageChange}
+                toggleFollow={this.props.toggleFollow}
+            />}
+        </>
     }
 }
 
@@ -56,6 +77,7 @@ const mapStateToProps = (state: StateType) => {
         pageSize: state.pageUsers.pageSize,
         totalUsersCount: state.pageUsers.totalUsersCount,
         currentPage: state.pageUsers.currentPage,
+        isFetching: state.pageUsers.isFetching
     }
 }
 
@@ -72,6 +94,9 @@ const mapDispatchToProps = (dispatch: Function) => {
         },
         setTotalUsersCount: (totalUsersCount: number) => {
             dispatch(setTotalUsersCountAC(totalUsersCount))
+        },
+        toggleFetching: (isFetching: boolean) => {
+            dispatch(toggleFetchingAC(isFetching))
         }
     }
 }

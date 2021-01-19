@@ -1,4 +1,10 @@
-import {setCurrentPageAC, setTotalUsersCountAC, setUsersAC, toggleFollowAC} from '../redux/users-reducer';
+import {
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    toggleFetchingAC,
+    toggleFollowAC
+} from '../redux/users-reducer';
 import {addPostAC, updateNewPostTextAC} from '../redux/profile-reducer';
 import {addMessageAC, setDialogIdAC, updateNewMessageTextAC} from '../redux/dialogs-reducer';
 
@@ -26,6 +32,7 @@ export type StateType = { // todo - заменить на typeof
         pageSize: number
         totalUsersCount: number
         currentPage: number
+        isFetching: boolean
     }
 }
 
@@ -75,7 +82,9 @@ export type UsersActionType =
     ReturnType<typeof toggleFollowAC> |
     ReturnType<typeof setUsersAC> |
     ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC>
+    ReturnType<typeof setTotalUsersCountAC> |
+    ReturnType<typeof toggleFetchingAC>
+
 
 
 export type ActionTypes =
