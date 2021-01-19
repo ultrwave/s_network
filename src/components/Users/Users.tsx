@@ -1,43 +1,21 @@
 import React from 'react';
 import Style from './Users.module.css';
 import {UserType} from '../../types/types';
-import axios from 'axios';
 
 type UsersPropsType = {
     users: Array<UserType>
     toggleFollow: (userId: string) => void
-    setUsers: (users: Array<UserType>) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
+    onPageChange: (page: number) => void
 }
 
 
-export class Users extends React.Component<UsersPropsType> {
+export function Users (props: UsersPropsType) {
 
-    componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-            })
-    }
 
-    changePage = (page: number) => {
-
-        this.props.setCurrentPage(page)
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`) // todo - $ ?
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-    // todo - почему в классе нужен метод рендер для отрисовки а в обычных компонентах не нужен?
-    render() {
-
-        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
         const pages = [];
         for (let i=1; i <= pagesCount; i++) {
@@ -47,11 +25,11 @@ export class Users extends React.Component<UsersPropsType> {
         return (
             <div className={Style.users}>
                 <div className={Style.pageButtons}>
-                    {pages.map((p) => <span onClick={() => {this.changePage(p)}}
-                        className={this.props.currentPage === p ? Style.selectedPage : ''}>{p}</span>)}
+                    {pages.map((p) => <span onClick={() => {props.onPageChange(p)}}
+                        className={props.currentPage === p ? Style.selectedPage : ''}>{p}</span>)}
 
                 </div>
-                {this.props.users.map(
+                {props.users.map(
                     u =>
                         <div key={u.id} className={Style.user}>
                             <div className={Style.avatar}>
@@ -62,7 +40,7 @@ export class Users extends React.Component<UsersPropsType> {
                             </div>
                             <div>
                                 <button onClick={() => {
-                                    this.props.toggleFollow(u.id)
+                                    props.toggleFollow(u.id)
                                 }}>
                                     {u.followed ? 'Unfollow' : 'Follow'}
                                 </button>
@@ -82,5 +60,5 @@ export class Users extends React.Component<UsersPropsType> {
         )
     }
 
-}
+
 
