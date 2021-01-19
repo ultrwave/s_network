@@ -1,15 +1,18 @@
 import {v1} from 'uuid';
-import {ActionTypes, PostsDataType} from '../types/types';
+import {ActionTypes, PostsDataType, UserProfileType} from '../types/types';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
 type PageStateType = {
     postsData: Array<PostsDataType>
     newPostText: string
+    profile: UserProfileType | null
 }
 
 let initialState = {
+    profile: null,
     postsData: [
         {id: v1(), message: 'It\'s my first post!', likesCount: 12},
         {id: v1(), message: 'Hello!', likesCount: 432},
@@ -21,6 +24,9 @@ let initialState = {
 const profileReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
 
     switch (action.type) {
+
+        case 'SET-USER-PROFILE' :
+            return {...state, profile: action.profile}
 
         case 'ADD-POST': // Add post (profile)
 
@@ -45,7 +51,7 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
-export const addPostAC = () => {
+export const addPostAC = () => { // todo - привести к короткой записи
     return {
         type: ADD_POST,
     } as const
@@ -54,7 +60,15 @@ export const addPostAC = () => {
 export const updateNewPostTextAC = (text: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
-        text: text
+        text
+    } as const
+
+}
+
+export const setUserProfile = (profile: UserProfileType) => {
+    return {
+        type: SET_USER_PROFILE,
+        profile
     } as const
 
 }

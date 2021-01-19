@@ -26,7 +26,7 @@ type UsersAPIPropsType = {
     toggleFetching: (isFetching: boolean) => void
 }
 
-class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
+class UsersAPI extends React.Component<UsersAPIPropsType> {
 
 
     componentDidMount() {
@@ -85,4 +85,4 @@ export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     toggleFetching
-})(UsersAPIComponent)
+})(UsersAPI)

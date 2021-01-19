@@ -76,6 +76,7 @@ const store: StoreType = {
         pageProfile: {
             postsData: [...postsData],
             newPostText: '',
+            profile: null
         },
         pageDialogs: {
             dialogsData: dialogsData,

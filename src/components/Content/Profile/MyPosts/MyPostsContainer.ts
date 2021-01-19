@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch: Function) => { // todo: fix type
         inputHandler: (text: string) => {
             dispatch(updateNewPostTextAC(text))
         },
-        addPost: (ref: any) => {
+        addPost: (ref: any) => { // todo - как привести к компактной записи?
             let text = ref.current?.value
             if (text && text.trim()) {
                 dispatch(addPostAC())
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: Function) => { // todo: fix type
                     ref.current.focus()
                 }
             }
-        },
+        }
     }
 }
 

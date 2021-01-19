@@ -1,13 +1,13 @@
 import {
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleFetchingAC,
-    toggleFollowAC
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleFetching,
+    toggleFollow
 } from '../redux/users-reducer';
-import {addPostAC, updateNewPostTextAC} from '../redux/profile-reducer';
+import {addPostAC, setUserProfile, updateNewPostTextAC} from '../redux/profile-reducer';
 import {addMessageAC, setDialogIdAC, updateNewMessageTextAC} from '../redux/dialogs-reducer';
-
+// todo - разбить на блоки /=======
 export type StoreType = {
     _state: StateType
     _callSubscriber: (s: StateType) => void
@@ -18,6 +18,7 @@ export type StoreType = {
 
 export type StateType = { // todo - заменить на typeof
     pageProfile: {
+        profile: UserProfileType | null
         postsData: Array<PostsDataType>
         newPostText: string
     }
@@ -69,9 +70,32 @@ export type PostsDataType = {
     likesCount: number
 }
 
+export type UserProfileType = {
+    aboutMe: string | null
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
+    },
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string
+    userId: string | number
+    photos: {
+        small: string | null
+        large: string | null
+    }
+}
+
 export type PageProfileActionType =
     ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostTextAC>
+    ReturnType<typeof updateNewPostTextAC> |
+    ReturnType<typeof setUserProfile>
 
 export type PageDialogsActionType =
     ReturnType<typeof addMessageAC> |
@@ -79,12 +103,11 @@ export type PageDialogsActionType =
     ReturnType<typeof setDialogIdAC>
 
 export type UsersActionType =
-    ReturnType<typeof toggleFollowAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC> |
-    ReturnType<typeof toggleFetchingAC>
-
+    ReturnType<typeof toggleFollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalUsersCount> |
+    ReturnType<typeof toggleFetching>
 
 
 export type ActionTypes =
