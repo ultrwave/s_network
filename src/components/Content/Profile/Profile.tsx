@@ -11,7 +11,6 @@ type PageProfilePropsType = { // todo - тут вообще должны быт�
 }
 
 export function Profile(props:PageProfilePropsType) {
-
     return (
         <div className={Style.content}>
             <ProfileInfo profile={props.profile}/>

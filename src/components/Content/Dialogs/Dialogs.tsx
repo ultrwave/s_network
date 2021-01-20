@@ -11,7 +11,7 @@ type DialogsContentType = {
     activeDialogId: string
     setDialogId: (id: string) => void
     addMessage: (dialogId: string, isMine: boolean) => void
-    updateNewMessageText: (test: string) => void
+    updateNewMessageText: (text: string) => void
 }
 
 export function Dialogs(props: DialogsContentType) {

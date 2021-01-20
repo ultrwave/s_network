@@ -5,6 +5,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {setUserProfile} from '../../../redux/profile-reducer'; // todo - можно так импортировать?
+import {withRouter} from 'react-router-dom';
 
 type ProfileContainerPropsType = {
     setUserProfile: (user: UserProfileType) => void
@@ -13,7 +14,11 @@ type ProfileContainerPropsType = {
 class ProfileAPI extends React.Component<any> { // todo - fix any
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = 2;
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 this.props.setUserProfile(response.data)
             })
@@ -34,4 +39,6 @@ const mapStateToProps = (state: StateType) => ({
     profile: state.pageProfile.profile
 })
 
-export const ProfileContainer = connect(mapStateToProps, {setUserProfile}) (ProfileAPI)
+const ProfileAPIWithUrlData = withRouter(ProfileAPI)
+
+export const ProfileContainer = connect(mapStateToProps, {setUserProfile}) (ProfileAPIWithUrlData)
