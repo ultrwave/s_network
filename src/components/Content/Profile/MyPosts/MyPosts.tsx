@@ -5,9 +5,9 @@ import {PostsDataType} from '../../../../types/types';
 
 type MyPostsType = {
     postsData: Array<PostsDataType>
-    inputHandler: (text: string) => void
+    updateNewPostText: (text: string) => void
     newPostText: string
-    addPost: (ref: RefObject<HTMLTextAreaElement> ) => void
+    addPost: () => void
 }
 
 export function MyPosts(props: MyPostsType) {
@@ -16,10 +16,18 @@ export function MyPosts(props: MyPostsType) {
 
     const newPostRef = createRef<HTMLTextAreaElement>()
 
-    const addPost = () => props.addPost(newPostRef)
+    const addPost = (ref: RefObject<HTMLTextAreaElement> ) => {
+        let text = ref.current?.value
+        if (text && text.trim()) {
+            props.addPost()
+            if (ref.current && ref.current.value) {
+                ref.current.focus()
+            }
+        }
+    }
 
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.inputHandler(e.target.value)
+        props.updateNewPostText(e.target.value)
     }
 
     return (
@@ -31,7 +39,7 @@ export function MyPosts(props: MyPostsType) {
                           value={props.newPostText}
                           onChange={inputHandler}
                 />
-                <button className={Style.postButton} onClick={addPost}>Send new post</button>
+                <button className={Style.postButton} onClick={() => {addPost(newPostRef)}}>Send new post</button>
             </div>
             <div className={Style.posts}>
                 {posts}

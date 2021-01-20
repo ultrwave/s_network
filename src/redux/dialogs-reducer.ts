@@ -4,9 +4,7 @@ import {dialogItems, dialogsData} from './store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
-const SET_DIALOG_ID = 'SET-DIALOG-ID' // todo - as const?
-
-// email: null as string | null // ?
+const SET_DIALOG_ID = 'SET-DIALOG-ID'
 
 type PageStateType = {
     dialogsData: DialogsDataType
@@ -58,7 +56,7 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
-export const addMessageAC = (dialogId: string, isMine: boolean) => {
+export const addMessage = (dialogId: string, isMine: boolean) => {
     return {
         type: ADD_MESSAGE,
         dialogId: dialogId,
@@ -66,14 +64,14 @@ export const addMessageAC = (dialogId: string, isMine: boolean) => {
     } as const
 }
 
-export const updateNewMessageTextAC = (text: string) => {
+export const updateNewMessageText = (text: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         text: text
     } as const
 }
 
-export const setDialogIdAC = (id: string) => {
+export const setDialogId = (id: string) => {
     return {
         type: SET_DIALOG_ID,
         id: id

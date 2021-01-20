@@ -5,8 +5,8 @@ import {
     toggleFetching,
     toggleFollow
 } from '../redux/users-reducer';
-import {addPostAC, setUserProfile, updateNewPostTextAC} from '../redux/profile-reducer';
-import {addMessageAC, setDialogIdAC, updateNewMessageTextAC} from '../redux/dialogs-reducer';
+import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
+import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
 // todo - разбить на блоки /=======
 export type StoreType = {
     _state: StateType
@@ -93,14 +93,14 @@ export type UserProfileType = {
 }
 
 export type PageProfileActionType =
-    ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostTextAC> |
+    ReturnType<typeof addPost> |
+    ReturnType<typeof updateNewPostText> |
     ReturnType<typeof setUserProfile>
 
 export type PageDialogsActionType =
-    ReturnType<typeof addMessageAC> |
-    ReturnType<typeof updateNewMessageTextAC> |
-    ReturnType<typeof setDialogIdAC>
+    ReturnType<typeof addMessage> |
+    ReturnType<typeof updateNewMessageText> |
+    ReturnType<typeof setDialogId>
 
 export type UsersActionType =
     ReturnType<typeof toggleFollow> |

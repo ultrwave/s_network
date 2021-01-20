@@ -51,13 +51,13 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
-export const addPostAC = () => { // todo - привести к короткой записи
+export const addPost = () => {
     return {
         type: ADD_POST,
     } as const
 }
 
-export const updateNewPostTextAC = (text: string) => {
+export const updateNewPostText = (text: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         text
