@@ -7,3 +7,8 @@
     margin: 10px;
     width: 40px;
 }
+
+.loginBlock {
+    margin-left: auto;
+    /*float: right;*/
+}

@@ -7,6 +7,7 @@ import {
 } from '../redux/users-reducer';
 import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
+import {setUserData} from '../redux/auth-reducer';
 // todo - разбить на блоки /=======
 export type StoreType = {
     _state: StateType
@@ -109,8 +110,12 @@ export type UsersActionType =
     ReturnType<typeof setTotalUsersCount> |
     ReturnType<typeof toggleFetching>
 
+export type AuthActionType =
+    ReturnType<typeof setUserData>
+
 
 export type ActionTypes =
     PageProfileActionType |
     PageDialogsActionType |
-    UsersActionType
+    UsersActionType |
+    AuthActionType
