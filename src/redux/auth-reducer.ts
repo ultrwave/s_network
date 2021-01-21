@@ -6,12 +6,14 @@ type PageStateType = {
     userId: string | number | null
     email: string | null
     login: string | null
+    isAuth: boolean
 }
 
 const initialState: PageStateType = {
     userId: null,
     email: null,
     login: null,
+    isAuth: false
 }
 
 const authReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
@@ -21,7 +23,8 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
         case 'SET-USER-DATA':
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
 
         default:
@@ -29,9 +32,9 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
     }
 }
 
-export const setUserData = (userId: number | string | null,
-                            email: string | null,
-                            login: string | null) => (
+export const setAuthUserData = (userId: number | string | null, // todo - как причесать?
+                                email: string | null,
+                                login: string | null) => (
     {
         type: SET_USER_DATA,
         data: {userId, email, login}

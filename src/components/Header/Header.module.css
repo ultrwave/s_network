@@ -9,6 +9,12 @@
 }
 
 .loginBlock {
-    margin-left: auto;
-    /*float: right;*/
+    float: right;
+    margin: 10px 40px 0 auto;
+    font-size: 20px;
+
+}
+
+.loginBlock a {
+    color: #333333;
 }

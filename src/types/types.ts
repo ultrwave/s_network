@@ -7,7 +7,7 @@ import {
 } from '../redux/users-reducer';
 import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
-import {setUserData} from '../redux/auth-reducer';
+import {setAuthUserData} from '../redux/auth-reducer';
 // todo - разбить на блоки /=======
 export type StoreType = {
     _state: StateType
@@ -36,6 +36,7 @@ export type StateType = { // todo - заменить на typeof
         currentPage: number
         isFetching: boolean
     }
+    [key: string]: any
 }
 
 export type UserType = {
@@ -111,7 +112,7 @@ export type UsersActionType =
     ReturnType<typeof toggleFetching>
 
 export type AuthActionType =
-    ReturnType<typeof setUserData>
+    ReturnType<typeof setAuthUserData>
 
 
 export type ActionTypes =
