@@ -52,7 +52,6 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
         this.props.setCurrentPage(page)
     }
 
-    // todo - почему в классе нужен метод рендер для отрисовки а в обычных компонентах не нужен?
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> :

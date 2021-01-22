@@ -9,7 +9,7 @@ type HeaderContainerPropsType = { // todo - как типизировать?
 
 }
 
-class HeaderContainer extends React.Component<any> { // todo - extends что делает конкретно?
+class HeaderContainer extends React.Component<any> {
 
     componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {

@@ -71,47 +71,47 @@ const postsData: Array<PostsDataType> = [
 
 //========= STORE =====================================================
 
-const store: StoreType = {
-    _state: {
-        pageProfile: {
-            postsData: [...postsData],
-            newPostText: '',
-            profile: null
-        },
-        pageDialogs: {
-            dialogsData: dialogsData,
-            dialogItems: [...dialogItems],
-            activeDialogId: [...dialogItems][0].id,
-            newMessageText: 'Shift+click to send as friend',
-        },
-       pageUsers: {
-           users: [],
-           pageSize: 1,
-           totalUsersCount: 0,
-           currentPage: 1,
-           isFetching: false
-       }
-    },
-    _callSubscriber(s: StateType) {
-    },
-    getState() {
-        return this._state
-    },
-    subscribe(observer: () => void) {
-        this._callSubscriber = observer
-    },
+// const store: StoreType = {
+//     _state: {
+//         pageProfile: {
+//             postsData: [...postsData],
+//             newPostText: '',
+//             profile: null
+//         },
+//         pageDialogs: {
+//             dialogsData: dialogsData,
+//             dialogItems: [...dialogItems],
+//             activeDialogId: [...dialogItems][0].id,
+//             newMessageText: 'Shift+click to send as friend',
+//         },
+//        pageUsers: {
+//            users: [],
+//            pageSize: 1,
+//            totalUsersCount: 0,
+//            currentPage: 1,
+//            isFetching: false
+//        }
+//     },
+//     _callSubscriber(s: StateType) {
+//     },
+//     getState() {
+//         return this._state
+//     },
+//     subscribe(observer: () => void) {
+//         this._callSubscriber = observer
+//     },
+//
+//     dispatch(action: ActionTypes) {
+//
+//         this._state.pageProfile = profileReducer({...this._state.pageProfile}, action)
+//         this._state.pageDialogs = dialogsReducer({...this._state.pageDialogs}, action)
+//
+//         this._callSubscriber(this._state)
+//
+//     }
+// }
 
-    dispatch(action: ActionTypes) {
-
-        this._state.pageProfile = profileReducer({...this._state.pageProfile}, action)
-        this._state.pageDialogs = dialogsReducer({...this._state.pageDialogs}, action)
-
-        this._callSubscriber(this._state)
-
-    }
-}
-
-export default store
+// export default store
 
 
 

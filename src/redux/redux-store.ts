@@ -4,14 +4,14 @@ import dialogsReducer from './dialogs-reducer';
 import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
 
-let reducers = combineReducers({
+export const rootReducer = combineReducers({
     pageProfile: profileReducer,
     pageDialogs: dialogsReducer,
     pageUsers: usersReducer,
     auth: authReducer
 })
 
-let store = createStore(reducers)
+let store = createStore(rootReducer)
 
 // @ts-ignore
 window.store = store

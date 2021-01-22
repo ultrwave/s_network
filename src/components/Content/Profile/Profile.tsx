@@ -2,7 +2,7 @@ import React from 'react';
 import Style from './Profile.module.css';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
-import {PostsDataType, UserProfileType} from '../../../types/types';
+import {UserProfileType} from '../../../types/types';
 
 type PageProfilePropsType = { // todo - тут вообще должны быть пропсы?
     profile: UserProfileType | null

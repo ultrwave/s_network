@@ -8,7 +8,12 @@ import {
 import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
 import {setAuthUserData} from '../redux/auth-reducer';
+import {rootReducer} from '../redux/redux-store';
 // todo - разбить на блоки /=======
+
+export type RootReducerType = typeof rootReducer
+export type StateType = ReturnType<RootReducerType>
+
 export type StoreType = {
     _state: StateType
     _callSubscriber: (s: StateType) => void
@@ -17,27 +22,27 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type StateType = { // todo - заменить на typeof
-    pageProfile: {
-        profile: UserProfileType | null
-        postsData: Array<PostsDataType>
-        newPostText: string
-    }
-    pageDialogs: {
-        dialogsData: DialogsDataType
-        dialogItems: Array<DialogItemType>
-        activeDialogId: string
-        newMessageText: string
-    }
-    pageUsers: {
-        users: Array<UserType>
-        pageSize: number
-        totalUsersCount: number
-        currentPage: number
-        isFetching: boolean
-    }
-    [key: string]: any
-}
+// export type StateType = {
+//     pageProfile: {
+//         profile: UserProfileType | null
+//         postsData: Array<PostsDataType>
+//         newPostText: string
+//     }
+//     pageDialogs: {
+//         dialogsData: DialogsDataType
+//         dialogItems: Array<DialogItemType>
+//         activeDialogId: string
+//         newMessageText: string
+//     }
+//     pageUsers: {
+//         users: Array<UserType>
+//         pageSize: number
+//         totalUsersCount: number
+//         currentPage: number
+//         isFetching: boolean
+//     }
+//     [key: string]: any
+// }
 
 export type UserType = {
     id: string
@@ -95,28 +100,30 @@ export type UserProfileType = {
 }
 
 export type PageProfileActionType =
-    ReturnType<typeof addPost> |
-    ReturnType<typeof updateNewPostText> |
-    ReturnType<typeof setUserProfile>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof setUserProfile>
 
 export type PageDialogsActionType =
-    ReturnType<typeof addMessage> |
-    ReturnType<typeof updateNewMessageText> |
-    ReturnType<typeof setDialogId>
+    ReturnType<typeof addMessage>
+    | ReturnType<typeof updateNewMessageText>
+    | ReturnType<typeof setDialogId>
 
 export type UsersActionType =
-    ReturnType<typeof toggleFollow> |
-    ReturnType<typeof setUsers> |
-    ReturnType<typeof setCurrentPage> |
-    ReturnType<typeof setTotalUsersCount> |
-    ReturnType<typeof toggleFetching>
+    ReturnType<typeof toggleFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleFetching>
 
 export type AuthActionType =
     ReturnType<typeof setAuthUserData>
 
 
 export type ActionTypes =
-    PageProfileActionType |
-    PageDialogsActionType |
-    UsersActionType |
-    AuthActionType
+    PageProfileActionType
+    | PageDialogsActionType
+    | UsersActionType
+    | AuthActionType
+
+
