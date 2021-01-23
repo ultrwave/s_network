@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {setUserProfile} from '../../../redux/profile-reducer';
 import {withRouter, RouteComponentProps} from 'react-router-dom';
-import {Page} from '../../../stories/Page';
 
 type MDTPType = {
     setUserProfile: (user: UserProfileType) => void

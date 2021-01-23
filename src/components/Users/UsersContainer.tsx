@@ -31,7 +31,9 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
 
     componentDidMount() {
         this.props.toggleFetching(true)
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get('https://social-network.samuraijs.com/api/1.0/users', {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.toggleFetching(false)
                 this.props.setUsers(response.data.items)
@@ -43,7 +45,9 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
 
         this.props.toggleFetching(true)
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`) // todo - $ ?
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        }) // todo - $ ?
             .then(response => {
                 this.props.toggleFetching(false)
                 this.props.setUsers(response.data.items)

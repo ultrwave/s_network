@@ -6,7 +6,7 @@ import {StateType} from '../../types/types';
 import {setAuthUserData} from '../../redux/auth-reducer';
 
 type HeaderContainerPropsType = {
-    setAuthUserData(userId: number | string | null,
+    setAuthUserData(userId: number | string | null, // todo - fix type?
                     email: string | null,
                     login: string | null): void
 }
