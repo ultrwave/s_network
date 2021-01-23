@@ -1,5 +1,8 @@
 import React from 'react';
 import Style from '../Dialogs.module.css';
+import myAvatarPlaceholder from '../../../../assets/images/avatar-placeholder_A.png'
+import friendAvatarPlaceholder from '../../../../assets/images/avatar-placeholder_B.jpg'
+
 
 type MessagePropsType = {
     id: string
@@ -11,9 +14,9 @@ export function Message(props: MessagePropsType) {
 
     const messageClass = Style.message + (props.isMine? (' ' + Style.mineMessage) : '')
 
-    const myAvatarUrl = 'https://kovadm.ru/wp-content/uploads/2020/02/avatar-placeholder.png'
+    const myAvatarUrl = myAvatarPlaceholder
 
-    const friendAvatarUrl = 'https://media.istockphoto.com/vectors/person-gray-photo-placeholder-woman-vector-id1177794485?b=1&k=6&m=1177794485&s=612x612&w=0&h=8INMsj4jnjSOComnh3-5VJPDxbO2D-0vIz1E92aR4L4='
+    const friendAvatarUrl = friendAvatarPlaceholder
 
     const msgAvatarUrl =  props.isMine? myAvatarUrl : friendAvatarUrl
 

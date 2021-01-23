@@ -5,11 +5,13 @@ import {connect} from 'react-redux';
 import {StateType} from '../../types/types';
 import {setAuthUserData} from '../../redux/auth-reducer';
 
-type HeaderContainerPropsType = { // todo - как типизировать?
-
+type HeaderContainerPropsType = {
+    setAuthUserData(userId: number | string | null,
+                    email: string | null,
+                    login: string | null): void
 }
 
-class HeaderContainer extends React.Component<any> {
+class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
@@ -17,7 +19,7 @@ class HeaderContainer extends React.Component<any> {
         })
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data; // todo - несовпадаюшие свойства пропадут?
+                    let {id, email, login} = response.data.data;
                     this.props.setAuthUserData(id, email, login)
                 }
             })

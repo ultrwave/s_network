@@ -32,7 +32,13 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
     }
 }
 
-export const setAuthUserData = (userId: number | string | null, // todo - как причесать?
+export type SetAuthType = { // todo - как сократить?
+    userId: number | string | null
+    email: string | null
+    login: string | null
+}
+
+export const setAuthUserData = (userId: number | string | null,
                                 email: string | null,
                                 login: string | null) => (
     {

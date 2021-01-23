@@ -1,15 +1,18 @@
 import React from 'react';
 import Style from './Post.module.css';
 
+
 type PropsType = {
-    message: string;
-    likesCount: number;
+    message: string
+    likesCount: number
+    avatar: string
 }
 
 export function Post(props: PropsType) {
+
     return (
         <div className={Style.item}>
-            <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-372-456324.png"
+            <img src={props.avatar}
                  alt="avatar"
                  className={Style.avatar}
             />

@@ -1,6 +1,7 @@
 import React from 'react';
 import Style from '../Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
+import userAvatarPlaceholder  from '../../../../assets/images/avatar_type_0_1.png'
 
 type DialogItemProps = {
     dialogId: string
@@ -16,7 +17,7 @@ export function DialogItem (props: DialogItemProps) {
 
     return (
         <div className={Style.dialog}>
-            <img className={Style.avatar} src='https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'></img>
+            <img className={Style.avatar} src={userAvatarPlaceholder} alt='userAvatarPlaceholder'/>
             <NavLink to={path} onClick={setDialogIdCallback} activeClassName={Style.activeLink}>{props.name}</NavLink>
         </div>
     )

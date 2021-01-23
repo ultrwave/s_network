@@ -78,7 +78,11 @@ export type PostsDataType = {
 }
 
 export type UserProfileType = {
+    userId: string | number
+    fullName: string
     aboutMe: string | null
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
     contacts: {
         facebook: string | null
         website: string | null
@@ -89,13 +93,9 @@ export type UserProfileType = {
         github: string | null
         mainLink: string | null
     },
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string
-    userId: string | number
     photos: {
         small: string | null
-        large: string | null
+        large: string
     }
 }
 

@@ -1,5 +1,6 @@
 import {v1} from 'uuid';
 import {ActionTypes, PostsDataType, UserProfileType} from '../types/types';
+import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -8,11 +9,33 @@ const SET_USER_PROFILE = 'SET-USER-PROFILE'
 type PageStateType = {
     postsData: Array<PostsDataType>
     newPostText: string
-    profile: UserProfileType | null
+    profile: UserProfileType
+}
+
+const defaultUser: UserProfileType = {
+    userId: 0,
+    fullName: '',
+    aboutMe: null,
+    lookingForAJob: false,
+    lookingForAJobDescription: null,
+    contacts: {
+        facebook: null,
+        website: null,
+        vk: null,
+        twitter: null,
+        instagram: null,
+        youtube: null,
+        github: null,
+        mainLink: null
+    },
+    photos: {
+        large: profileAvatarPlaceholder,
+        small: null
+    }
 }
 
 let initialState = {
-    profile: null,
+    profile: defaultUser,
     postsData: [
         {id: v1(), message: 'It\'s my first post!', likesCount: 12},
         {id: v1(), message: 'Hello!', likesCount: 432},
@@ -26,7 +49,11 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
     switch (action.type) {
 
         case 'SET-USER-PROFILE' :
-            return {...state, profile: action.profile}
+            const newProfile = {...action.profile}
+            if (!newProfile.photos.large) {
+                newProfile.photos.large = profileAvatarPlaceholder
+            }
+            return {...state, profile: newProfile}
 
         case 'ADD-POST': // Add post (profile)
 

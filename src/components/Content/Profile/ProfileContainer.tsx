@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {setUserProfile} from '../../../redux/profile-reducer';
 import {withRouter, RouteComponentProps} from 'react-router-dom';
+import {Page} from '../../../stories/Page';
 
 type MDTPType = {
     setUserProfile: (user: UserProfileType) => void
@@ -21,9 +22,9 @@ type MatchType = {
 
 type ProfileContainerProps = RouteComponentProps<MatchType>
 
-export type ProfileType = MDTPType & MSTPType
+export type PageProfileType = MDTPType & MSTPType
 
-class ProfileAPI extends React.Component<ProfileType & ProfileContainerProps> { // todo - fix any
+class ProfileAPI extends React.Component<PageProfileType & ProfileContainerProps> { // todo - ?
 
     componentDidMount() {
         let userId = this.props.match.params.userId
