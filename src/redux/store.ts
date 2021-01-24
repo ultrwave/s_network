@@ -1,15 +1,5 @@
 import {v1} from 'uuid';
-import profileReducer from './profile-reducer';
-import dialogsReducer from './dialogs-reducer';
-import {
-    ActionTypes,
-    DialogItemType,
-    DialogsDataType,
-    MessageDataType,
-    PostsDataType,
-    StateType,
-    StoreType
-} from '../types/types';
+import {DialogItemType, DialogsDataType, MessageDataType, PostsDataType} from '../types/types';
 
 
 //======== TYPES ======================================================
