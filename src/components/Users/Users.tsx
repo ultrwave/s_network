@@ -87,8 +87,7 @@ export function Users(props: UsersPropsType) {
                             <div className={Style.name}>{u.name}</div>
                             <div className={Style.status}>{u.status}</div>
                             <div className={Style.location}>
-                                <div>{'u.location.country'}</div>
-                                <div>{'u.location.city'}</div>
+                                <div>{'id: ' + u.id}</div>
                             </div>
                         </div>
 

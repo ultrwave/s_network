@@ -44,18 +44,6 @@ export type StoreType = {
 //     [key: string]: any
 // }
 
-export type UserType = {
-    id: string
-    name: string
-    uniqueUrlName: string | null
-    status: string | null
-    photos: {
-        small: string | null
-        large: string | null
-    }
-    followed: boolean
-}
-
 export type DialogsDataType = {
     [id: string]: Array<MessageDataType>
 }
@@ -75,6 +63,18 @@ export type PostsDataType = {
     id: string
     message: string
     likesCount: number
+}
+
+export type UserType = {
+    id: string
+    name: string
+    uniqueUrlName: string | null
+    status: string | null
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    followed: boolean
 }
 
 export type UserProfileType = {

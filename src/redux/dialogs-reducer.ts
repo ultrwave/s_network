@@ -33,7 +33,7 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
             if (newMessage.message === 'Shift+click to send as friend') {
                 newMessage.message = 'New Message!'
             }
-            let newState = {...state} // todo - как написать без создания новой переменной?
+            let newState = {...state}
             newState.dialogsData[action.dialogId] = [newMessage, ...newState.dialogsData[action.dialogId]]
             newState.newMessageText = ''
             return newState
