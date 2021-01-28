@@ -11,6 +11,7 @@ import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
+import {getUsers, toggleFollowAPI} from '../../api/api';
 
 
 type UsersAPIPropsType = {
@@ -31,13 +32,11 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
 
     componentDidMount() {
         this.props.toggleFetching(true)
-        axios.get('https://social-network.samuraijs.com/api/1.0/users', {
-            withCredentials: true
-        })
-            .then(response => {
+        getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.toggleFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             })
     }
 
@@ -45,44 +44,16 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
 
         this.props.toggleFetching(true)
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(response => {
+        getUsers(page, this.props.pageSize)
+            .then(data => {
                 this.props.toggleFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
 
         this.props.setCurrentPage(page)
     }
 
-    toggleFollow = (user: UserType) => {
-        !user.followed ?
-            (axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '9b61cb41-6326-4a3b-b5b4-20d19c98a067'
-                }
-            })
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        this.props.toggleFollow(user.id)
-                    }
-                })) :
-            (axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '9b61cb41-6326-4a3b-b5b4-20d19c98a067'
-                }
-
-            })
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        this.props.toggleFollow(user.id)
-                    }
-                }))
-    }
-
+    toggleFollow = (user: UserType) => toggleFollowAPI(user, this.props.toggleFollow)
 
     render() {
         return <>
