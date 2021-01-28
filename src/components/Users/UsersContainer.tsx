@@ -8,10 +8,9 @@ import {
 } from '../../redux/users-reducer';
 import {StateType, UserType} from '../../types/types';
 import React from 'react';
-import axios from 'axios';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
-import {getUsers, toggleFollowAPI} from '../../api/api';
+import {usersAPI} from '../../api/api';
 
 
 type UsersAPIPropsType = {
@@ -29,10 +28,9 @@ type UsersAPIPropsType = {
 
 class UsersAPI extends React.Component<UsersAPIPropsType> {
 
-
     componentDidMount() {
         this.props.toggleFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
                 this.props.toggleFetching(false)
                 this.props.setUsers(data.items)
@@ -40,11 +38,11 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
             })
     }
 
-    onPageChange = (page: number) => {
+    onPageChange = (page: number) => { // todo - почему если переписать на метод, всё падает?
 
         this.props.toggleFetching(true)
 
-        getUsers(page, this.props.pageSize)
+        usersAPI.getUsers(page, this.props.pageSize)
             .then(data => {
                 this.props.toggleFetching(false)
                 this.props.setUsers(data.items)
@@ -53,7 +51,9 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
         this.props.setCurrentPage(page)
     }
 
-    toggleFollow = (user: UserType) => toggleFollowAPI(user, this.props.toggleFollow)
+    toggleFollow = (user: UserType) => {
+        usersAPI.toggleFollow(user, this.props.toggleFollow)
+    }
 
     render() {
         return <>

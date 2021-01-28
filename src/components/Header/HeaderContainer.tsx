@@ -1,10 +1,9 @@
 import React from 'react';
 import {Header} from './Header';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {StateType} from '../../types/types';
 import {setAuthUserData} from '../../redux/auth-reducer';
-import {authMe} from '../../api/api';
+import {usersAPI} from '../../api/api';
 
 type HeaderContainerPropsType = {
     setAuthUserData(userId: number | string | null, // todo - fix type?
@@ -15,7 +14,7 @@ type HeaderContainerPropsType = {
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
-        authMe(this.props.setAuthUserData)
+        usersAPI.authMe(this.props.setAuthUserData)
     }
 
 
