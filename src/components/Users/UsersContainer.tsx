@@ -56,6 +56,34 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
         this.props.setCurrentPage(page)
     }
 
+    toggleFollow = (user: UserType) => {
+        !user.followed ?
+            (axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
+                withCredentials: true,
+                headers: {
+                    'API-KEY': '9b61cb41-6326-4a3b-b5b4-20d19c98a067'
+                }
+            })
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        this.props.toggleFollow(user.id)
+                    }
+                })) :
+            (axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                withCredentials: true,
+                headers: {
+                    'API-KEY': '9b61cb41-6326-4a3b-b5b4-20d19c98a067'
+                }
+
+            })
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        this.props.toggleFollow(user.id)
+                    }
+                }))
+    }
+
+
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> :
@@ -65,7 +93,7 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
                 currentPage={this.props.currentPage}
                 pageSize={this.props.pageSize}
                 onPageChange={this.onPageChange}
-                toggleFollow={this.props.toggleFollow}
+                toggleFollow={this.toggleFollow}
             />}
         </>
     }

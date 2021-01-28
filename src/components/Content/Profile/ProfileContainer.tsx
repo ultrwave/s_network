@@ -36,7 +36,6 @@ class ProfileAPI extends React.Component<ProfileContainerProps> { // todo - ?
             })
     }
 
-
     render() {
         return (
             <div className={Style.content}>
