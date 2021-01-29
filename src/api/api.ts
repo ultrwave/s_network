@@ -11,28 +11,33 @@ const instance = axios.create({
 
 export const usersAPI = {
 
-    getUsers (currentPage: number = 1, count: number = 10) {
+    getUsers(currentPage: number = 1, count: number = 10) {
         return instance.get(`users?page=${currentPage}&count=${count}`)
             .then(response => response.data)
     },
 
-    toggleFollow (user: UserType, toggleFollowFn: (userId: string) => void) {
+    toggleFollow(user: UserType,
+                 toggleFollowFn: (userId: string) => void,
+                 toggleRequestInProgressFn: (userId: string, toggle: boolean) => void) {
+        toggleRequestInProgressFn(user.id, true)
         !user.followed ?
             (instance.post(`follow/${user.id}`, {})
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         toggleFollowFn(user.id)
                     }
+                    toggleRequestInProgressFn(user.id, false)
                 })) :
             (instance.delete(`follow/${user.id}`)
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         toggleFollowFn(user.id)
                     }
+                    toggleRequestInProgressFn(user.id, false)
                 }))
     },
 
-    authMe (authFn: (id: string, email: string, login: string) => void) {
+    authMe(authFn: (id: string, email: string, login: string) => void) {
         instance.get('auth/me')
             .then(response => {
                 if (response.data.resultCode === 0) {

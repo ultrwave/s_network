@@ -11,6 +11,7 @@ type UsersPropsType = {
     totalUsersCount: number
     currentPage: number
     onPageChange: (page: number) => void
+    followRequestsInProgress: string[]
 }
 
 
@@ -28,7 +29,9 @@ export function Users(props: UsersPropsType) {
         <div className={Style.users}>
             <div className={Style.pageButtons}>
                 {pages.map(p => <span key={p}
-                                      onClick={() => {props.onPageChange(p)}}
+                                      onClick={() => {
+                                          props.onPageChange(p)
+                                      }}
                                       className={props.currentPage === p ? Style.selectedPage : ''}>{p}</span>)}
 
             </div>
@@ -44,7 +47,10 @@ export function Users(props: UsersPropsType) {
                             </div>
                         </NavLink>
                         <div>
-                            <button onClick={() => {props.toggleFollow(u)}}>
+                            <button disabled={props.followRequestsInProgress.includes(u.id)}
+                                    onClick={() => {
+                                props.toggleFollow(u)
+                            }} >
 
 
                                 {u.followed ? 'Unfollow' : 'Follow'}

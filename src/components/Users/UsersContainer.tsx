@@ -4,7 +4,7 @@ import {
     setTotalUsersCount,
     setUsers,
     toggleFetching,
-    toggleFollow
+    toggleFollow, toggleRequestIsInProgress
 } from '../../redux/users-reducer';
 import {StateType, UserType} from '../../types/types';
 import React from 'react';
@@ -24,6 +24,8 @@ type UsersAPIPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     isFetching: boolean
     toggleFetching: (isFetching: boolean) => void
+    followRequestsInProgress: string[]
+    toggleRequestIsInProgress: (userId: string, toggle: boolean) => void
 }
 
 class UsersAPI extends React.Component<UsersAPIPropsType> {
@@ -52,7 +54,7 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
     }
 
     toggleFollow = (user: UserType) => {
-        usersAPI.toggleFollow(user, this.props.toggleFollow)
+        usersAPI.toggleFollow(user, this.props.toggleFollow, this.props.toggleRequestIsInProgress)
     }
 
     render() {
@@ -65,6 +67,7 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
                 pageSize={this.props.pageSize}
                 onPageChange={this.onPageChange}
                 toggleFollow={this.toggleFollow}
+                followRequestsInProgress={this.props.followRequestsInProgress}
             />}
         </>
     }
@@ -76,7 +79,8 @@ const mapStateToProps = (state: StateType) => {
         pageSize: state.pageUsers.pageSize,
         totalUsersCount: state.pageUsers.totalUsersCount,
         currentPage: state.pageUsers.currentPage,
-        isFetching: state.pageUsers.isFetching
+        isFetching: state.pageUsers.isFetching,
+        followRequestsInProgress: state.pageUsers.followRequestsInProgress
     }
 }
 
@@ -85,5 +89,6 @@ export const UsersContainer = connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleFetching
+    toggleFetching,
+    toggleRequestIsInProgress
 })(UsersAPI)

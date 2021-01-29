@@ -3,7 +3,7 @@ import {
     setTotalUsersCount,
     setUsers,
     toggleFetching,
-    toggleFollow
+    toggleFollow, toggleRequestIsInProgress
 } from '../redux/users-reducer';
 import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
@@ -100,28 +100,29 @@ export type UserProfileType = {
 }
 
 export type PageProfileActionType =
-    ReturnType<typeof addPost>
+    | ReturnType<typeof addPost>
     | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof setUserProfile>
 
 export type PageDialogsActionType =
-    ReturnType<typeof addMessage>
+    | ReturnType<typeof addMessage>
     | ReturnType<typeof updateNewMessageText>
     | ReturnType<typeof setDialogId>
 
 export type UsersActionType =
-    ReturnType<typeof toggleFollow>
+    | ReturnType<typeof toggleFollow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleFetching>
+    | ReturnType<typeof toggleRequestIsInProgress>
 
 export type AuthActionType =
     ReturnType<typeof setAuthUserData>
 
 
 export type ActionTypes =
-    PageProfileActionType
+    | PageProfileActionType
     | PageDialogsActionType
     | UsersActionType
     | AuthActionType

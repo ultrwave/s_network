@@ -1,10 +1,11 @@
 import {ActionTypes, UserType} from '../types/types';
 
-const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
+const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW' // todo - переделать в enum
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_FETCHING = 'TOGGLE-FETCHING'
+const TOGGLE_REQUEST_IS_IN_PROGRESS = 'TOGGLE-REQUEST-IS-IN-PROGRESS'
 
 type PageStateType = {
     users: Array<UserType>
@@ -12,6 +13,7 @@ type PageStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followRequestsInProgress: string[]
 }
 
 const initialState: PageStateType = {
@@ -19,7 +21,8 @@ const initialState: PageStateType = {
     totalUsersCount: 0,
     pageSize: 5,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followRequestsInProgress: []
 
 }
 
@@ -32,6 +35,22 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
 
         case 'TOGGLE-FETCHING' :
             return {...state, isFetching: action.isFetching}
+
+        case 'TOGGLE-REQUEST-IS-IN-PROGRESS':
+
+            if (action.toggle) {
+                return {
+                    ...state,
+                    followRequestsInProgress: [...state.followRequestsInProgress, action.userId]
+                }
+            } else {
+                return {
+                    ...state,
+                    followRequestsInProgress: state.followRequestsInProgress
+                        .filter(id => id !== action.userId)
+                }
+            }
+
 
         case 'TOGGLE-FOLLOW':
             return {
@@ -62,6 +81,14 @@ export const toggleFetching = (isFetching: boolean) => (
     {
         type: TOGGLE_FETCHING,
         isFetching
+    } as const
+)
+
+export const toggleRequestIsInProgress = (userId: string, toggle: boolean) => (
+    {
+        type: TOGGLE_REQUEST_IS_IN_PROGRESS,
+        userId,
+        toggle
     } as const
 )
 
