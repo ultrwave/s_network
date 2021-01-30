@@ -16,25 +16,13 @@ export const usersAPI = {
             .then(response => response.data)
     },
 
-    toggleFollow(user: UserType,
-                 toggleFollowFn: (userId: string) => void,
-                 toggleRequestInProgressFn: (userId: string, toggle: boolean) => void) {
-        toggleRequestInProgressFn(user.id, true)
-        !user.followed ?
-            (instance.post(`follow/${user.id}`, {})
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        toggleFollowFn(user.id)
-                    }
-                    toggleRequestInProgressFn(user.id, false)
-                })) :
+    toggleFollow(user: UserType) {
+        return !user.followed ?
+            (instance.post(`follow/${user.id}`, {}) // todo - как убрать дублирование кода?
+                .then(response => response.data.resultCode))
+            :
             (instance.delete(`follow/${user.id}`)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        toggleFollowFn(user.id)
-                    }
-                    toggleRequestInProgressFn(user.id, false)
-                }))
+                .then(response => response.data.resultCode))
     },
 
     authMe(authFn: (id: string, email: string, login: string) => void) {

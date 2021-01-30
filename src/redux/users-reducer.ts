@@ -122,27 +122,17 @@ export const setTotalUsersCount = (totalUsersCount: number) => (
     } as const
 )
 
-export default usersReducer
+// THUNKS
 
+export const toggleFollowThunkCreator = (user: UserType) => (dispatch: AppDispatchType) => {
 
-// export const toggleFollowThunk = (user: UserType) => (dispatch: AppDispatchType) => {
-//     dispatch(toggleRequestIsInProgress(user.id, true))
-//     !user.followed ?
-//         (instance.post(`follow/${user.id}`, {})
-//             .then((response: any) => {
-//                 if (response.data.resultCode === 0) {
-//                     dispatch(toggleFollow(user.id))
-//                 }
-//                 dispatch(toggleRequestIsInProgress(user.id, false))
-//             })) :
-//         (instance.delete(`follow/${user.id}`)
-//             .then((response: any) => {
-//                 if (response.data.resultCode === 0) {
-//                     dispatch(toggleFollow(user.id))
-//                 }
-//                 dispatch(toggleRequestIsInProgress(user.id, false))
-//             }))
-// }
+    dispatch(toggleRequestIsInProgress(user.id, true))
+
+    usersAPI.toggleFollow(user).then(resultCode => {
+        if (resultCode === 0) dispatch(toggleFollow(user.id))
+        dispatch(toggleRequestIsInProgress(user.id, false))
+    })
+}
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: AppDispatchType) => {
 
@@ -155,3 +145,5 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (
         dispatch(setTotalUsersCount(data.totalCount))
     })
 }
+
+export default usersReducer

@@ -5,7 +5,7 @@ import {
     setTotalUsersCount,
     setUsers,
     toggleFetching,
-    toggleFollow, toggleRequestIsInProgress
+    toggleFollow, toggleFollowThunkCreator, toggleRequestIsInProgress
 } from '../../redux/users-reducer';
 import {AppDispatchType, StateType, UserType} from '../../types/types';
 import React from 'react';
@@ -25,8 +25,8 @@ type UsersAPIPropsType = {
     setCurrentPage (currentPage: number): void
     setTotalUsersCount (totalUsersCount: number): void
     toggleFetching (isFetching: boolean): void
-    toggleFollow (userId: string): void
     toggleRequestIsInProgress (userId: string, toggle: boolean): void
+    toggleFollow (user: UserType): any
     getUsers (currentPage: number, pageSize: number): any // todo - fix any
 }
 
@@ -37,20 +37,12 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
     }
 
     onPageChange = (page: number) => {
-        this.props.toggleFetching(true)
-
-        usersAPI.getUsers(page, this.props.pageSize)
-            .then(data => {
-
-                this.props.toggleFetching(false)
-                this.props.setUsers(data.items)
-            })
-
+        this.props.getUsers(page, this.props.pageSize)
         this.props.setCurrentPage(page)
     }
 
     toggleFollow = (user: UserType) => {
-        usersAPI.toggleFollow(user, this.props.toggleFollow, this.props.toggleRequestIsInProgress)
+        this.props.toggleFollow(user)
     }
 
     render() {
@@ -81,11 +73,11 @@ const mapStateToProps = (state: StateType) => {
 }
 
 export const UsersContainer = connect(mapStateToProps, {
-    toggleFollow,
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
     toggleFetching,
     toggleRequestIsInProgress,
-    getUsers: getUsersThunkCreator
+    getUsers: getUsersThunkCreator,
+    toggleFollow: toggleFollowThunkCreator
 })(UsersAPI)
