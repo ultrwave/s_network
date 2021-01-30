@@ -28,12 +28,17 @@ export function Users(props: UsersPropsType) {
     return (
         <div className={Style.users}>
             <div className={Style.pageButtons}>
-                {pages.map(p => <span key={p}
-                                      onClick={() => {
-                                          props.onPageChange(p)
-                                      }}
-                                      className={props.currentPage === p ? Style.selectedPage : ''}>{p}</span>)}
-
+                {pages.map(p => {
+                    return (
+                        <span key={p}
+                              onClick={() => {
+                                  props.onPageChange(p)
+                              }}
+                              className={props.currentPage === p ? Style.selectedPage : ''}>
+                            {p}
+                        </span>
+                    )
+                })}
             </div>
             {props.users.map(
                 u =>
@@ -49,8 +54,8 @@ export function Users(props: UsersPropsType) {
                         <div>
                             <button disabled={props.followRequestsInProgress.includes(u.id)}
                                     onClick={() => {
-                                props.toggleFollow(u)
-                            }} >
+                                        props.toggleFollow(u)
+                                    }}>
 
 
                                 {u.followed ? 'Unfollow' : 'Follow'}

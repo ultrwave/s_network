@@ -1,4 +1,6 @@
-import {ActionTypes, UserType} from '../types/types';
+import {ActionTypes, AppDispatchType, UserType} from '../types/types';
+import {instance} from '@storybook/node-logger';
+import {usersAPI} from '../api/api';
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW' // todo - переделать в enum
 const SET_USERS = 'SET-USERS'
@@ -121,3 +123,35 @@ export const setTotalUsersCount = (totalUsersCount: number) => (
 )
 
 export default usersReducer
+
+
+// export const toggleFollowThunk = (user: UserType) => (dispatch: AppDispatchType) => {
+//     dispatch(toggleRequestIsInProgress(user.id, true))
+//     !user.followed ?
+//         (instance.post(`follow/${user.id}`, {})
+//             .then((response: any) => {
+//                 if (response.data.resultCode === 0) {
+//                     dispatch(toggleFollow(user.id))
+//                 }
+//                 dispatch(toggleRequestIsInProgress(user.id, false))
+//             })) :
+//         (instance.delete(`follow/${user.id}`)
+//             .then((response: any) => {
+//                 if (response.data.resultCode === 0) {
+//                     dispatch(toggleFollow(user.id))
+//                 }
+//                 dispatch(toggleRequestIsInProgress(user.id, false))
+//             }))
+// }
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: AppDispatchType) => {
+
+    dispatch(toggleFetching(true))
+
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+
+        dispatch(toggleFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
+    })
+}

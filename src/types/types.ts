@@ -1,4 +1,5 @@
 import {
+    getUsersThunkCreator,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
@@ -8,7 +9,7 @@ import {
 import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
 import {setAuthUserData} from '../redux/auth-reducer';
-import {rootReducer} from '../redux/redux-store';
+import store, {rootReducer} from '../redux/redux-store';
 // todo - разбить на блоки /=======
 
 export type RootReducerType = typeof rootReducer
@@ -98,6 +99,8 @@ export type UserProfileType = {
         large: string
     }
 }
+
+export type AppDispatchType = typeof store.dispatch
 
 export type PageProfileActionType =
     | ReturnType<typeof addPost>

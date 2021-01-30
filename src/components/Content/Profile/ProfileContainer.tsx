@@ -21,9 +21,7 @@ type MatchType = {
 
 export type ProfileContainerProps = RouteComponentProps<MatchType> & MDTPType & MSTPType
 
-// export type PageProfileType = MDTPType & MSTPType
-
-class ProfileAPI extends React.Component<ProfileContainerProps> { // todo - ?
+class ProfileAPI extends React.Component<ProfileContainerProps> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
