@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
-import {ActionTypes, PostsDataType, UserProfileType} from '../types/types';
+import {ActionTypes, AppDispatchType, PostsDataType, UserProfileType} from '../types/types';
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
+import {appAPI} from '../api/api';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -98,6 +99,15 @@ export const setUserProfile = (profile: UserProfileType) => {
         profile
     } as const
 
+}
+
+// Thunks
+
+export const getProfileThunk = (userId: string) => (dispatch: AppDispatchType) => {
+    appAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
 }
 
 export default profileReducer

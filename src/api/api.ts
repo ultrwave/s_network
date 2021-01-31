@@ -28,6 +28,10 @@ export const appAPI = {
     setAuth() {
         return instance.get('auth/me')
             .then(response => response.data)
+    },
+
+    getProfile(userId: string) {
+        return instance.get(`profile/${userId}`)
     }
 
 }

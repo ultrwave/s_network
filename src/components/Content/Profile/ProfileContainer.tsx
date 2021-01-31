@@ -1,14 +1,13 @@
 import React from 'react';
 import Style from './Profile.module.css';
 import {Profile} from './Profile';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
-import {setUserProfile} from '../../../redux/profile-reducer';
-import {withRouter, RouteComponentProps} from 'react-router-dom';
+import {getProfileThunk} from '../../../redux/profile-reducer';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 type MDTPType = {
-    setUserProfile: (user: UserProfileType) => void
+    getProfileThunk: (userId: string) => void
 }
 
 type MSTPType = {
@@ -28,10 +27,7 @@ class ProfileAPI extends React.Component<ProfileContainerProps> {
         if (!userId) {
             userId = '2';
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
+        this.props.getProfileThunk(userId)
     }
 
     render() {
@@ -49,4 +45,4 @@ const mapStateToProps = (state: StateType): MSTPType => ({
 
 const ProfileAPIWithUrlData = withRouter(ProfileAPI)
 
-export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(ProfileAPIWithUrlData)
+export const ProfileContainer = connect(mapStateToProps, {getProfileThunk})(ProfileAPIWithUrlData)
