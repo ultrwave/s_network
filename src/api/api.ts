@@ -9,7 +9,7 @@ const instance = axios.create({
     }
 })
 
-export const usersAPI = {
+export const appAPI = {
 
     getUsers(currentPage: number = 1, count: number = 10) {
         return instance.get(`users?page=${currentPage}&count=${count}`)
@@ -25,14 +25,9 @@ export const usersAPI = {
                 .then(response => response.data.resultCode))
     },
 
-    authMe(authFn: (id: string, email: string, login: string) => void) {
-        instance.get('auth/me')
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data;
-                    authFn(id, email, login)
-                }
-            })
+    setAuth() {
+        return instance.get('auth/me')
+            .then(response => response.data)
     }
 
 }

@@ -100,7 +100,7 @@ export type UserProfileType = {
     }
 }
 
-export type AppDispatchType = typeof store.dispatch
+export type AppDispatchType = typeof store.dispatch // ReturnType?
 
 export type PageProfileActionType =
     | ReturnType<typeof addPost>

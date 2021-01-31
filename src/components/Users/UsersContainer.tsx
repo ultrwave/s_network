@@ -1,17 +1,20 @@
-import {connect, useDispatch} from 'react-redux';
+import {connect} from 'react-redux';
 import {
     getUsersThunkCreator,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
-    toggleFollow, toggleFollowThunkCreator, toggleRequestIsInProgress
+    toggleFollowThunkCreator,
+    toggleRequestIsInProgress
 } from '../../redux/users-reducer';
 import {AppDispatchType, StateType, UserType} from '../../types/types';
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
-import {usersAPI} from '../../api/api';
+
+
+type ThunkReturnType = (d: AppDispatchType) => void
 
 
 type UsersAPIPropsType = {
@@ -26,8 +29,8 @@ type UsersAPIPropsType = {
     setTotalUsersCount (totalUsersCount: number): void
     toggleFetching (isFetching: boolean): void
     toggleRequestIsInProgress (userId: string, toggle: boolean): void
-    toggleFollow (user: UserType): any
-    getUsers (currentPage: number, pageSize: number): any // todo - fix any
+    toggleFollow (user: UserType): void
+    getUsers (currentPage: number, pageSize: number): void // todo - fix any
 }
 
 class UsersAPI extends React.Component<UsersAPIPropsType> {
