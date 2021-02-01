@@ -4,7 +4,10 @@ import {connect} from 'react-redux';
 import {StateType} from '../../../types/types';
 
 const mapStateToProps = (state: StateType) => {
-    return state.pageDialogs
+    return {
+        ...state.pageDialogs,
+        isAuth: state.auth.isAuth
+    }
 }
 
 export const DialogsContainer = connect(mapStateToProps, {

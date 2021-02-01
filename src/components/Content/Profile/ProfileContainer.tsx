@@ -12,6 +12,7 @@ type MDTPType = {
 
 type MSTPType = {
     profile: UserProfileType | null
+    isAuth: boolean
 }
 
 type MatchType = {
@@ -40,7 +41,8 @@ class ProfileAPI extends React.Component<ProfileContainerProps> {
 }
 
 const mapStateToProps = (state: StateType): MSTPType => ({
-    profile: state.pageProfile.profile
+    profile: state.pageProfile.profile,
+    isAuth: state.auth.isAuth
 })
 
 const ProfileAPIWithUrlData = withRouter(ProfileAPI)

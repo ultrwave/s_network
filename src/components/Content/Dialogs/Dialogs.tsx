@@ -3,15 +3,17 @@ import Style from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogItemType, DialogsDataType, MessageDataType} from '../../../types/types';
+import { Redirect } from 'react-router-dom';
 
 type DialogsContentType = {
     dialogItems: Array<DialogItemType>
     dialogsData: DialogsDataType
     newMessageText: string
     activeDialogId: string
-    setDialogId: (id: string) => void
-    addMessage: (dialogId: string, isMine: boolean) => void
-    updateNewMessageText: (text: string) => void
+    isAuth: boolean
+    setDialogId (id: string): void
+    addMessage (dialogId: string, isMine: boolean): void
+    updateNewMessageText (text: string): void
 }
 
 export function Dialogs(props: DialogsContentType) {
@@ -62,6 +64,7 @@ export function Dialogs(props: DialogsContentType) {
         }
     }
 
+    if (!props.isAuth) return <Redirect to='/login'/>
 
     return (
         <div className={Style.dialogs}>

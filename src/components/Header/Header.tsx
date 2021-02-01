@@ -9,7 +9,7 @@ export function Header(props: any) { // todo - fix any
             <img src={siteLogoPlaceholder} alt="logo"/>
             <div className={Style.loginBlock}>
                 {props.isAuth ? props.login :
-                    <NavLink to={'login'}>Login</NavLink>
+                    <NavLink to='/login'>Login</NavLink>
                 }
             </div>
         </header>
