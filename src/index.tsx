@@ -7,7 +7,7 @@ import store from './redux/redux-store'
 import {Provider} from 'react-redux';
 import {StateType} from './types/types';
 
-export const globalRender = (state: StateType) => {
+export const globalRender = (state: StateType) => { // todo - context?
     ReactDOM.render(
         // <React.StrictMode>
             <Provider store={store}>

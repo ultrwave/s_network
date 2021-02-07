@@ -4,7 +4,7 @@ import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {getProfileThunk} from '../../../redux/profile-reducer';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 
 type MDTPType = {
     getProfileThunk: (userId: string) => void
@@ -19,9 +19,9 @@ type MatchType = {
     userId: string
 }
 
-export type ProfileContainerProps = RouteComponentProps<MatchType> & MDTPType & MSTPType
+export type ProfileContainerPropsType = RouteComponentProps<MatchType> & MDTPType & MSTPType
 
-class ProfileAPI extends React.Component<ProfileContainerProps> {
+class ProfileAPI extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
@@ -40,11 +40,17 @@ class ProfileAPI extends React.Component<ProfileContainerProps> {
     }
 }
 
+const AuthRedirect = (props: ProfileContainerPropsType) => {
+    return !props.isAuth ?
+        <Redirect to='/login'/>
+        : <ProfileAPI {...props} />
+}
+
 const mapStateToProps = (state: StateType): MSTPType => ({
     profile: state.pageProfile.profile,
     isAuth: state.auth.isAuth
 })
 
-const ProfileAPIWithUrlData = withRouter(ProfileAPI)
+const ProfileAPIWithUrlData = withRouter(AuthRedirect) // todo - переименовать
 
 export const ProfileContainer = connect(mapStateToProps, {getProfileThunk})(ProfileAPIWithUrlData)
