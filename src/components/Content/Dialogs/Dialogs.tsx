@@ -5,7 +5,7 @@ import {Message} from './Message/Message';
 import {DialogItemType, DialogsDataType, MessageDataType} from '../../../types/types';
 import { Redirect } from 'react-router-dom';
 
-type DialogsContentType = {
+export type DialogsContentType = {
     dialogItems: Array<DialogItemType>
     dialogsData: DialogsDataType
     newMessageText: string

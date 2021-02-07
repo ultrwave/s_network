@@ -40,7 +40,7 @@ class ProfileAPI extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-const AuthRedirect = (props: ProfileContainerPropsType) => {
+const ProfileAuthRedirect = (props: ProfileContainerPropsType) => {
     return !props.isAuth ?
         <Redirect to='/login'/>
         : <ProfileAPI {...props} />
@@ -51,6 +51,6 @@ const mapStateToProps = (state: StateType): MSTPType => ({
     isAuth: state.auth.isAuth
 })
 
-const ProfileAPIWithUrlData = withRouter(AuthRedirect) // todo - переименовать
+const ProfileAPIWithUrlData = withRouter(ProfileAuthRedirect)
 
 export const ProfileContainer = connect(mapStateToProps, {getProfileThunk})(ProfileAPIWithUrlData)
