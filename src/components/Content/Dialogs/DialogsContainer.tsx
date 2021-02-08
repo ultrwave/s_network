@@ -1,20 +1,15 @@
-import {addMessage, updateNewMessageText, setDialogId} from '../../../redux/dialogs-reducer';
-import {Dialogs, DialogsContentType} from './Dialogs';
+import {addMessage, setDialogId, updateNewMessageText} from '../../../redux/dialogs-reducer';
+import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {StateType} from '../../../types/types';
-import {Redirect} from 'react-router-dom';
 import React from 'react';
+import {withAuthRedirect} from '../../../hoc/withAuthRedirect';
 
-const DialogsAuthRedirect = (props: DialogsContentType) => {
-    return !props.isAuth ?
-        <Redirect to='/login'/>
-        : <Dialogs {...props} />
-}
+const DialogsAuthRedirect = withAuthRedirect(Dialogs)
 
 const mapStateToProps = (state: StateType) => {
     return {
         ...state.pageDialogs,
-        isAuth: state.auth.isAuth
     }
 }
 

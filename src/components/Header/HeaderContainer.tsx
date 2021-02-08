@@ -2,8 +2,7 @@ import React from 'react';
 import {Header} from './Header';
 import {connect} from 'react-redux';
 import {StateType} from '../../types/types';
-import {setAuthThunk, setAuthUserData} from '../../redux/auth-reducer';
-import {appAPI} from '../../api/api';
+import {setAuthThunk} from '../../redux/auth-reducer';
 
 type HeaderContainerPropsType = {
     setAuth(): void

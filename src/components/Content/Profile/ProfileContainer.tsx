@@ -5,13 +5,17 @@ import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {getProfileThunk} from '../../../redux/profile-reducer';
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {withAuthRedirect} from '../../../hoc/withAuthRedirect';
 
-type MDTPType = {
+export type MDTPType = {
     getProfileThunk: (userId: string) => void
 }
 
-type MSTPType = {
+export type MSTPType = {
     profile: UserProfileType | null
+}
+
+export type MSTPFRType = {
     isAuth: boolean
 }
 
@@ -40,15 +44,10 @@ class ProfileAPI extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-const ProfileAuthRedirect = (props: ProfileContainerPropsType) => {
-    return !props.isAuth ?
-        <Redirect to='/login'/>
-        : <ProfileAPI {...props} />
-}
+const ProfileAuthRedirect = withAuthRedirect(ProfileAPI)
 
 const mapStateToProps = (state: StateType): MSTPType => ({
-    profile: state.pageProfile.profile,
-    isAuth: state.auth.isAuth
+    profile: state.pageProfile.profile
 })
 
 const ProfileAPIWithUrlData = withRouter(ProfileAuthRedirect)
