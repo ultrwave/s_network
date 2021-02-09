@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 import {StateType} from '../../../types/types';
 import React from 'react';
 import {withAuthRedirect} from '../../../hoc/withAuthRedirect';
-
-const DialogsAuthRedirect = withAuthRedirect(Dialogs)
+import {compose} from 'redux';
 
 const mapStateToProps = (state: StateType) => {
     return {
@@ -13,8 +12,13 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, {
-    updateNewMessageText,
-    addMessage,
-    setDialogId
-})(DialogsAuthRedirect)
+export default compose(
+    connect(
+        mapStateToProps,
+        {
+            updateNewMessageText,
+            addMessage,
+            setDialogId
+        }),
+    withAuthRedirect
+)(Dialogs) as React.ComponentType // todo - что делает этот as?

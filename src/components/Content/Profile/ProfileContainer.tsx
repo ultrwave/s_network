@@ -4,8 +4,9 @@ import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {getProfileThunk} from '../../../redux/profile-reducer';
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../../hoc/withAuthRedirect';
+import {compose} from 'redux';
 
 export type MDTPType = {
     getProfileThunk: (userId: string) => void
@@ -25,7 +26,7 @@ type MatchType = {
 
 export type ProfileContainerPropsType = RouteComponentProps<MatchType> & MDTPType & MSTPType
 
-class ProfileAPI extends React.Component<ProfileContainerPropsType> {
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
@@ -44,12 +45,16 @@ class ProfileAPI extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-const ProfileAuthRedirect = withAuthRedirect(ProfileAPI)
-
 const mapStateToProps = (state: StateType): MSTPType => ({
     profile: state.pageProfile.profile
 })
 
-const ProfileAPIWithUrlData = withRouter(ProfileAuthRedirect)
-
-export const ProfileContainer = connect(mapStateToProps, {getProfileThunk})(ProfileAPIWithUrlData)
+export default compose(
+    connect(
+        mapStateToProps,
+        {
+            getProfileThunk
+        }),
+    withRouter,
+    withAuthRedirect,
+)(ProfileContainer) as React.ComponentType

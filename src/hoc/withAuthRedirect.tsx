@@ -24,3 +24,5 @@ export const withAuthRedirect = (Component: any) => {
 
     return ConnectedAuthRedirectComponent
 }
+
+

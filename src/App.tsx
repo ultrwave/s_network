@@ -5,9 +5,9 @@ import {Navbar} from './components/Navbar/Navbar';
 import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
-import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
 import {UsersContainer} from './components/Users/UsersContainer';
-import {ProfileContainer} from './components/Content/Profile/ProfileContainer';
+import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
+import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {Login as LoginPage} from './login/login';
 
