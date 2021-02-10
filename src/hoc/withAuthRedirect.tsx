@@ -1,26 +1,26 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {Redirect} from 'react-router-dom';
 import {StateType} from '../types/types';
-import {MSTPFRType} from '../components/Content/Profile/ProfileContainer';
+import {MSTPIsAuthType} from '../components/Content/Profile/ProfileContainer';
 import {connect} from 'react-redux';
 
-const mapStateToPropsForRedirect = (state: StateType): MSTPFRType => ({
+const mapStateToPropsForRedirect = (state: StateType): MSTPIsAuthType => ({
     isAuth: state.auth.isAuth
 })
 
-export const withAuthRedirect = (Component: any) => {
+export function withAuthRedirect<T>(WrappedComponent: ComponentType<T>) { // todo - ?
 
-    class RedirectComponent extends React.Component<any> {
+    function RedirectComponent(props: MSTPIsAuthType) {
 
-        render() {
-            return !this.props.isAuth ?
-                <Redirect to='/login'/>
-                : <Component {...this.props} />
+        const {isAuth, ...restProps} = props
 
-        }
+        return !props.isAuth ?
+            <Redirect to='/login'/>
+            : <WrappedComponent {...restProps as T} />
+
     }
 
-    let ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent)
+    const ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent)
 
     return ConnectedAuthRedirectComponent
 }

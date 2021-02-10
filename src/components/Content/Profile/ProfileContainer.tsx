@@ -16,7 +16,7 @@ export type MSTPType = {
     profile: UserProfileType | null
 }
 
-export type MSTPFRType = {
+export type MSTPIsAuthType = {
     isAuth: boolean
 }
 
