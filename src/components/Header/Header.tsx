@@ -3,7 +3,12 @@ import Style from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import siteLogoPlaceholder from '../../assets/images/siteLogoPlaceholder_0.svg'
 
-export function Header(props: any) { // todo - fix any
+type HeaderPropsType = {
+    login: string
+    isAuth: boolean
+}
+
+export function Header(props: HeaderPropsType) {
     return (
         <header className={Style.header}>
             <img src={siteLogoPlaceholder} alt="logo"/>

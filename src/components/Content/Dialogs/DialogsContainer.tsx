@@ -12,7 +12,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType >(
     connect(
         mapStateToProps,
         {
@@ -21,4 +21,4 @@ export default compose(
             setDialogId
         }),
     withAuthRedirect
-)(Dialogs) as React.ComponentType // todo - что делает этот as?
+)(Dialogs) // todo - что делает этот as?

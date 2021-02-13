@@ -10,7 +10,6 @@ import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reduc
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
 import {setAuthUserData} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
-// todo - разбить на блоки /=======
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
@@ -122,7 +121,6 @@ export type UsersActionType =
 
 export type AuthActionType =
     ReturnType<typeof setAuthUserData>
-
 
 export type ActionTypes =
     | PageProfileActionType

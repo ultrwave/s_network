@@ -8,7 +8,7 @@ const mapStateToPropsForRedirect = (state: StateType): MSTPIsAuthType => ({
     isAuth: state.auth.isAuth
 })
 
-export function withAuthRedirect<T>(WrappedComponent: ComponentType<T>) { // todo - ?
+export function withAuthRedirect<T>(WrappedComponent: ComponentType<T>) {
 
     function RedirectComponent(props: MSTPIsAuthType) {
 

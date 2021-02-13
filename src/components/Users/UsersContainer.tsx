@@ -19,8 +19,8 @@ type UsersAPIPropsType = {
     currentPage: number
     isFetching: boolean
     followRequestsInProgress: string[]
-    setCurrentPage (currentPage: number): void // todo - синтаксис типизации?
-    setTotalUsersCount (totalUsersCount: number): void
+    setCurrentPage (currentPage: number): void
+    setTotalUsersCount(totalUsersCount: number): void
     toggleRequestIsInProgress (userId: string, toggle: boolean): void
     toggleFollow (user: UserType): void
     getUsers (currentPage: number, pageSize: number): void

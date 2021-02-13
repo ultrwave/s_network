@@ -1,8 +1,8 @@
 import {ActionTypes, AppDispatchType, UserType} from '../types/types';
-import {instance} from '@storybook/node-logger';
 import {appAPI} from '../api/api';
 
-const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW' // todo - переделать в enum
+
+const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'

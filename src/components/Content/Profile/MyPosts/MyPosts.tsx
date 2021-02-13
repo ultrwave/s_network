@@ -8,7 +8,7 @@ type MyPostsType = {
     updateNewPostText: (text: string) => void
     newPostText: string
     addPost: () => void
-    profile: UserProfileType // todo - оптимально ли прокидывать профайл в пост?
+    profile: UserProfileType
 }
 
 export function MyPosts(props: MyPostsType) {

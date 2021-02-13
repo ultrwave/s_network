@@ -33,15 +33,13 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
     }
 }
 
-export type SetAuthType = { // todo - как сократить?
+export type SetAuthType = { // todo - деструктуризация?
     userId: number | string | null
     email: string | null
     login: string | null
 }
 
-export const setAuthUserData = (userId: number | string | null,
-                                email: string | null,
-                                login: string | null) => (
+export const setAuthUserData = ({userId, email, login}: SetAuthType) => (
     {
         type: SET_USER_DATA,
         data: {userId, email, login}
@@ -54,7 +52,7 @@ export const setAuthThunk = () => (dispatch: AppDispatchType) => {
     appAPI.setAuth().then(data => {
         if (data.resultCode === 0) {
             let {id, email, login} = data.data;
-            dispatch(setAuthUserData(id, email, login))
+            dispatch(setAuthUserData({userId: id, email, login}))
         }
     })
 }

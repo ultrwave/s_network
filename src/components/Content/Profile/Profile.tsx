@@ -4,7 +4,7 @@ import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
 import {UserProfileType} from '../../../types/types';
 
-type PageProfilePropsType = { // todo - тут вообще должны быть пропсы?
+type PageProfilePropsType = {
     profile: UserProfileType | null
 }
 

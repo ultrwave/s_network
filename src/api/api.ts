@@ -18,7 +18,7 @@ export const appAPI = {
 
     toggleFollow(user: UserType) {
         return !user.followed ?
-            (instance.post(`follow/${user.id}`, {}) // todo - как убрать дублирование кода?
+            (instance.post(`follow/${user.id}`, {})
                 .then(response => response.data.resultCode))
             :
             (instance.delete(`follow/${user.id}`)
