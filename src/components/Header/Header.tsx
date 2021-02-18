@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import siteLogoPlaceholder from '../../assets/images/siteLogoPlaceholder_0.svg'
 
 type HeaderPropsType = {
-    login: string
+    login: string | null
     isAuth: boolean
 }
 

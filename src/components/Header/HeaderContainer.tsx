@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 import {StateType} from '../../types/types';
 import {setAuthThunk} from '../../redux/auth-reducer';
 
-type HeaderContainerPropsType = {
+export type HeaderContainerPropsType = {
     setAuth(): void
+    login: string | null
+    isAuth: boolean
 }
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
@@ -13,7 +15,6 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
         this.props.setAuth()
     }
-
 
     render() {
         return (
