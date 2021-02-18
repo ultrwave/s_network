@@ -122,7 +122,7 @@ export const setTotalUsersCount = (totalUsersCount: number) => (
     } as const
 )
 
-// THUNKS
+// Thunks
 
 export const toggleFollowThunkCreator = (user: UserType) => (dispatch: AppDispatchType) => {
 

@@ -4,6 +4,7 @@ import {Preloader} from '../../../common/Preloader/Preloader';
 import {UserProfileType} from '../../../../types/types';
 import avatarPlaceholder from '../../../../assets/images/profile_avatar_placeholder.jpg'
 import profileWallpaper from '../../../../assets/images/wallpaper_01.jpg'
+import {ProfileStatus} from './ProfileStatus';
 
 
 type ProfileInfoProps = {
@@ -34,6 +35,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
             <div className={Style.description}>
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
                 <div className={Style.profileInfo}>
+                    <ProfileStatus/>
                     <div className={Style.fullName}>{props.profile.fullName}</div>
                     <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
                     <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>
