@@ -35,8 +35,8 @@ export function ProfileInfo(props: ProfileInfoProps) {
             <div className={Style.description}>
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
                 <div className={Style.profileInfo}>
-                    <ProfileStatus/>
                     <div className={Style.fullName}>{props.profile.fullName}</div>
+                    <ProfileStatus status={'Hello friends!'}/>
                     <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
                     <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>
                     <div className={Style.contacts}>{contacts}</div>
