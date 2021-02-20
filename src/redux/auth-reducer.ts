@@ -1,5 +1,5 @@
 import {ActionTypes, AppDispatchType} from '../types/types';
-import {appAPI} from '../api/api';
+import {authAPI} from '../api/api';
 
 const SET_USER_DATA = 'SET-USER-DATA'
 
@@ -49,7 +49,7 @@ export const setAuthUserData = ({userId, email, login}: SetAuthType) => (
 // Thunks
 
 export const setAuthThunk = () => (dispatch: AppDispatchType) => {
-    appAPI.setAuth().then(data => {
+    authAPI.setAuth().then(data => {
         if (data.resultCode === 0) {
             let {id, email, login} = data.data;
             dispatch(setAuthUserData({userId: id, email, login}))
