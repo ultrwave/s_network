@@ -10,12 +10,10 @@ const instance = axios.create({
 })
 
 export const appAPI = {
-
     getUsers(currentPage: number = 1, count: number = 10) {
         return instance.get(`users?page=${currentPage}&count=${count}`)
             .then(response => response.data)
     },
-
     toggleFollow(user: UserType) {
         return !user.followed ?
             (instance.post(`follow/${user.id}`, {})
@@ -27,14 +25,18 @@ export const appAPI = {
 }
 
 export const profileAPI = {
-
     getProfile(userId: string) {
         return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId: string) {
+        return instance.get(`status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put(`status`, { status })
     }
 }
 
 export const authAPI = {
-
     setAuth() {
         return instance.get('auth/me')
             .then(response => response.data)
