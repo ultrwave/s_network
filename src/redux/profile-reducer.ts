@@ -1,16 +1,18 @@
 import {v1} from 'uuid';
 import {ActionTypes, AppDispatchType, PostsDataType, UserProfileType} from '../types/types';
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
-import {appAPI, profileAPI} from '../api/api';
+import {profileAPI} from '../api/api';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_STATUS = 'SET-USER-STATUS'
 
 type PageStateType = {
     postsData: Array<PostsDataType>
     newPostText: string
     profile: UserProfileType
+    status: string
 }
 
 const defaultUser: UserProfileType = {
@@ -42,7 +44,8 @@ let initialState = {
         {id: v1(), message: 'Hello!', likesCount: 432},
         {id: v1(), message: 'Good day!', likesCount: 2}
     ],
-    newPostText: ''
+    newPostText: '',
+    status: ''
 }
 
 const profileReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
@@ -56,7 +59,10 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             }
             return {...state, profile: newProfile}
 
-        case 'ADD-POST': // Add post (profile)
+        case 'SET-USER-STATUS' :
+            return {...state, status: action.status}
+
+        case 'ADD-POST':
 
             let newPost: PostsDataType = {
                 id: v1(),
@@ -68,7 +74,7 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             newState.newPostText = ''
             return newState
 
-        case 'UPDATE-NEW-POST-TEXT': // New post input
+        case 'UPDATE-NEW-POST-TEXT':
             return {
                 ...state,
                 newPostText: action.text
@@ -90,7 +96,6 @@ export const updateNewPostText = (text: string) => {
         type: UPDATE_NEW_POST_TEXT,
         text
     } as const
-
 }
 
 export const setUserProfile = (profile: UserProfileType) => {
@@ -98,7 +103,13 @@ export const setUserProfile = (profile: UserProfileType) => {
         type: SET_USER_PROFILE,
         profile
     } as const
+}
 
+export const setUserStatus = (status: string) => {
+    return {
+        type: SET_USER_STATUS,
+        status
+    } as const
 }
 
 // Thunks
@@ -107,6 +118,22 @@ export const getProfileThunk = (userId: string) => (dispatch: AppDispatchType) =
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
+        })
+}
+
+export const getStatusThunk = (userId: string) => (dispatch: AppDispatchType) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            dispatch(setUserStatus(response.data))
+        })
+}
+
+export const updateStatusThunk = (status: string) => (dispatch: AppDispatchType) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatus(status))
+            }
         })
 }
 

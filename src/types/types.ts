@@ -1,12 +1,11 @@
 import {
-    getUsersThunkCreator,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
     toggleFollow, toggleRequestIsInProgress
 } from '../redux/users-reducer';
-import {addPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
+import {addPost, setUserProfile, setUserStatus, updateNewPostText} from '../redux/profile-reducer';
 import {addMessage, setDialogId, updateNewMessageText} from '../redux/dialogs-reducer';
 import {setAuthUserData} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
@@ -14,13 +13,13 @@ import store, {rootReducer} from '../redux/redux-store';
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
 
-export type StoreType = {
-    _state: StateType
-    _callSubscriber: (s: StateType) => void
-    getState: () => StateType
-    subscribe: (callback: () => void) => void
-    dispatch: (action: ActionTypes) => void
-}
+// export type StoreType = {
+//     _state: StateType
+//     _callSubscriber: (s: StateType) => void
+//     getState: () => StateType
+//     subscribe: (callback: () => void) => void
+//     dispatch: (action: ActionTypes) => void
+// }
 
 // export type StateType = {
 //     pageProfile: {
@@ -105,6 +104,7 @@ export type PageProfileActionType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserStatus>
 
 export type PageDialogsActionType =
     | ReturnType<typeof addMessage>

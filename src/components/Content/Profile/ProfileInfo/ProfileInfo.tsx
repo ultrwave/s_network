@@ -9,7 +9,8 @@ import {ProfileStatus} from './ProfileStatus';
 
 type ProfileInfoProps = {
     profile: UserProfileType | null
-
+    status: string
+    updateUserStatus(status: string): void
 }
 
 export function ProfileInfo(props: ProfileInfoProps) {
@@ -23,6 +24,8 @@ export function ProfileInfo(props: ProfileInfoProps) {
     const contacts = Object.entries(props.profile.contacts).map((contact, i) => {
         if (contact[1]) {
             return <div key={i}><span>{contact.join(': ')}</span></div>
+        } else {
+            return null
         }
     })
 
@@ -36,7 +39,10 @@ export function ProfileInfo(props: ProfileInfoProps) {
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
                 <div className={Style.profileInfo}>
                     <div className={Style.fullName}>{props.profile.fullName}</div>
-                    <ProfileStatus status={'Hello friends!'}/>
+                    <ProfileStatus
+                        status={props.status}
+                        updateUserStatus={props.updateUserStatus}
+                    />
                     <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
                     <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>
                     <div className={Style.contacts}>{contacts}</div>
