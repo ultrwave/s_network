@@ -51,15 +51,18 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
                          updateUserStatus={this.props.updateUserStatus}
                 />
                 {this.showMeButton && < span style={{
-                    'fontWeight': 'bold',
-                    'cursor' : 'pointer',
-                    'margin' : '0 10px',
-                    'backgroundColor' : 'red',
-                    'color': 'wheat',
-                    'position' : 'absolute',
-                    'top' : '200px',
-                    'border' : '1px solid wheat',
-                    'padding' : '1px 2px'
+                    width : '25px',
+                    height : '25px',
+                    position : 'absolute',
+                    top : '225px',
+                    margin : '0 10px',
+                    padding : '5px',
+                    color: 'wheat',
+                    fontWeight: 'bold',
+                    backgroundColor : 'red',
+                    border : '2px solid wheat',
+                    borderRadius : '0 40px 40px 40px',
+                    cursor : 'pointer'
                 }}
                     onClick={() => {
                         this.props.getProfileThunk('13836')

@@ -9,7 +9,7 @@ import {UsersContainer} from './components/Users/UsersContainer';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import {Login as LoginPage} from './login/login';
+import {Login as LoginPage} from './login/Login';
 
 function App() {
 
