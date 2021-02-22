@@ -40,6 +40,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         this.props.getUserStatus(userId)
     }
 
+    showMeButton = true
+
     render() {
         return (
             <div className={Style.content}>
@@ -48,6 +50,23 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
                          status={this.props.status}
                          updateUserStatus={this.props.updateUserStatus}
                 />
+                {this.showMeButton && < span style={{
+                    'fontWeight': 'bold',
+                    'cursor' : 'pointer',
+                    'margin' : '0 10px',
+                    'backgroundColor' : 'red',
+                    'color': 'wheat',
+                    'position' : 'absolute',
+                    'top' : '200px',
+                    'border' : '1px solid wheat',
+                    'padding' : '1px 2px'
+                }}
+                    onClick={() => {
+                        this.props.getProfileThunk('13836')
+                        this.props.getUserStatus('13836')
+                        this.showMeButton = false
+                    }}>Me</span>
+                }
             </div>
         )
     }
