@@ -2,9 +2,10 @@ import React from 'react';
 import {LoginReduxForm} from './LoginForm';
 
 
-export function Login () {
+ function Login () {
 
     const onSubmit = (formData: any) => { // todo - fix any
+
         console.log(formData)
     }
 
@@ -15,4 +16,6 @@ export function Login () {
         </div>
     )
 }
+
+export default Login
 

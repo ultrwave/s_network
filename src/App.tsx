@@ -9,17 +9,17 @@ import {UsersContainer} from './components/Users/UsersContainer';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import {Login as LoginPage} from './login/Login';
+import Login1rtretet from './login/Login';
 
 function App() {
 
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <HeaderContainer />
+                <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/login' render={() => <LoginPage/>}/>
+                    <Route path='/login' render={() => <Login1rtretet/>}/>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>

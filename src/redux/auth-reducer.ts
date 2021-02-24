@@ -33,7 +33,7 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
     }
 }
 
-export type SetAuthType = { // todo - деструктуризация?
+export type SetAuthType = {
     userId: number | string | null
     email: string | null
     login: string | null

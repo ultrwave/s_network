@@ -9,7 +9,6 @@ const SET_DIALOG_ID = 'SET-DIALOG-ID'
 type PageStateType = {
     dialogsData: DialogsDataType
     dialogItems: Array<DialogItemType>
-    newMessageText: string
     activeDialogId: string
 }
 
@@ -17,7 +16,6 @@ const initialState = {
     dialogsData: dialogsData,
     dialogItems: [...dialogItems],
     activeDialogId: [...dialogItems][0].id,
-    newMessageText: 'Shift+click to send as friend',
 }
 
 const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
@@ -25,24 +23,19 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
     switch (action.type) {
 
         case ADD_MESSAGE:
+
             let newMessage: MessageDataType = {
                 id: v1(),
                 isMine: action.isMine,
-                message: state.newMessageText,
+                message: action.message? action.message : 'Test message'
             }
-            if (newMessage.message === 'Shift+click to send as friend') {
-                newMessage.message = 'New Message!'
-            }
-            let newState = {...state}
-            newState.dialogsData[action.dialogId] = [newMessage, ...newState.dialogsData[action.dialogId]]
-            newState.newMessageText = ''
-            return newState
 
-
-        case UPDATE_NEW_MESSAGE_TEXT:
             return {
                 ...state,
-                newMessageText: action.text
+                dialogsData: {
+                    ...state.dialogsData,
+                    [action.dialogId]: [newMessage, ...state.dialogsData[action.dialogId]]
+                }
             }
 
         case SET_DIALOG_ID:
@@ -56,25 +49,26 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
-export const addMessage = (dialogId: string, isMine: boolean) => {
+export const addMessage = (dialogId: string, message: string, isMine: boolean) => {
     return {
         type: ADD_MESSAGE,
-        dialogId: dialogId,
-        isMine: isMine
+        dialogId,
+        message,
+        isMine
     } as const
 }
 
 export const updateNewMessageText = (text: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
-        text: text
+        text
     } as const
 }
 
 export const setDialogId = (id: string) => {
     return {
         type: SET_DIALOG_ID,
-        id: id
+        id
     } as const
 }
 

@@ -1,17 +1,17 @@
-import React, {ChangeEvent, createRef, RefObject} from 'react';
+import React, {ChangeEvent, createRef, RefObject, useMemo} from 'react';
 import Style from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogItemType, DialogsDataType, MessageDataType} from '../../../types/types';
+import {DialogsMessageReduxForm} from './DialogsMessageForm';
 
 export type DialogsContentType = {
     dialogItems: Array<DialogItemType>
     dialogsData: DialogsDataType
-    newMessageText: string
     activeDialogId: string
-    setDialogId (id: string): void
-    addMessage (dialogId: string, isMine: boolean): void
-    updateNewMessageText (text: string): void
+    setDialogId(id: string): void
+    addMessage(dialogId: string, message: string, isMine: boolean): void
+    updateNewMessageText(text: string): void
 }
 
 export function Dialogs(props: DialogsContentType) {
@@ -30,36 +30,8 @@ export function Dialogs(props: DialogsContentType) {
         message={m.message}
     />)
 
-    const newMessageRef: RefObject<HTMLTextAreaElement> = createRef<HTMLTextAreaElement>()
-
-    const addMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
-            let text = newMessageRef.current?.value
-            let isMine = true
-            if (text && text.trim()) {
-                if (e.shiftKey) {
-                    isMine = false
-                }
-                props.addMessage(props.activeDialogId, isMine)
-                if (newMessageRef.current && newMessageRef.current.value) {
-                    newMessageRef.current.focus()
-                }
-            }
-        }
-
-    const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(e.currentTarget.value)
-    }
-
-    const focusHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if (e.currentTarget.value === 'Shift+click to send as friend') {
-            props.updateNewMessageText('')
-        }
-    }
-
-    const blurHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if (!e.currentTarget.value.trim()) {
-            props.updateNewMessageText('Shift+click to send as friend')
-        }
+    const addNewMessage = (values: {message: string, sendAsFriend: boolean}) => {
+        props.addMessage(props.activeDialogId, values.message, !values.sendAsFriend)
     }
 
     return (
@@ -74,22 +46,11 @@ export function Dialogs(props: DialogsContentType) {
                         {messages}
                     </div>
                 </div>
+
                 <div className={Style.addMessageSection}>
-
-                    <textarea ref={newMessageRef}
-                              className={Style.text}
-                              value={props.newMessageText}
-                              onChange={inputHandler}
-                              onFocus={focusHandler}
-                              onBlur={blurHandler}
-                    />
-
-                    <button
-                        className={Style.newMessageButton}
-                        onClick={addMessage}>
-                        Send
-                    </button>
+                    <DialogsMessageReduxForm onSubmit={addNewMessage}/>
                 </div>
+
             </div>
         </div>
     )

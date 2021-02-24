@@ -8,7 +8,7 @@ import {compose} from 'redux';
 
 const mapStateToProps = (state: StateType) => {
     return {
-        ...state.pageDialogs,
+        ...state.pageDialogs
     }
 }
 
@@ -21,4 +21,4 @@ export default compose<React.ComponentType >(
             setDialogId
         }),
     withAuthRedirect
-)(Dialogs) // todo - что делает этот as?
+)(Dialogs)
