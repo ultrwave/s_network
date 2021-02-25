@@ -3,7 +3,6 @@ import {ActionTypes, DialogItemType, DialogsDataType, MessageDataType} from '../
 import {dialogItems, dialogsData} from './store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const SET_DIALOG_ID = 'SET-DIALOG-ID'
 
 type PageStateType = {
@@ -55,13 +54,6 @@ export const addMessage = (dialogId: string, message: string, isMine: boolean) =
         dialogId,
         message,
         isMine
-    } as const
-}
-
-export const updateNewMessageText = (text: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        text
     } as const
 }
 

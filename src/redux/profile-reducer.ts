@@ -4,13 +4,11 @@ import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholde
 import {profileAPI} from '../api/api';
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_USER_STATUS = 'SET-USER-STATUS'
 
 type PageStateType = {
     postsData: Array<PostsDataType>
-    newPostText: string
     profile: UserProfileType
     status: string
 }
@@ -44,7 +42,6 @@ let initialState = {
         {id: v1(), message: 'Hello!', likesCount: 432},
         {id: v1(), message: 'Good day!', likesCount: 2}
     ],
-    newPostText: '',
     status: ''
 }
 
@@ -66,35 +63,22 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
 
             let newPost: PostsDataType = {
                 id: v1(),
-                message: state.newPostText,
-                likesCount: 0
+                message: action.message? action.message : 'Test message',
+                likesCount: Math.round(Math.random()*1000)
             }
             let newState = {...state}
             newState.postsData = [newPost, ...state.postsData]
-            newState.newPostText = ''
             return newState
-
-        case 'UPDATE-NEW-POST-TEXT':
-            return {
-                ...state,
-                newPostText: action.text
-            }
 
         default:
             return state
     }
 }
 
-export const addPost = () => {
+export const addPost = (message: string) => {
     return {
         type: ADD_POST,
-    } as const
-}
-
-export const updateNewPostText = (text: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        text
+        message
     } as const
 }
 

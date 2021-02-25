@@ -1,4 +1,4 @@
-import {addMessage, setDialogId, updateNewMessageText} from '../../../redux/dialogs-reducer';
+import {addMessage, setDialogId} from '../../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {StateType} from '../../../types/types';
@@ -16,7 +16,6 @@ export default compose<React.ComponentType >(
     connect(
         mapStateToProps,
         {
-            updateNewMessageText,
             addMessage,
             setDialogId
         }),

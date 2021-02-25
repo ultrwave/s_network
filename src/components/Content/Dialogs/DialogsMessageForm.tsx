@@ -1,4 +1,4 @@
-import React, {createRef, RefObject} from 'react';
+import React from 'react';
 import Style from './Dialogs.module.css';
 import {Field, InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
 
@@ -6,7 +6,7 @@ export type DialogsMessagePropsType = {
     handleSubmit: SubmitHandler
 }
 
-type FormDataType = { // obsolete
+type FormDataType = {
     message: string
     sendAsFriend: boolean
 }

@@ -1,13 +1,12 @@
-import React, {ChangeEvent, createRef, RefObject} from 'react';
+import React from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {PostsDataType, UserProfileType} from '../../../../types/types';
+import {MyPostsReduxForm} from './MyPostsForm';
 
 type MyPostsType = {
     postsData: Array<PostsDataType>
-    updateNewPostText: (text: string) => void
-    newPostText: string
-    addPost: () => void
+    addPost: (message: string) => void
     profile: UserProfileType
 }
 
@@ -18,35 +17,16 @@ export function MyPosts(props: MyPostsType) {
                                                  likesCount={p.likesCount}
                                                  avatar={props.profile.photos.large}/>)
 
-    const newPostRef = createRef<HTMLTextAreaElement>()
 
-    const addPost = (ref: RefObject<HTMLTextAreaElement>) => {
-        let text = ref.current?.value
-        if (text && text.trim()) {
-            props.addPost()
-            if (ref.current && ref.current.value) {
-                ref.current.focus()
-            }
-        }
-    }
-
-    const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.target.value)
+    const addPost = (values: { message: string }) => {
+        props.addPost(values.message)
     }
 
     return (
         <div>
             <span className={Style.postButton}>My Posts</span>
             <div className={Style.addPostSection}>
-                <textarea ref={newPostRef}
-                          className={Style.text}
-                          value={props.newPostText}
-                          onChange={inputHandler}
-                />
-                <button className={Style.postButton} onClick={() => {
-                    addPost(newPostRef)
-                }}>Send new post
-                </button>
+                <MyPostsReduxForm onSubmit={addPost}/>
             </div>
             <div className={Style.posts}>
                 {posts}
@@ -54,3 +34,4 @@ export function MyPosts(props: MyPostsType) {
         </div>
     )
 }
+
