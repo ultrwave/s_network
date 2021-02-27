@@ -25,9 +25,7 @@ export function MyPosts(props: MyPostsType) {
     return (
         <div>
             <span className={Style.postButton}>My Posts</span>
-            <div className={Style.addPostSection}>
-                <MyPostsReduxForm onSubmit={addPost}/>
-            </div>
+            <MyPostsReduxForm onSubmit={addPost}/>
             <div className={Style.posts}>
                 {posts}
             </div>

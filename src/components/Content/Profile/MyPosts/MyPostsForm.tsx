@@ -10,8 +10,9 @@ type FormDataType = {
     message: string
 }
 
-export const MyPostsForm = (props: InjectedFormProps<FormDataType & MyPostsMessagePropsType>) => {
-    return (
+export const MyPostsForm = (props: InjectedFormProps<FormDataType & MyPostsMessagePropsType>) => (
+
+    <div className={Style.addPostSection}>
         <form onSubmit={props.handleSubmit}>
             <Field placeholder={''}
                    name={'message'}
@@ -22,8 +23,9 @@ export const MyPostsForm = (props: InjectedFormProps<FormDataType & MyPostsMessa
                 Send new post
             </button>
         </form>
-    )
-}
+    </div>
+)
+
 
 export const MyPostsReduxForm = reduxForm<FormDataType & MyPostsMessagePropsType>({
     form: 'myPostsMessage',
