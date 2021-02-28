@@ -1,7 +1,6 @@
 import {ActionTypes, AppDispatchType, UserType} from '../types/types';
 import {appAPI} from '../api/api';
 
-
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
