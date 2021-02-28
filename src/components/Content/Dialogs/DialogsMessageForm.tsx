@@ -1,6 +1,8 @@
 import React from 'react';
 import Style from './Dialogs.module.css';
 import {Field, InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
+import {Textarea} from '../../common/FormsControls/FormsControls';
+import {required, setMaxLength} from '../../../utils/validators/validators';
 
 export type DialogsMessagePropsType = {
     handleSubmit: SubmitHandler
@@ -11,6 +13,8 @@ type FormDataType = {
     sendAsFriend: boolean
 }
 
+const maxLength = setMaxLength(5)
+
 export const DialogsMessageForm = (props: InjectedFormProps<FormDataType & DialogsMessagePropsType>) => {
 
     return (
@@ -18,8 +22,9 @@ export const DialogsMessageForm = (props: InjectedFormProps<FormDataType & Dialo
 
             <form onSubmit={props.handleSubmit}>
                 <Field placeholder={''}
+                       component={Textarea}
+                       validate={[required, maxLength]}
                        name={'message'}
-                       component={'textarea'}
                        className={Style.text}
                        autoFocus={true}
                 />
