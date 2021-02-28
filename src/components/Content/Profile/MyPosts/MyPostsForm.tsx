@@ -2,7 +2,7 @@ import {Field, InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
 import Style from './MyPosts.module.css';
 import React from 'react';
 import {required, setMaxLength} from '../../../../utils/validators/validators';
-import {Textarea} from '../../../common/FormsControls/FormsControls';
+import {TextInputForm} from '../../../common/FormsControls/FormsControls';
 
 export type MyPostsMessagePropsType = {
     handleSubmit: SubmitHandler
@@ -20,7 +20,8 @@ export const MyPostsForm = (props: InjectedFormProps<FormDataType & MyPostsMessa
         <form onSubmit={props.handleSubmit}>
             <Field placeholder={'What\'s new?'}
                    name={'message'}
-                   component={Textarea}
+                   component={TextInputForm}
+                   formType={'textarea'}
                    className={Style.text}
                    validate={[required, maxLength]}
 

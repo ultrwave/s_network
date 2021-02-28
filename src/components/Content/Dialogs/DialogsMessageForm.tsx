@@ -1,7 +1,7 @@
 import React from 'react';
 import Style from './Dialogs.module.css';
 import {Field, InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
-import {Textarea} from '../../common/FormsControls/FormsControls';
+import {TextInputForm} from '../../common/FormsControls/FormsControls';
 import {required, setMaxLength} from '../../../utils/validators/validators';
 
 export type DialogsMessagePropsType = {
@@ -22,7 +22,8 @@ export const DialogsMessageForm = (props: InjectedFormProps<FormDataType & Dialo
 
             <form onSubmit={props.handleSubmit}>
                 <Field placeholder={''}
-                       component={Textarea}
+                       component={TextInputForm}
+                       formType={'textarea'}
                        validate={[required, maxLength]}
                        name={'message'}
                        className={Style.text}
