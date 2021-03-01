@@ -63,7 +63,7 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
 
             let newPost: PostsDataType = {
                 id: v1(),
-                message: action.message.trim()? action.message : 'Test message',
+                message: (action.message && action.message.trim())? action.message : 'Test message',
                 likesCount: Math.round(Math.random()*1000)
             }
             let newState = {...state}

@@ -6,6 +6,7 @@ import siteLogoPlaceholder from '../../assets/images/siteLogoPlaceholder_0.svg'
 type HeaderPropsType = {
     login: string | null
     isAuth: boolean
+    logout(): void
 }
 
 export function Header(props: HeaderPropsType) {
@@ -13,8 +14,9 @@ export function Header(props: HeaderPropsType) {
         <header className={Style.header}>
             <img src={siteLogoPlaceholder} alt="logo"/>
             <div className={Style.loginBlock}>
-                {props.isAuth ? props.login :
-                    <NavLink to='/login'>Login</NavLink>
+                {props.isAuth
+                    ? <div>{props.login} - <button onClick={props.logout}>Logout</button></div>
+                    : <NavLink to='/login'>Login</NavLink>
                 }
             </div>
         </header>

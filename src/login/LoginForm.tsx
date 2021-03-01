@@ -4,9 +4,9 @@ import {TextInputForm} from '../components/common/FormsControls/FormsControls';
 import {required} from '../utils/validators/validators';
 
 type loginFormPropsType = {
-    login: string
+    email: string
     password: string
-    rememberMe: string
+    rememberMe?: boolean
     handleSubmit: SubmitHandler
 }
 
@@ -15,8 +15,8 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'Login'}
-                       name={'login'}
+                <Field placeholder={'email'}
+                       name={'email'}
                        component={TextInputForm}
                        validate={[required]}
                 />
@@ -24,6 +24,7 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props
             <div>
                 <Field placeholder={'Password'}
                        name={'password'}
+                       type={'password'}
                        component={TextInputForm}
                        validate={[required]}
                 />

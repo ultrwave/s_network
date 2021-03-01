@@ -1,7 +1,7 @@
 import {Field, InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
 import Style from './MyPosts.module.css';
 import React from 'react';
-import {required, setMaxLength} from '../../../../utils/validators/validators';
+import {setMaxLength} from '../../../../utils/validators/validators';
 import {TextInputForm} from '../../../common/FormsControls/FormsControls';
 
 export type MyPostsMessagePropsType = {
@@ -23,7 +23,7 @@ export const MyPostsForm = (props: InjectedFormProps<FormDataType & MyPostsMessa
                    component={TextInputForm}
                    formType={'textarea'}
                    className={Style.text}
-                   validate={[required, maxLength]}
+                   validate={[maxLength]}
 
             />
             <button className={Style.postButton}>

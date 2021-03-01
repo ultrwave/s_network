@@ -2,7 +2,6 @@ import {ActionTypes, AppDispatchType} from '../types/types';
 import {authAPI} from '../api/api';
 
 const SET_USER_DATA = 'SET-USER-DATA'
-const CLEAR_USER_DATA = 'CLEAR-USER-DATA'
 
 type PageStateType = {
     userId: string | number | null
@@ -28,12 +27,6 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
                 ...action.payload
             }
 
-        case 'CLEAR-USER-DATA':
-            return {
-                ...state,
-                isAuth: false
-            }
-
         default:
             return state
     }
@@ -52,12 +45,6 @@ export const setAuthUserData = (payload: SetAuthType) => (
     {
         type: SET_USER_DATA,
         payload
-    } as const
-)
-
-export const clearAuthUserData = () => (
-    {
-        type: CLEAR_USER_DATA,
     } as const
 )
 

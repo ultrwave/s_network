@@ -26,7 +26,7 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
             let newMessage: MessageDataType = {
                 id: v1(),
                 isMine: action.isMine,
-                message: action.message.trim()? action.message : 'Test message'
+                message: (action.message && action.message.trim())? action.message : 'Test message',
             }
 
             return {
