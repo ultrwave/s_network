@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 import {StateType} from '../types/types';
 
 type LoginPropsType = {
-    loginThunk(email: string, password: string, rememberMe: boolean): void
+    loginThunk(email: string, password: string, rememberMe: boolean, captcha?: string): void
     logoutThunk(): void
     isAuth: boolean
 }
@@ -15,12 +15,12 @@ type FormDataType = {
     email: string
     password: string
     rememberMe?: boolean
+    captcha?: string
 }
 
  function Login (props: LoginPropsType) {
-     console.log(props)
     const onSubmit = (formData: FormDataType) => { // todo - fix any
-        props.loginThunk(formData.email, formData.password, !!formData.rememberMe)
+        props.loginThunk(formData.email, formData.password, !!formData.rememberMe, formData.captcha)
     }
 
     if (props.isAuth) {
@@ -36,7 +36,8 @@ type FormDataType = {
 }
 
 const mapStateToProps = (state: StateType) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captcha: state.auth.captcha
 })
 
 export default connect(mapStateToProps, {

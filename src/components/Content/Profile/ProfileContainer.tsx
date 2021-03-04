@@ -17,6 +17,8 @@ export type MDTPType = {
 export type MSTPType = {
     profile: UserProfileType | null
     status: string
+    authorizedUserId: string | null
+    isAuth: boolean
 }
 
 export type MSTPIsAuthType = {
@@ -34,7 +36,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2';
+            userId = '2'
         }
         this.props.getProfileThunk(userId)
         this.props.getUserStatus(userId)
@@ -50,20 +52,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
                          status={this.props.status}
                          updateUserStatus={this.props.updateUserStatus}
                 />
-                {this.showMeButton && < span style={{
-                    width : '25px',
-                    height : '25px',
-                    position : 'absolute',
-                    top : '225px',
-                    margin : '0 10px',
-                    padding : '5px',
-                    color: 'wheat',
-                    fontWeight: 'bold',
-                    backgroundColor : 'red',
-                    border : '2px solid wheat',
-                    borderRadius : '0 40px 40px 40px',
-                    cursor : 'pointer'
-                }}
+                {this.showMeButton && < span
+                    className={Style.showMeButton}
                     onClick={() => {
                         this.props.getProfileThunk('13836')
                         this.props.getUserStatus('13836')
@@ -77,7 +67,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
 const mapStateToProps = (state: StateType): MSTPType => ({
     profile: state.pageProfile.profile,
-    status: state.pageProfile.status
+    status: state.pageProfile.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(

@@ -7,7 +7,7 @@ import {
 } from '../redux/users-reducer';
 import {addPost, setUserProfile, setUserStatus} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
-import {setAuthUserData} from '../redux/auth-reducer';
+import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
 
 export type RootReducerType = typeof rootReducer
@@ -119,6 +119,7 @@ export type UsersActionType =
 
 export type AuthActionType =
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof showCaptcha>
 
 export type ActionTypes =
     | PageProfileActionType

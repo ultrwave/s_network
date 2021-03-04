@@ -13,7 +13,8 @@ export const TextInputForm = ({input, meta, formType, ...props}: any) => {
     return (
         <div className={Style.formControl + ' ' + (hasError && Style.error)}>
             <div>
-                {formType === 'textarea' ? <textarea {...input} {...props}/>
+                {formType === 'textarea'
+                    ? <textarea {...input} {...props}/>
                     : <input {...input} {...props}/>
                 }
             </div>

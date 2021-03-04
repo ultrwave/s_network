@@ -7,6 +7,7 @@ type loginFormPropsType = {
     email: string
     password: string
     rememberMe?: boolean
+    captcha: string
     handleSubmit: SubmitHandler
 }
 
@@ -29,6 +30,16 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props
                        validate={[required]}
                 />
             </div>
+            { props.error && <div style={{color: 'red',fontWeight: 'bold'}}>
+                { props.error }
+            </div>}
+            {/*{props.initialValues.captcha && <div>*/}
+            {/*    <Field placeholder={'CAPTCHA'}*/}
+            {/*           name={'captcha'}*/}
+            {/*           component={TextInputForm}*/}
+            {/*           validate={[required]}*/}
+            {/*    />*/}
+            {/*</div>}*/}
             <div>
                 <Field type={'checkbox'}
                        name={'rememberMe'}
@@ -43,5 +54,7 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props
 }
 
 export const LoginReduxForm = reduxForm<loginFormPropsType>({
-    form: 'login'
-})(LoginForm)
+        form: 'login',
+        // initialValues: {captcha: props.captchaMSTP}
+    }
+)(LoginForm)

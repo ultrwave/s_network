@@ -1,23 +1,27 @@
 import {ActionTypes, AppDispatchType} from '../types/types';
 import {authAPI} from '../api/api';
+import {stopSubmit} from 'redux-form';
 
-const SET_USER_DATA = 'SET-USER-DATA'
+const SET_USER_DATA = 'SET-USER-DATA' // todo - зачем эти переменные?
+const SHOW_CAPTCHA = 'SHOW-CAPTCHA'
 
-type PageStateType = {
-    userId: string | number | null
+type AuthStateType = {
+    userId: string | null
     email: string | null
     login: string | null
     isAuth: boolean
+    captcha?: string
 }
 
-const initialState: PageStateType = {
+const initialState: AuthStateType = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    captcha: undefined
 }
 
-const authReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
+const authReducer = (state: AuthStateType = initialState, action: ActionTypes): AuthStateType => {
 
     switch (action.type) {
 
@@ -27,19 +31,18 @@ const authReducer = (state: PageStateType = initialState, action: ActionTypes): 
                 ...action.payload
             }
 
+        case 'SHOW-CAPTCHA':
+            return {
+                ...state,
+                captcha: action.captchaURL
+            }
+
         default:
             return state
     }
 }
 
-export type SetAuthType = {
-    userId: number | string | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}
-
-export const setAuthUserData = (payload: SetAuthType) => (
+export const setAuthUserData = (payload: AuthStateType) => (
 // export const setAuthUserData = ({userId, email, login, isAuth}:SetAuthType) => (
 // todo - {} как деструктурировать без обертывания в объект?
     {
@@ -48,6 +51,12 @@ export const setAuthUserData = (payload: SetAuthType) => (
     } as const
 )
 
+export const showCaptcha = (captchaURL: string) => (
+    {
+        type: SHOW_CAPTCHA,
+        captchaURL
+    } as const
+)
 
 // Thunks
 
@@ -60,11 +69,19 @@ export const setAuthThunk = () => (dispatch: AppDispatchType) => {
     })
 }
 
-export const loginThunk = (email: string, password: string, rememberMe: boolean) =>
+export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string) =>
     (dispatch: AppDispatchType) => {
         authAPI.login({email, password, rememberMe}).then(data => {
             if (data.resultCode === 0) {
                 dispatch(setAuthThunk() as any) // todo - as any?
+            // } else if (data.resultCode === 10) { // todo - enum?
+            //     dispatch(getCaptchaThunk() as any)
+            } else {
+                let message = data.messages.length > 0
+                    ? data.messages[0]
+                    : 'unknown error'
+                let action = stopSubmit('login', {_error: message})
+                dispatch(action)
             }
         })
     }
@@ -77,5 +94,12 @@ export const logoutThunk = () =>
             }
         })
     }
+
+
+export const getCaptchaThunk = () => (dispatch: AppDispatchType) => {
+    authAPI.getCaptcha().then(captchaURL => {
+        dispatch(showCaptcha(captchaURL))
+    })
+}
 
 export default authReducer
