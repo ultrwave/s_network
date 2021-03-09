@@ -98,7 +98,7 @@ export type UserProfileType = {
     }
 }
 
-export type AppDispatchType = typeof store.dispatch // ReturnType?
+export type AppDispatchType = typeof store.dispatch // ReturnType? todo - норм типизация?
 
 export type PageProfileActionType =
     | ReturnType<typeof addPost>

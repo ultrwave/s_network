@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, withRouter} from 'react-router-dom';
 import './App.css';
 import {Navbar} from './components/Navbar/Navbar';
 import {News} from './components/Content/News/News';
@@ -10,9 +10,19 @@ import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './login/Login';
+import {connect} from 'react-redux';
+import {setAuthThunk} from './redux/auth-reducer';
+import {compose} from 'redux';
 
-class App extends React.Component {
+type AppPropsType = {
+    setAuth(): void
+}
 
+class App extends React.Component<AppPropsType> {
+
+    componentDidMount() {
+        this.props.setAuth()
+    }
 
     render() {
         return (
@@ -35,4 +45,7 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default compose(
+    withRouter,
+    connect(null, {setAuth: setAuthThunk})(App)
+);
