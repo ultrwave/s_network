@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store'
 import {Provider} from 'react-redux';
 import {StateType} from './types/types';
+import {BrowserRouter} from 'react-router-dom';
 
 export const globalRender = (state: StateType) => {
     ReactDOM.render(
         // <React.StrictMode>
+        <BrowserRouter>
             <Provider store={store}>
                 <App/>
             </Provider>
+        </BrowserRouter>
         // </React.StrictMode>
         ,
         document.getElementById('root')

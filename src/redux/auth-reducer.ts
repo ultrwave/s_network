@@ -43,8 +43,6 @@ const authReducer = (state: AuthStateType = initialState, action: ActionTypes): 
 }
 
 export const setAuthUserData = (payload: AuthStateType) => (
-// export const setAuthUserData = ({userId, email, login, isAuth}:SetAuthType) => (
-// todo - {} как деструктурировать без обертывания в объект?
     {
         type: SET_USER_DATA,
         payload

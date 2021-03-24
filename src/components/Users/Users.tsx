@@ -31,9 +31,7 @@ export function Users(props: UsersPropsType) {
                 {pages.map(p => {
                     return (
                         <span key={p}
-                              onClick={() => {
-                                  props.onPageChange(p)
-                              }}
+                              onClick={() => {props.onPageChange(p)}}
                               className={props.currentPage === p ? Style.selectedPage : ''}>
                             {p}
                         </span>
@@ -41,7 +39,7 @@ export function Users(props: UsersPropsType) {
                 })}
             </div>
             {props.users.map(
-                u =>
+                u => // todo - user component
                     <div key={u.id} className={Style.user}>
                         <NavLink to={'/profile/' + u.id}>
                             <div className={Style.avatar}>
