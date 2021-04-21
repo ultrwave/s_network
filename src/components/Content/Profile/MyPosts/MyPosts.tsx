@@ -12,10 +12,12 @@ type MyPostsType = {
 
 export function MyPosts(props: MyPostsType) {
 
-    const posts = props.postsData.map(p => <Post key={p.id}
-                                                 message={p.message}
-                                                 likesCount={p.likesCount}
-                                                 avatar={props.profile.photos.large}/>)
+    const posts = props.postsData.map(p =>
+        <Post key={p.id}
+              message={p.message}
+              likesCount={p.likesCount}
+              avatar={props.profile.photos.large}
+        />)
 
 
     const addPost = (values: { message: string }) => {

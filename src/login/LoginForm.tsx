@@ -33,13 +33,6 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props
             { props.error && <div style={{color: 'red',fontWeight: 'bold'}}>
                 { props.error }
             </div>}
-            {/*{props.initialValues.captcha && <div>*/}
-            {/*    <Field placeholder={'CAPTCHA'}*/}
-            {/*           name={'captcha'}*/}
-            {/*           component={TextInputForm}*/}
-            {/*           validate={[required]}*/}
-            {/*    />*/}
-            {/*</div>}*/}
             <div>
                 <Field type={'checkbox'}
                        name={'rememberMe'}

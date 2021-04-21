@@ -19,7 +19,7 @@ type FormDataType = {
 }
 
  function Login (props: LoginPropsType) {
-    const onSubmit = (formData: FormDataType) => { // todo - fix any
+    const onSubmit = (formData: FormDataType) => {
         props.loginThunk(formData.email, formData.password, !!formData.rememberMe, formData.captcha)
     }
 
