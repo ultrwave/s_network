@@ -11,6 +11,7 @@ import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
+import {setInitialized} from '../redux/app-reducer';
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
@@ -128,11 +129,15 @@ export type AuthActionType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof showCaptcha>
 
+export type AppActionType =
+    | ReturnType<typeof setInitialized>
+
 export type ActionTypes =
     | PageProfileActionType
     | PageDialogsActionType
     | UsersActionType
     | AuthActionType
+    | AppActionType
 
 
 
