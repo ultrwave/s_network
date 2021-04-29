@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionTypes, AppDispatchType, PostsDataType, UserProfileType} from '../types/types';
+import {ActionTypes, AppDispatchType, AppThunk, PostsDataType, UserProfileType} from '../types/types';
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 import {profileAPI} from '../api/api';
 
@@ -98,21 +98,21 @@ export const setUserStatus = (status: string) => {
 
 // Thunks
 
-export const getProfileThunk = (userId: string) => (dispatch: AppDispatchType) => {
+export const getProfileThunk = (userId: string): AppThunk => (dispatch) => {
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
         })
 }
 
-export const getStatusThunk = (userId: string) => (dispatch: AppDispatchType) => {
+export const getStatusThunk = (userId: string): AppThunk => (dispatch) => {
     profileAPI.getStatus(userId)
         .then(response => {
             dispatch(setUserStatus(response.data))
         })
 }
 
-export const updateStatusThunk = (status: string) => (dispatch: AppDispatchType) => {
+export const updateStatusThunk = (status: string): AppThunk => (dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
             if (response.data.resultCode === 0) {

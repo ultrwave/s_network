@@ -9,9 +9,16 @@ import {addPost, setUserProfile, setUserStatus} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
 import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
+import {ThunkAction} from 'redux-thunk';
+import {Action} from 'redux';
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
+    StateType,
+    unknown,
+    Action<string>>
 
 // export type StoreType = {
 //     _state: StateType

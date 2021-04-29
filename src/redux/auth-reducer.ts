@@ -1,8 +1,9 @@
-import {ActionTypes, AppDispatchType} from '../types/types';
+import {ActionTypes, AppThunk} from '../types/types';
 import {authAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
-const SET_USER_DATA = 'SET-USER-DATA' // todo - зачем эти переменные?
+
+const SET_USER_DATA = 'SET-USER-DATA'
 const SHOW_CAPTCHA = 'SHOW-CAPTCHA'
 
 type AuthStateType = {
@@ -58,7 +59,7 @@ export const showCaptcha = (captchaURL: string) => (
 
 // Thunks
 
-export const setAuthThunk = () => (dispatch: AppDispatchType) => {
+export const setAuthThunk = (): AppThunk => (dispatch) => {
     authAPI.me().then(data => {
         if (data.resultCode === 0) {
             let {id, email, login} = data.data;
@@ -67,8 +68,8 @@ export const setAuthThunk = () => (dispatch: AppDispatchType) => {
     })
 }
 
-export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string) =>
-    (dispatch: AppDispatchType) => {
+export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunk =>
+    (dispatch) => {
         authAPI.login({email, password, rememberMe}).then(data => {
             if (data.resultCode === 0) {
                 dispatch(setAuthThunk() as any) // todo - as any?
@@ -84,8 +85,8 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean,
         })
     }
 
-export const logoutThunk = () =>
-    (dispatch: AppDispatchType) => {
+export const logoutThunk = (): AppThunk =>
+    (dispatch) => {
         authAPI.logout().then(data => {
             if (data.resultCode === 0) {
                 dispatch(setAuthUserData({userId: null, email: null, login: null, isAuth: false}))
@@ -94,7 +95,7 @@ export const logoutThunk = () =>
     }
 
 
-export const getCaptchaThunk = () => (dispatch: AppDispatchType) => {
+export const getCaptchaThunk = (): AppThunk => (dispatch) => {
     authAPI.getCaptcha().then(captchaURL => {
         dispatch(showCaptcha(captchaURL))
     })
