@@ -18,7 +18,7 @@ const appReducer = (state: AuthStateType = initialState, action: ActionTypes): A
         case SET_INITIALIZED:
             return {
                 ...state,
-                ...action.payload
+                initialized: true
             }
 
         default:
@@ -26,10 +26,9 @@ const appReducer = (state: AuthStateType = initialState, action: ActionTypes): A
     }
 }
 
-export const setInitialized = (payload: AuthStateType) => (
+export const setInitialized = () => (
     {
         type: SET_INITIALIZED,
-        payload
     } as const
 )
 

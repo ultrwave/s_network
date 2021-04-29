@@ -1,9 +1,9 @@
-import {ActionTypes, AppDispatchType, UserType} from '../types/types';
+import {ActionTypes, AppThunk, UserType} from '../types/types';
 import {appAPI} from '../api/api';
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_FETCHING = 'TOGGLE-FETCHING'
 const TOGGLE_REQUEST_IS_IN_PROGRESS = 'TOGGLE-REQUEST-IS-IN-PROGRESS'
@@ -31,13 +31,13 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
 
     switch (action.type) {
 
-        case 'SET-USERS':
+        case SET_USERS:
             return {...state, users: [...action.users]}
 
-        case 'TOGGLE-FETCHING' :
+        case TOGGLE_FETCHING :
             return {...state, isFetching: action.isFetching}
 
-        case 'TOGGLE-REQUEST-IS-IN-PROGRESS':
+        case TOGGLE_REQUEST_IS_IN_PROGRESS:
 
             if (action.toggle) {
                 return {
@@ -53,7 +53,7 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
             }
 
 
-        case 'TOGGLE-FOLLOW':
+        case TOGGLE_FOLLOW:
             return {
                 ...state,
                 users: state.users.map(
@@ -61,13 +61,13 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
                 )
             }
 
-        case 'SET_CURRENT_PAGE':
+        case SET_CURRENT_PAGE:
             return {
                 ...state,
                 currentPage: action.currentPage
             }
 
-        case 'SET-TOTAL-USERS-COUNT':
+        case SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
@@ -123,7 +123,7 @@ export const setTotalUsersCount = (totalUsersCount: number) => (
 
 // Thunks
 
-export const toggleFollowThunkCreator = (user: UserType) => (dispatch: AppDispatchType) => {
+export const toggleFollowThunkCreator = (user: UserType): AppThunk => (dispatch) => {
 
     dispatch(toggleRequestIsInProgress(user.id, true))
 
@@ -133,7 +133,7 @@ export const toggleFollowThunkCreator = (user: UserType) => (dispatch: AppDispat
     })
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: AppDispatchType) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => (dispatch) => {
 
     dispatch(toggleFetching(true))
 

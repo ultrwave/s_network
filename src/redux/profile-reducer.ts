@@ -49,17 +49,17 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
 
     switch (action.type) {
 
-        case 'SET-USER-PROFILE' :
+        case SET_USER_PROFILE :
             const newProfile = {...action.profile}
             if (!newProfile.photos.large) {
                 newProfile.photos.large = profileAvatarPlaceholder
             }
             return {...state, profile: newProfile}
 
-        case 'SET-USER-STATUS' :
+        case SET_USER_STATUS :
             return {...state, status: action.status}
 
-        case 'ADD-POST':
+        case ADD_POST:
 
             let newPost: PostsDataType = {
                 id: v1(),

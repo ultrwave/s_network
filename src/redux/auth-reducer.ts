@@ -26,13 +26,13 @@ const authReducer = (state: AuthStateType = initialState, action: ActionTypes): 
 
     switch (action.type) {
 
-        case 'SET-USER-DATA':
+        case SET_USER_DATA:
             return {
                 ...state,
                 ...action.payload
             }
 
-        case 'SHOW-CAPTCHA':
+        case SHOW_CAPTCHA:
             return {
                 ...state,
                 captcha: action.captchaURL
@@ -72,7 +72,7 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean,
     (dispatch) => {
         authAPI.login({email, password, rememberMe}).then(data => {
             if (data.resultCode === 0) {
-                dispatch(setAuthThunk() as any) // todo - as any?
+                dispatch(setAuthThunk())
             // } else if (data.resultCode === 10) { // todo - enum?
             //     dispatch(getCaptchaThunk() as any)
             } else {
