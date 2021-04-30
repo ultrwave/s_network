@@ -1,17 +1,18 @@
-import {ActionTypes} from '../types/types';
+import {ActionTypes, AppThunk} from '../types/types';
+import {setAuthThunk} from './auth-reducer';
 
 
 const SET_INITIALIZED = 'SET-INITIALIZED'
 
-type AuthStateType = {
+type AppStateType = {
     initialized: boolean
 }
 
-const initialState: AuthStateType = {
+const initialState: AppStateType = {
     initialized: false
 }
 
-const appReducer = (state: AuthStateType = initialState, action: ActionTypes): AuthStateType => {
+const appReducer = (state: AppStateType = initialState, action: ActionTypes): AppStateType => {
 
     switch (action.type) {
 
@@ -35,5 +36,13 @@ export const setInitialized = () => (
 
 // Thunks
 
+export const initializeApp = (): AppThunk => (dispatch) => {
+    let promise = dispatch(setAuthThunk())
+    Promise.all([promise])
+        .then(() => {
+            dispatch(setInitialized())
+        })
+
+}
 
 export default appReducer

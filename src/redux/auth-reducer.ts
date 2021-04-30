@@ -60,7 +60,7 @@ export const showCaptcha = (captchaURL: string) => (
 // Thunks
 
 export const setAuthThunk = (): AppThunk => (dispatch) => {
-    authAPI.me().then(data => {
+    return authAPI.me().then(data => {
         if (data.resultCode === 0) {
             let {id, email, login} = data.data;
             dispatch(setAuthUserData({userId: id, email, login, isAuth: true}))
@@ -73,8 +73,8 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean,
         authAPI.login({email, password, rememberMe}).then(data => {
             if (data.resultCode === 0) {
                 dispatch(setAuthThunk())
-            // } else if (data.resultCode === 10) { // todo - enum?
-            //     dispatch(getCaptchaThunk() as any)
+                // } else if (data.resultCode === 10) { // todo - enum?
+                //     dispatch(getCaptchaThunk() as any)
             } else {
                 let message = data.messages.length > 0
                     ? data.messages[0]

@@ -16,7 +16,7 @@ import {setInitialized} from '../redux/app-reducer';
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
+export type AppThunk<ReturnType = any> = ThunkAction<ReturnType, // todo fix any (изначально там void)
     StateType,
     unknown,
     Action<string>>
