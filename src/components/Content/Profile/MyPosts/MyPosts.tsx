@@ -19,7 +19,6 @@ export function MyPosts(props: MyPostsType) {
               avatar={props.profile.photos.large}
         />)
 
-
     const addPost = (values: { message: string }) => {
         props.addPost(values.message)
     }

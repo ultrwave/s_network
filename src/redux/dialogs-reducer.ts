@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 import {ActionTypes, DialogItemType, DialogsDataType, MessageDataType} from '../types/types';
-import {dialogItems, dialogsData} from './store';
+import {dialogItems, dialogsData} from './app-store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const SET_DIALOG_ID = 'SET-DIALOG-ID'
