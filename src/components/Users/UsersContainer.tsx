@@ -10,6 +10,14 @@ import {StateType, UserType} from '../../types/types';
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
+import {
+    getCurrentPage,
+    getFollowRequestsInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from '../../redux/users-selectors';
 
 
 type UsersAPIPropsType = {
@@ -57,14 +65,25 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
     }
 }
 
+// const mapStateToProps = (state: StateType) => {
+//     return {
+//         users: state.pageUsers.users,
+//         pageSize: state.pageUsers.pageSize,
+//         totalUsersCount: state.pageUsers.totalUsersCount,
+//         currentPage: state.pageUsers.currentPage,
+//         isFetching: state.pageUsers.isFetching,
+//         followRequestsInProgress: state.pageUsers.followRequestsInProgress
+//     }
+// }
+
 const mapStateToProps = (state: StateType) => {
     return {
-        users: state.pageUsers.users,
-        pageSize: state.pageUsers.pageSize,
-        totalUsersCount: state.pageUsers.totalUsersCount,
-        currentPage: state.pageUsers.currentPage,
-        isFetching: state.pageUsers.isFetching,
-        followRequestsInProgress: state.pageUsers.followRequestsInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followRequestsInProgress: getFollowRequestsInProgress(state)
     }
 }
 
