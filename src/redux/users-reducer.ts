@@ -133,12 +133,12 @@ export const toggleFollowThunkCreator = (user: UserType): AppThunk => (dispatch)
     })
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => (dispatch) => {
+export const getUsersThunkCreator = (page: number, pageSize: number): AppThunk => (dispatch) => {
 
     dispatch(toggleFetching(true))
-    dispatch(setCurrentPage(currentPage))
+    dispatch(setCurrentPage(page))
 
-    appAPI.getUsers(currentPage, pageSize).then(data => {
+    appAPI.getUsers(page, pageSize).then(data => {
 
         dispatch(toggleFetching(false))
         dispatch(setUsers(data.items))
