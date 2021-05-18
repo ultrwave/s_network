@@ -5,6 +5,7 @@ import {UserProfileType} from '../../../../types/types';
 import avatarPlaceholder from '../../../../assets/images/profile_avatar_placeholder.jpg'
 import profileWallpaper from '../../../../assets/images/wallpaper_01.jpg'
 import {ProfileStatus} from './ProfileStatus';
+import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 
 
 type ProfileInfoProps = {
@@ -39,7 +40,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
                 <div className={Style.profileInfo}>
                     <div className={Style.fullName}>{props.profile.fullName}</div>
-                    <ProfileStatus
+                    <ProfileStatusWithHooks
                         status={props.status}
                         updateUserStatus={props.updateUserStatus}
                     />

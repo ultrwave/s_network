@@ -1,6 +1,7 @@
 import {StateType} from '../types/types';
+import {createSelector} from 'reselect'
 
-export const getUsers = (state: StateType) => {
+const getUsersSelector = (state: StateType) => {
     return state.pageUsers.users
 }
 
@@ -24,3 +25,8 @@ export const getFollowRequestsInProgress = (state: StateType) => {
     return state.pageUsers.followRequestsInProgress
 }
 
+// Reselect
+
+export const getUsers = createSelector(getUsersSelector, (users) => {
+    return users.filter(u => true)
+})
