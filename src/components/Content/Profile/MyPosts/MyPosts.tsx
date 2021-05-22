@@ -10,27 +10,34 @@ type MyPostsType = {
     profile: UserProfileType
 }
 
-export function MyPosts(props: MyPostsType) {
+export class MyPosts extends React.Component<MyPostsType> {
 
-    const posts = props.postsData.map(p =>
-        <Post key={p.id}
-              message={p.message}
-              likesCount={p.likesCount}
-              avatar={props.profile.photos.large}
-        />)
-
-    const addPost = (values: { message: string }) => {
-        props.addPost(values.message)
+    shouldComponentUpdate(nextProps: Readonly<MyPostsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+        return false;
     }
 
-    return (
-        <div>
-            <span className={Style.postButton}>My Posts</span>
-            <MyPostsReduxForm onSubmit={addPost}/>
-            <div className={Style.posts}>
-                {posts}
+    render() {
+
+        const posts = this.props.postsData.map(p =>
+            <Post key={p.id}
+                  message={p.message}
+                  likesCount={p.likesCount}
+                  avatar={this.props.profile.photos.large}
+            />)
+
+        const addPost = (values: { message: string }) => {
+            this.props.addPost(values.message)
+        }
+
+        return (
+            <div>
+                <span className={Style.postButton}>My Posts</span>
+                <MyPostsReduxForm onSubmit={addPost}/>
+                <div className={Style.posts}>
+                    {posts}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
