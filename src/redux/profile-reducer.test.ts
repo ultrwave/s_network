@@ -1,4 +1,4 @@
-import profileReducer, {addPost, defaultUser} from './profile-reducer';
+import profileReducer, {addPost, defaultUser, deletePost} from './profile-reducer';
 import {v1} from 'uuid';
 
 let state = {
@@ -31,4 +31,15 @@ test('last post text must be correct', () => {
 
     // 3. expectation
     expect(newState.postsData[0].message).toBe('TEST ### ADDING NEW POST ### TEST')
+});
+
+test('after deleting length of messages should be decremented', () => {
+    // 1. test data
+    let action = deletePost(state.postsData[0].id)
+
+    //2. action
+    let newState = profileReducer(state, action)
+
+    // 3. expectation
+    expect(newState.postsData.length).toBe(2)
 });

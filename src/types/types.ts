@@ -5,7 +5,7 @@ import {
     toggleFetching,
     toggleFollow, toggleRequestIsInProgress
 } from '../redux/users-reducer';
-import {addPost, setUserProfile, setUserStatus} from '../redux/profile-reducer';
+import {addPost, deletePost, setUserProfile, setUserStatus} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
 import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
@@ -110,6 +110,7 @@ export type AppDispatchType = typeof store.dispatch // ReturnType? todo - нор
 
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
+    | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
 

@@ -4,6 +4,7 @@ import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholde
 import {profileAPI} from '../api/api';
 
 const ADD_POST = 'ADD-POST'
+const DELETE_POST = 'DELETE-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_USER_STATUS = 'SET-USER-STATUS'
 
@@ -70,6 +71,13 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             newState.postsData = [newPost, ...state.postsData]
             return newState
 
+        case DELETE_POST:
+
+            return {
+                ...state,
+                postsData: state.postsData.filter(p => p.id !== action.id)
+            }
+
         default:
             return state
     }
@@ -79,6 +87,13 @@ export const addPost = (message: string) => {
     return {
         type: ADD_POST,
         message
+    } as const
+}
+
+export const deletePost = (id: string) => {
+    return {
+        type: DELETE_POST,
+        id
     } as const
 }
 
