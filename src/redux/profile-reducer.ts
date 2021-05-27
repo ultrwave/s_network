@@ -13,7 +13,7 @@ type PageStateType = {
     status: string
 }
 
-const defaultUser: UserProfileType = {
+export const defaultUser: UserProfileType = {
     userId: 0,
     fullName: '',
     aboutMe: null,
