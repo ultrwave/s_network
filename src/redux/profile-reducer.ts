@@ -1,12 +1,12 @@
 import {v1} from 'uuid';
-import {ActionTypes, AppDispatchType, AppThunk, PostsDataType, UserProfileType} from '../types/types';
+import {ActionTypes, AppThunk, PostsDataType, UserProfileType} from '../types/types';
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 import {profileAPI} from '../api/api';
 
-const ADD_POST = 'ADD-POST'
-const DELETE_POST = 'DELETE-POST'
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
-const SET_USER_STATUS = 'SET-USER-STATUS'
+const ADD_POST = 'sn01/profile/ADD-POST'
+const DELETE_POST = 'sn01/profile/DELETE-POST'
+const SET_USER_PROFILE = 'sn01/profile/SET-USER-PROFILE'
+const SET_USER_STATUS = 'sn01/profile/SET-USER-STATUS'
 
 type PageStateType = {
     postsData: Array<PostsDataType>
@@ -64,8 +64,8 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
 
             let newPost: PostsDataType = {
                 id: v1(),
-                message: (action.message && action.message.trim())? action.message : 'Test message',
-                likesCount: Math.round(Math.random()*1000)
+                message: (action.message && action.message.trim()) ? action.message : 'Test message',
+                likesCount: Math.round(Math.random() * 1000)
             }
             let newState = {...state}
             newState.postsData = [newPost, ...state.postsData]
@@ -113,27 +113,21 @@ export const setUserStatus = (status: string) => {
 
 // Thunks
 
-export const getProfileThunk = (userId: string): AppThunk => (dispatch) => {
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
+    const response = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(response.data))
 }
 
-export const getStatusThunk = (userId: string): AppThunk => (dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setUserStatus(response.data))
-        })
+export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => {
+    const response = await profileAPI.getStatus(userId);
+    dispatch(setUserStatus(response.data))
 }
 
-export const updateStatusThunk = (status: string): AppThunk => (dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserStatus(status))
-            }
-        })
+export const updateStatusThunk = (status: string): AppThunk => async (dispatch) => {
+    const response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(status))
+    }
 }
 
 export default profileReducer

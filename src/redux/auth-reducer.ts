@@ -3,8 +3,8 @@ import {authAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
 
-const SET_USER_DATA = 'SET-USER-DATA'
-const SHOW_CAPTCHA = 'SHOW-CAPTCHA'
+const SET_USER_DATA = 'sn01/auth/SET-USER-DATA'
+const SHOW_CAPTCHA = 'sn01/auth/SHOW-CAPTCHA'
 
 type AuthStateType = {
     userId: string | null
@@ -59,46 +59,39 @@ export const showCaptcha = (captchaURL: string) => (
 
 // Thunks
 
-export const setAuthThunk = (): AppThunk => (dispatch) => {
-    return authAPI.me().then(data => {
-        if (data.resultCode === 0) {
-            let {id, email, login} = data.data;
-            dispatch(setAuthUserData({userId: id, email, login, isAuth: true}))
-        }
-    })
+export const setAuthThunk = (): AppThunk => async (dispatch) => {
+    const response = await authAPI.me();
+    if (response.resultCode === 0) {
+        let {id, email, login} = response.data;
+        dispatch(setAuthUserData({userId: id, email, login, isAuth: true}))
+    }
 }
 
 export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunk =>
-    (dispatch) => {
-        authAPI.login({email, password, rememberMe}).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthThunk())
-                // } else if (data.resultCode === 10) { // todo - enum?
-                //     dispatch(getCaptchaThunk() as any)
-            } else {
-                let message = data.messages.length > 0
-                    ? data.messages[0]
-                    : 'unknown error'
-                let action = stopSubmit('login', {_error: message})
-                dispatch(action)
-            }
-        })
+    async (dispatch) => {
+        const response = await authAPI.login({email, password, rememberMe});
+        if (response.resultCode === 0) {
+            dispatch(setAuthThunk())
+        } else {
+            let message = response.messages.length > 0
+                ? response.messages[0]
+                : 'unknown error'
+            let action = stopSubmit('login', {_error: message})
+            dispatch(action)
+        }
     }
 
 export const logoutThunk = (): AppThunk =>
-    (dispatch) => {
-        authAPI.logout().then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData({userId: null, email: null, login: null, isAuth: false}))
-            }
-        })
+    async (dispatch) => {
+        const response = await authAPI.logout()
+        if (response.resultCode === 0) {
+            dispatch(setAuthUserData({userId: null, email: null, login: null, isAuth: false}))
+        }
     }
 
-
-export const getCaptchaThunk = (): AppThunk => (dispatch) => {
-    authAPI.getCaptcha().then(captchaURL => {
+export const getCaptchaThunk = (): AppThunk => async (dispatch) => {
+    const captchaURL = await authAPI.getCaptcha()
         dispatch(showCaptcha(captchaURL))
-    })
 }
 
 export default authReducer

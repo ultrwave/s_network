@@ -1,12 +1,12 @@
 import {ActionTypes, AppThunk, UserType} from '../types/types';
 import {appAPI} from '../api/api';
 
-const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-const TOGGLE_FETCHING = 'TOGGLE-FETCHING'
-const TOGGLE_REQUEST_IS_IN_PROGRESS = 'TOGGLE-REQUEST-IS-IN-PROGRESS'
+const TOGGLE_FOLLOW = 'sn01/users/TOGGLE-FOLLOW'
+const SET_USERS = 'sn01/users/SET-USERS'
+const SET_CURRENT_PAGE = 'sn01/users/SET-CURRENT-PAGE'
+const SET_TOTAL_USERS_COUNT = 'sn01/users/SET-TOTAL-USERS-COUNT'
+const TOGGLE_FETCHING = 'sn01/users/TOGGLE-FETCHING'
+const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE-REQUEST-IS-IN-PROGRESS'
 
 type PageStateType = {
     users: Array<UserType>
@@ -51,7 +51,6 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
                         .filter(id => id !== action.userId)
                 }
             }
-
 
         case TOGGLE_FOLLOW:
             return {
@@ -123,27 +122,27 @@ export const setTotalUsersCount = (totalUsersCount: number) => (
 
 // Thunks
 
-export const toggleFollowThunkCreator = (user: UserType): AppThunk => (dispatch) => {
+export const toggleFollowThunkCreator = (user: UserType): AppThunk => async (dispatch) => {
 
-    dispatch(toggleRequestIsInProgress(user.id, true))
+    dispatch(toggleRequestIsInProgress(user.id, true));
 
-    appAPI.toggleFollow(user).then(resultCode => {
-        if (resultCode === 0) dispatch(toggleFollow(user.id))
-        dispatch(toggleRequestIsInProgress(user.id, false))
-    })
+    const resultCode = await appAPI.toggleFollow(user)
+    if (resultCode === 0) dispatch(toggleFollow(user.id))
+    dispatch(toggleRequestIsInProgress(user.id, false))
+
 }
 
-export const getUsersThunkCreator = (page: number, pageSize: number): AppThunk => (dispatch) => {
+export const getUsersThunkCreator = (page: number, pageSize: number): AppThunk => async (dispatch) => {
 
     dispatch(toggleFetching(true))
     dispatch(setCurrentPage(page))
 
-    appAPI.getUsers(page, pageSize).then(data => {
+    const response = await appAPI.getUsers(page, pageSize);
 
-        dispatch(toggleFetching(false))
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
-    })
+    dispatch(toggleFetching(false))
+    dispatch(setUsers(response.items))
+    dispatch(setTotalUsersCount(response.totalCount))
+
 }
 
 export default usersReducer
