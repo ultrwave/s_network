@@ -2,6 +2,7 @@ import React from 'react';
 import Style from './Users.module.css';
 import {UserType} from '../../types/types';
 import User from './User';
+import {Pagination} from '../common/Pagination/Pagination';
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -23,21 +24,13 @@ export function Users(props: UsersPropsType) {
         pages.push(i)
     }
 
-    return (
+    return ( // todo - split props (Pagination / User)
         <div className={Style.users}>
-            <div className={Style.pageButtons}>
-                {pages.map(p => {
-                    return (
-                        <span key={p}
-                              onClick={() => {
-                                  props.onPageChange(p)
-                              }}
-                              className={props.currentPage === p ? Style.selectedPage : ''}>
-                            {p}
-                        </span>
-                    )
-                })}
-            </div>
+            <Pagination currentPage={props.currentPage}
+                        pageSize={props.pageSize}
+                        totalUsersCount={props.totalUsersCount}
+                        onPageChange={props.onPageChange}
+            />
             {props.users.map(
                 u => <User
                     user={u}
