@@ -11,10 +11,10 @@ type loginFormPropsType = {
     handleSubmit: SubmitHandler
 }
 
-export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props) => {
+export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = ({handleSubmit, error}) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'email'}
                        name={'email'}
@@ -30,8 +30,8 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = (props
                        validate={[required]}
                 />
             </div>
-            { props.error && <div style={{color: 'red',fontWeight: 'bold'}}>
-                { props.error }
+            { error && <div style={{color: 'red',fontWeight: 'bold'}}>
+                {error}
             </div>}
             <div>
                 <Field type={'checkbox'}

@@ -1,8 +1,7 @@
 import React from 'react';
 import Style from './Users.module.css';
 import {UserType} from '../../types/types';
-import {NavLink} from 'react-router-dom';
-import userAvatarPlaceholder from '../../assets/images/avatar_type_0_1.png'
+import User from './User';
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -17,7 +16,6 @@ type UsersPropsType = {
 
 export function Users(props: UsersPropsType) {
 
-
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
     const pages = [];
@@ -31,7 +29,9 @@ export function Users(props: UsersPropsType) {
                 {pages.map(p => {
                     return (
                         <span key={p}
-                              onClick={() => {props.onPageChange(p)}}
+                              onClick={() => {
+                                  props.onPageChange(p)
+                              }}
                               className={props.currentPage === p ? Style.selectedPage : ''}>
                             {p}
                         </span>
@@ -39,39 +39,13 @@ export function Users(props: UsersPropsType) {
                 })}
             </div>
             {props.users.map(
-                u => // todo - user component
-                    <div key={u.id} className={Style.user}>
-                        <NavLink to={'/profile/' + u.id}>
-                            <div className={Style.avatar}>
-                                <img
-                                    src={u.photos.small != null ? u.photos.small : userAvatarPlaceholder}
-                                    alt={u.name}
-                                />
-                            </div>
-                        </NavLink>
-                        <div>
-                            <button disabled={props.followRequestsInProgress.includes(u.id)}
-                                    onClick={() => {
-                                        props.toggleFollow(u)
-                                    }}>
-
-
-                                {u.followed ? 'Unfollow' : 'Follow'}
-                            </button>
-                        </div>
-                        <div className={Style.info}>
-                            <div className={Style.name}>{u.name}</div>
-                            <div className={Style.status}>{u.status}</div>
-                            <div className={Style.location}>
-                                <div>{'id: ' + u.id}</div>
-                            </div>
-                        </div>
-
-                    </div>
+                u => <User
+                    user={u}
+                    toggleFollow={props.toggleFollow}
+                    followRequestsInProgress={props.followRequestsInProgress}
+                />
             )}
         </div>
     )
 }
-
-
 

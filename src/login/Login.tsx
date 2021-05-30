@@ -18,12 +18,12 @@ type FormDataType = {
     captcha?: string
 }
 
- function Login (props: LoginPropsType) {
+ function Login ({loginThunk, isAuth}: LoginPropsType) {
     const onSubmit = (formData: FormDataType) => {
-        props.loginThunk(formData.email, formData.password, !!formData.rememberMe, formData.captcha)
+        loginThunk(formData.email, formData.password, !!formData.rememberMe, formData.captcha)
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
 
