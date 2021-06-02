@@ -37,16 +37,19 @@ type UsersAPIPropsType = {
 class UsersAPI extends React.Component<UsersAPIPropsType> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize, getUsers} = this.props
+        getUsers(currentPage, pageSize)
     }
 
     onPageChange = (page: number) => {
-        this.props.getUsers(page, this.props.pageSize)
-        this.props.setCurrentPage(page)
+        const {pageSize, getUsers, setCurrentPage} = this.props
+        getUsers(page, pageSize)
+        setCurrentPage(page)
     }
 
     toggleFollow = (user: UserType) => {
-        this.props.toggleFollow(user)
+        const {toggleFollow} = this.props
+        toggleFollow(user)
     }
 
     render() {
@@ -64,17 +67,6 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
         </>
     }
 }
-
-// const mapStateToProps = (state: StateType) => {
-//     return {
-//         users: state.pageUsers.users,
-//         pageSize: state.pageUsers.pageSize,
-//         totalUsersCount: state.pageUsers.totalUsersCount,
-//         currentPage: state.pageUsers.currentPage,
-//         isFetching: state.pageUsers.isFetching,
-//         followRequestsInProgress: state.pageUsers.followRequestsInProgress
-//     }
-// }
 
 const mapStateToProps = (state: StateType) => {
     return {

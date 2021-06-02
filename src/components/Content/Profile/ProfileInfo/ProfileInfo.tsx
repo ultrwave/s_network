@@ -4,7 +4,6 @@ import {Preloader} from '../../../common/Preloader/Preloader';
 import {UserProfileType} from '../../../../types/types';
 import avatarPlaceholder from '../../../../assets/images/profile_avatar_placeholder.jpg'
 import profileWallpaper from '../../../../assets/images/wallpaper_01.jpg'
-import {ProfileStatus} from './ProfileStatus';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 
 
