@@ -10,11 +10,12 @@ import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './login/Login';
-import {connect} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import {initializeApp} from './redux/app-reducer';
 import {compose} from 'redux';
 import {StateType} from './types/types';
 import {Preloader} from './components/common/Preloader/Preloader';
+import store from './redux/redux-store';
 
 type AppPropsType = {
     initialized: boolean
@@ -56,7 +57,15 @@ const MSTP = (state: StateType) => ({
 })
 
 
-export default compose(
+let AppContainer = compose(
     withRouter,
     connect(MSTP, {initializeApp}))(App) as React.ComponentType
 ;
+
+export let AppMain = (props: any) => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>
+}

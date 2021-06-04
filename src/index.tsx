@@ -1,27 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App, {AppMain} from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store'
 import {Provider} from 'react-redux';
 import {StateType} from './types/types';
 import {BrowserRouter} from 'react-router-dom';
 
+// export const globalRender = (state: StateType) => {
+//     ReactDOM.render(
+//         // <React.StrictMode>
+//         <BrowserRouter>
+//             <Provider store={store}>
+//                 <App/>
+//             </Provider>
+//         </BrowserRouter>
+//         // </React.StrictMode>
+//         ,
+//         document.getElementById('root')
+//     );
+// }
+// globalRender(store.getState())
+
 export const globalRender = (state: StateType) => {
     ReactDOM.render(
-        // <React.StrictMode>
-        <BrowserRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </BrowserRouter>
-        // </React.StrictMode>
+        <AppMain/>
         ,
         document.getElementById('root')
     );
 }
-globalRender(store.getState())
+
 
 store.subscribe(() => {
     let state = store.getState()
