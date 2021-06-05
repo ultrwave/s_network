@@ -12,12 +12,17 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         status: this.props.status
     }
 
-    toggleEditMode = () => {
+    activateEditMode = () => {
         const newStatus = this.state.status.trim()
         if (this.state.editMode && (this.props.status !== newStatus)) {
             this.props.updateUserStatus(newStatus)
         }
-        this.setState({editMode: !this.state.editMode})
+        this.setState({editMode: true})
+    }
+
+    deActivateEditMode = () => {
+        this.setState({editMode: false})
+        this.props.updateUserStatus(this.state.status)
     }
 
     inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,13 +42,13 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
             <div>
                 {!this.state.editMode ?
                     <div>
-                        <span onDoubleClick={this.toggleEditMode}
+                        <span onDoubleClick={this.activateEditMode}
                         >{this.props.status || '-----'}</span>
                     </div>
                     :
                     <div>
                         <input autoFocus={true}
-                               onBlur={this.toggleEditMode}
+                               onBlur={this.deActivateEditMode}
                                value={this.state.status}
                                onChange={this.inputHandler}
                         />
