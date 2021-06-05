@@ -4,6 +4,7 @@ import {appAPI} from '../api/api';
 const TOGGLE_FOLLOW = 'sn01/users/TOGGLE-FOLLOW'
 const SET_USERS = 'sn01/users/SET-USERS'
 const SET_CURRENT_PAGE = 'sn01/users/SET-CURRENT-PAGE'
+const SET_PAGE_SIZE = 'sn01/users/SET-PAGE-SIZE'
 const SET_TOTAL_USERS_COUNT = 'sn01/users/SET-TOTAL-USERS-COUNT'
 const TOGGLE_FETCHING = 'sn01/users/TOGGLE-FETCHING'
 const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE-REQUEST-IS-IN-PROGRESS'
@@ -72,6 +73,12 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
                 totalUsersCount: action.totalUsersCount
             }
 
+        case SET_PAGE_SIZE:
+            return {
+                ...state,
+                totalUsersCount: action.pageSize
+            }
+
         default:
             return state
     }
@@ -110,6 +117,13 @@ export const setCurrentPage = (currentPage: number) => (
     {
         type: SET_CURRENT_PAGE,
         currentPage
+    } as const
+)
+
+export const setPageSize = (pageSize: number) => (
+    {
+        type: SET_PAGE_SIZE,
+        pageSize
     } as const
 )
 

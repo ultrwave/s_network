@@ -1,5 +1,5 @@
 import React from 'react';
-import Style from './Pagination.module.css';
+import Style from './Paginator.module.css';
 
 type PaginationPropsType = {
     pageSize: number
@@ -9,7 +9,7 @@ type PaginationPropsType = {
 }
 
 
-export function Pagination(props: PaginationPropsType) {
+export function Paginator(props: PaginationPropsType) {
 
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 

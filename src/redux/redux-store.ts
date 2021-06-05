@@ -6,6 +6,7 @@ import authReducer from './auth-reducer';
 import thunkMiddleware from 'redux-thunk';
 import appReducer from './app-reducer';
 import {reducer as formReducer} from "redux-form"
+import {paginationReducer} from './pagination-reducer';
 
 export const rootReducer = combineReducers({
     app: appReducer,
@@ -13,7 +14,8 @@ export const rootReducer = combineReducers({
     pageProfile: profileReducer,
     pageDialogs: dialogsReducer,
     pageUsers: usersReducer,
-    form: formReducer
+    form: formReducer,
+    pagination: paginationReducer
 })
 
 // @ts-ignore

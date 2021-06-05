@@ -2,7 +2,8 @@ import React from 'react';
 import Style from './Users.module.css';
 import {UserType} from '../../types/types';
 import User from './User';
-import {Pagination} from '../common/Pagination/Pagination';
+import {Paginator} from '../common/Paginator/Paginator';
+import PaginationContainer from '../common/Pagination/PaginationContainer';
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -17,19 +18,10 @@ type UsersPropsType = {
 
 export function Users(props: UsersPropsType) {
 
-    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
-    return ( // todo - split props (Pagination / User)
+    return ( // todo - split props (Paginator / User)
         <div className={Style.users}>
-            <Pagination currentPage={props.currentPage}
-                        pageSize={props.pageSize}
-                        totalUsersCount={props.totalUsersCount}
-                        onPageChange={props.onPageChange}
+            <PaginationContainer onPageChange={props.onPageChange}
+                                 totalItems={props.totalUsersCount}
             />
             {props.users.map(
                 u => <User
