@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App, {AppMain} from './App';
+import AppMain from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store'
-import {Provider} from 'react-redux';
 import {StateType} from './types/types';
-import {BrowserRouter} from 'react-router-dom';
 
 // export const globalRender = (state: StateType) => {
 //     ReactDOM.render(
@@ -31,6 +29,7 @@ export const globalRender = (state: StateType) => {
     );
 }
 
+globalRender(store.getState())
 
 store.subscribe(() => {
     let state = store.getState()

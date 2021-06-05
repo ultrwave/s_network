@@ -57,15 +57,17 @@ const MSTP = (state: StateType) => ({
 })
 
 
-let AppContainer = compose(
+const AppContainer = compose(
     withRouter,
     connect(MSTP, {initializeApp}))(App) as React.ComponentType
 ;
 
-export let AppMain = (props: any) => {
+const AppMain = () => {
     return <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <AppContainer/>
         </Provider>
     </BrowserRouter>
 }
+
+export default AppMain
