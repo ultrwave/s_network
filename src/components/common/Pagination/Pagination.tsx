@@ -1,16 +1,15 @@
 import React from 'react';
-import s from './PaginationDisplay.module.css';
+import s from './Pagination.module.css';
 
 type PaginationType = {
-    currentPage: number
     totalItems: number
+    currentPage: number
     itemsOnPage: number
-    getPage(currentPage: number): void
-    getItemsOnPage(itemsOnPage: number): void
-    changePageSize(pageSize: number): void
+    onPageChange(page: number): void
+    onSettingsChange(amount: number): void
 }
 
-function PaginationDisplay({currentPage, totalItems, itemsOnPage, getPage, getItemsOnPage, changePageSize}: PaginationType) {
+function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, onSettingsChange}: PaginationType) {
 
     let pages: JSX.Element[] = []
 
@@ -24,14 +23,16 @@ function PaginationDisplay({currentPage, totalItems, itemsOnPage, getPage, getIt
                 color: currentPage === i ? 'white' : undefined,
                 transition: currentPage === i ? '0.9s' : '0.0s'
             }}
-            onClick={() => getPage(i)}
+            onClick={() => {
+                onPageChange(i)
+            }}
         >
             {i}
         </button>
     ));
 
     // 1 ... 4 5 (6) 7 8 ... 11
-    const centralPartWidth = 1
+    const centralPartWidth = 2
     if ((currentPage + 2 + centralPartWidth) < lastPage) {
         pages[currentPage + centralPartWidth] = (
             <span key={currentPage + 1 + centralPartWidth} style={{}}>
@@ -54,8 +55,7 @@ function PaginationDisplay({currentPage, totalItems, itemsOnPage, getPage, getIt
             {pages}
             <select value={itemsOnPage}
                     onChange={e => {
-                        getItemsOnPage(Number(e.currentTarget.value))
-                        changePageSize(Number(e.currentTarget.value))
+                        onSettingsChange(Number(e.currentTarget.value))
                     }}
                     style={{marginLeft: '5px'}}>
                 <option value={5}>5</option>
@@ -67,4 +67,4 @@ function PaginationDisplay({currentPage, totalItems, itemsOnPage, getPage, getIt
     );
 }
 
-export default PaginationDisplay;
+export default Pagination;

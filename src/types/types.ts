@@ -1,5 +1,5 @@
 import {
-    setCurrentPage, setPageSize,
+    setCurrentPage, setItemsOnPage,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
@@ -122,7 +122,7 @@ export type UsersActionType =
     | ReturnType<typeof toggleFollow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setPageSize>
+    | ReturnType<typeof setItemsOnPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleFetching>
     | ReturnType<typeof toggleRequestIsInProgress>

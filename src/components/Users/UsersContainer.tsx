@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {
     getUsersThunkCreator,
     setCurrentPage,
+    setItemsOnPage,
     setTotalUsersCount,
     toggleFollowThunkCreator,
     toggleRequestIsInProgress
@@ -14,7 +15,7 @@ import {
     getCurrentPage,
     getFollowRequestsInProgress,
     getIsFetching,
-    getPageSize,
+    getItemsOnPage,
     getTotalUsersCount,
     getUsers
 } from '../../redux/users-selectors';
@@ -22,13 +23,14 @@ import {
 
 type UsersAPIPropsType = {
     users: Array<UserType>
-    pageSize: number
+    itemsOnPage: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
     followRequestsInProgress: string[]
     setCurrentPage (currentPage: number): void
     setTotalUsersCount(totalUsersCount: number): void
+    setItemsOnPage(amount: number): void
     toggleRequestIsInProgress (userId: string, toggle: boolean): void
     toggleFollow (user: UserType): void
     getUsers (currentPage: number, pageSize: number): void
@@ -37,14 +39,20 @@ type UsersAPIPropsType = {
 class UsersAPI extends React.Component<UsersAPIPropsType> {
 
     componentDidMount() {
-        const {currentPage, pageSize, getUsers} = this.props
-        getUsers(currentPage, pageSize)
+        const {currentPage, itemsOnPage, getUsers} = this.props
+        getUsers(currentPage, itemsOnPage)
     }
 
     onPageChange = (page: number) => {
-        const {pageSize, getUsers, setCurrentPage} = this.props
-        getUsers(page, pageSize)
+        const {itemsOnPage, getUsers, setCurrentPage} = this.props
         setCurrentPage(page)
+        getUsers(page, itemsOnPage)
+    }
+
+    onSettingsChange = (itemsAmount: number) => {
+        const {currentPage, getUsers, setItemsOnPage} = this.props
+        setItemsOnPage(itemsAmount)
+        getUsers(currentPage, itemsAmount)
     }
 
     toggleFollow = (user: UserType) => {
@@ -59,8 +67,9 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
                     totalUsersCount={this.props.totalUsersCount}
                     users={this.props.users}
                     currentPage={this.props.currentPage}
-                    pageSize={this.props.pageSize}
+                    itemsOnPage={this.props.itemsOnPage}
                     onPageChange={this.onPageChange}
+                    onSettingsChange={this.onSettingsChange}
                     toggleFollow={this.toggleFollow}
                     followRequestsInProgress={this.props.followRequestsInProgress}
                 />}
@@ -70,18 +79,19 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
 
 const mapStateToProps = (state: StateType) => {
     return {
-        users: getUsers(state),
-        pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followRequestsInProgress: getFollowRequestsInProgress(state)
+        totalUsersCount: getTotalUsersCount(state),
+        itemsOnPage: getItemsOnPage(state),
+        followRequestsInProgress: getFollowRequestsInProgress(state),
+        users: getUsers(state),
+        isFetching: getIsFetching(state)
     }
 }
 
 export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
+    setItemsOnPage,
     toggleRequestIsInProgress,
     getUsers: getUsersThunkCreator,
     toggleFollow: toggleFollowThunkCreator

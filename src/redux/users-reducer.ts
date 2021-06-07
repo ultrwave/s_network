@@ -4,14 +4,14 @@ import {appAPI} from '../api/api';
 const TOGGLE_FOLLOW = 'sn01/users/TOGGLE-FOLLOW'
 const SET_USERS = 'sn01/users/SET-USERS'
 const SET_CURRENT_PAGE = 'sn01/users/SET-CURRENT-PAGE'
-const SET_PAGE_SIZE = 'sn01/users/SET-PAGE-SIZE'
+const SET_ITEMS_ON_PAGE = 'sn01/users/SET-ITEMS-ON-PAGE'
 const SET_TOTAL_USERS_COUNT = 'sn01/users/SET-TOTAL-USERS-COUNT'
 const TOGGLE_FETCHING = 'sn01/users/TOGGLE-FETCHING'
 const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE-REQUEST-IS-IN-PROGRESS'
 
 type PageStateType = {
     users: Array<UserType>
-    pageSize: number
+    itemsOnPage: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
@@ -21,7 +21,7 @@ type PageStateType = {
 const initialState: PageStateType = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 5,
+    itemsOnPage: 5,
     currentPage: 1,
     isFetching: true,
     followRequestsInProgress: []
@@ -73,10 +73,10 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
                 totalUsersCount: action.totalUsersCount
             }
 
-        case SET_PAGE_SIZE:
+        case SET_ITEMS_ON_PAGE:
             return {
                 ...state,
-                totalUsersCount: action.pageSize
+                itemsOnPage: action.itemsOnPage
             }
 
         default:
@@ -120,10 +120,10 @@ export const setCurrentPage = (currentPage: number) => (
     } as const
 )
 
-export const setPageSize = (pageSize: number) => (
+export const setItemsOnPage = (itemsOnPage: number) => (
     {
-        type: SET_PAGE_SIZE,
-        pageSize
+        type: SET_ITEMS_ON_PAGE,
+        itemsOnPage
     } as const
 )
 
@@ -146,10 +146,11 @@ export const toggleFollowThunkCreator = (user: UserType): AppThunk => async (dis
 
 }
 
-export const getUsersThunkCreator = (page: number, pageSize: number): AppThunk => async (dispatch) => {
+export const getUsersThunkCreator = (page: number, pageSize: number): AppThunk => async (dispatch, getState) => {
 
     dispatch(toggleFetching(true))
     dispatch(setCurrentPage(page))
+
 
     const response = await appAPI.getUsers(page, pageSize);
 

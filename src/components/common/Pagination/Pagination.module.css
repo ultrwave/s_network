@@ -1,0 +1,33 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    max-width: 500px;
+    height: 26px;
+    margin: 10px;
+    border-collapse: collapse;
+
+}
+
+.main button, .main select {
+    margin-right: 2px;
+    outline: none;
+    border: 1px solid grey;
+    border-radius: 4px;
+    display: table-cell;
+
+}
+
+.main span {
+    font-size: 22px;
+    padding: 0 8px;
+}
+
+.main button {
+    background-color: white;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.main button:hover {
+    background-color: #b1936d;
+}

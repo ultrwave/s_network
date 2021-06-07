@@ -2,7 +2,7 @@ import React from 'react';
 import Style from './Paginator.module.css';
 
 type PaginationPropsType = {
-    pageSize: number
+    itemsOnPage: number
     totalUsersCount: number
     currentPage: number
     onPageChange: (page: number) => void
@@ -11,7 +11,7 @@ type PaginationPropsType = {
 
 export function Paginator(props: PaginationPropsType) {
 
-    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    const pagesCount = Math.ceil(props.totalUsersCount / props.itemsOnPage)
 
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {

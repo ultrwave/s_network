@@ -2,17 +2,17 @@ import React from 'react';
 import Style from './Users.module.css';
 import {UserType} from '../../types/types';
 import User from './User';
-import {Paginator} from '../common/Paginator/Paginator';
-import PaginationContainer from '../common/Pagination/PaginationContainer';
+import Pagination from '../common/Pagination/Pagination';
 
 type UsersPropsType = {
     users: Array<UserType>
     toggleFollow: (user: UserType) => void
-    pageSize: number
+    itemsOnPage: number
     totalUsersCount: number
     currentPage: number
-    onPageChange: (page: number) => void
     followRequestsInProgress: string[]
+    onPageChange(page: number): void
+    onSettingsChange(amount: number): void
 }
 
 
@@ -20,8 +20,11 @@ export function Users(props: UsersPropsType) {
 
     return ( // todo - split props (Paginator / User)
         <div className={Style.users}>
-            <PaginationContainer onPageChange={props.onPageChange}
-                                 totalItems={props.totalUsersCount}
+            <Pagination currentPage={props.currentPage}
+                        itemsOnPage={props.itemsOnPage}
+                        totalItems={props.totalUsersCount}
+                        onPageChange={props.onPageChange}
+                        onSettingsChange={props.onSettingsChange}
             />
             {props.users.map(
                 u => <User

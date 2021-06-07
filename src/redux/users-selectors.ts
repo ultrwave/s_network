@@ -5,8 +5,8 @@ const getUsersSelector = (state: StateType) => {
     return state.pageUsers.users
 }
 
-export const getPageSize = (state: StateType) => {
-    return state.pageUsers.pageSize
+export const getItemsOnPage = (state: StateType) => {
+    return state.pageUsers.itemsOnPage
 }
 
 export const getTotalUsersCount = (state: StateType) => {
