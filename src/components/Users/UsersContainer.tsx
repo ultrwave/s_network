@@ -88,7 +88,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
+const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     setItemsOnPage,
@@ -96,3 +96,5 @@ export const UsersContainer = connect(mapStateToProps, {
     getUsers: getUsersThunkCreator,
     toggleFollow: toggleFollowThunkCreator
 })(UsersAPI)
+
+export default UsersContainer

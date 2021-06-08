@@ -50,6 +50,10 @@ function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, onSetti
         pages = pages.filter((p, i) => i < 2 || i > currentPage - (2 + centralPartWidth));
     }
 
+    if (currentPage > lastPage) {
+        onPageChange(lastPage)
+    }
+
     return (
         <div className={s.main}>
             {pages}
