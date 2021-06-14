@@ -29,30 +29,30 @@ type UsersAPIPropsType = {
     isFetching: boolean
     followRequestsInProgress: string[]
     setCurrentPage (currentPage: number): void
-    setTotalUsersCount(totalUsersCount: number): void
-    setItemsOnPage(amount: number): void
+    setTotalUsersCount (totalUsersCount: number): void
+    setItemsOnPage (amount: number): void
     toggleRequestIsInProgress (userId: string, toggle: boolean): void
     toggleFollow (user: UserType): void
-    getUsers (currentPage: number, pageSize: number): void
+    getUsers (): void
 }
 
 class UsersAPI extends React.Component<UsersAPIPropsType> {
 
     componentDidMount() {
-        const {currentPage, itemsOnPage, getUsers} = this.props
-        getUsers(currentPage, itemsOnPage)
+        const {getUsers} = this.props
+        getUsers()
     }
 
     onPageChange = (page: number) => {
-        const {itemsOnPage, getUsers, setCurrentPage} = this.props
+        const {getUsers, setCurrentPage} = this.props
         setCurrentPage(page)
-        getUsers(page, itemsOnPage)
+        getUsers()
     }
 
     onSettingsChange = (itemsAmount: number) => {
-        const {currentPage, getUsers, setItemsOnPage} = this.props
+        const {getUsers, setItemsOnPage} = this.props
         setItemsOnPage(itemsAmount)
-        getUsers(currentPage, itemsAmount)
+        getUsers()
     }
 
     toggleFollow = (user: UserType) => {
