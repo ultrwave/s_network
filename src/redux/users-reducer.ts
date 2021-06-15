@@ -148,7 +148,7 @@ export const toggleFollowThunkCreator = (user: UserType): AppThunk => async (dis
 
 export const getUsersThunkCreator = (): AppThunk => async (dispatch, getState) => {
 
-    const newPage = 1 || getState().pageUsers.currentPage
+    const newPage = getState().pageUsers.currentPage || 1
     const pageSize = getState().pageUsers.itemsOnPage
 
     dispatch(toggleFetching(true))
