@@ -7,6 +7,7 @@ import {UserProfileType} from '../../../types/types';
 type PageProfilePropsType = {
     profile: UserProfileType | null
     status: string
+    isOwner: boolean
     updateUserStatus(status: string): void
 }
 
@@ -18,6 +19,7 @@ export function Profile(props:PageProfilePropsType) {
         <div className={Style.content}>
             <ProfileInfo profile={props.profile}
                          status={props.status}
+                         isOwner={props.isOwner}
                          updateUserStatus={props.updateUserStatus}
             />
             <MyPostsContainer />

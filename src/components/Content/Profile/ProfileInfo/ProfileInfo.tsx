@@ -10,6 +10,7 @@ import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 type ProfileInfoProps = {
     profile: UserProfileType | null
     status: string
+    isOwner: boolean
     updateUserStatus(status: string): void
 }
 
@@ -19,7 +20,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
         return <Preloader/>
     }
 
-    const userAvatarSrc: string = props.profile.photos.large ? props.profile.photos.large : avatarPlaceholder
+    const userAvatarSrc: string = props.profile.photos.large || avatarPlaceholder
 
     const contacts = Object.entries(props.profile.contacts).map((contact, i) => {
         if (contact[1]) {
@@ -48,6 +49,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                     <div className={Style.contacts}>{contacts}</div>
                 </div>
             </div>
+            {props.isOwner && <input type='file'/>}
         </div>
     )
 }
