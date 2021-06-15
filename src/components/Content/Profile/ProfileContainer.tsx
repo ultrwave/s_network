@@ -33,7 +33,7 @@ export type ProfileContainerPropsType = RouteComponentProps<MatchType> & MDTPTyp
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = '2' // this.props.authorizedUserId
@@ -43,6 +43,14 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         }
         this.props.getProfileThunk(userId)
         this.props.getUserStatus(userId)
+    }
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate() {
+        this.refreshProfile()
     }
 
     showMeButton = true
