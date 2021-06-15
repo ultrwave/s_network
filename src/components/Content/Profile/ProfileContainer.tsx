@@ -49,8 +49,10 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         this.refreshProfile()
     }
 
-    componentDidUpdate() {
-        this.refreshProfile()
+    componentDidUpdate(prevProps: ProfileContainerPropsType) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
     }
 
     showMeButton = true
