@@ -3,15 +3,16 @@ import Style from './Profile.module.css';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
-import {getProfileThunk, getStatusThunk, updateStatusThunk} from '../../../redux/profile-reducer';
+import {getProfileThunk, getStatusThunk, savePhotoThunk, updateStatusThunk} from '../../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
 export type MDTPType = {
-    getProfileThunk: (userId: string) => void
-    getUserStatus: (userId: string) => void
-    updateUserStatus: (status: string) => void
+    getProfileThunk (userId: string): void
+    getUserStatus (userId: string): void
+    updateUserStatus (status: string): void
+    savePhotoThunk (photo: File): void
 }
 
 export type MSTPType = {
@@ -67,7 +68,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
                          profile={this.props.profile}
                          status={this.props.status}
                          updateUserStatus={this.props.updateUserStatus}
-                         savePhoto={this.props.savePhoto}
+                         savePhoto={this.props.savePhotoThunk}
                 />
                 {this.showMeButton && < span
                     className={Style.showMeButton}

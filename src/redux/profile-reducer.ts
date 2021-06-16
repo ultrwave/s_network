@@ -61,8 +61,7 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
         case SET_USER_STATUS :
             return {...state, status: action.status}
 
-        case ADD_POST:
-
+        case ADD_POST: {
             let newPost: PostsDataType = {
                 id: v1(),
                 message: (action.message && action.message.trim()) ? action.message : 'Test message',
@@ -71,17 +70,19 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             let newState = {...state}
             newState.postsData = [newPost, ...state.postsData]
             return newState
+        }
 
         case DELETE_POST:
-
             return {
                 ...state,
                 postsData: state.postsData.filter(p => p.id !== action.id)
             }
 
-        case SET_PHOTO_SUCCESS:
-
-            return state
+        case SET_PHOTO_SUCCESS: {
+            const newState = {...state}
+            newState.profile.photos = action.photos
+            return newState
+        }
 
         default:
             return state
@@ -144,6 +145,9 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
 
 export const savePhotoThunk = (file: File): AppThunk => async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
+    if (response.data.resultCode === 0) {
+        dispatch(setPhotoSuccess(response.data.photos))
+    }
 }
 
 export default profileReducer

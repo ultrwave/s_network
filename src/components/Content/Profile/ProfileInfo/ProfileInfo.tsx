@@ -12,7 +12,7 @@ type ProfileInfoProps = {
     status: string
     isOwner: boolean
     updateUserStatus(status: string): void
-    savePhoto(file: File): void
+    savePhoto (photo: File): void
 }
 
 interface HTMLInputEvent extends Event {
@@ -60,7 +60,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                     <div className={Style.contacts}>{contacts}</div>
                 </div>
             </div>
-            {props.isOwner && <input type='file' onChange={}/>}
+            {props.isOwner && <input type='file' onChange={() => onMainPhotoSelected}/>}
         </div>
     )
 }
