@@ -117,7 +117,7 @@ export const setUserStatus = (status: string) => {
     } as const
 }
 
-export const setPhotoSuccess = (photos: PhotosType) => {
+export const savePhotoSuccess = (photos: PhotosType) => {
     return {
         type: SET_PHOTO_SUCCESS,
         photos
@@ -146,7 +146,7 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
 export const savePhotoThunk = (file: File): AppThunk => async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {
-        dispatch(setPhotoSuccess(response.data.photos))
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
 

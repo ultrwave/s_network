@@ -5,7 +5,7 @@ import {
     toggleFetching,
     toggleFollow, toggleRequestIsInProgress
 } from '../redux/users-reducer';
-import {addPost, deletePost, setPhotoSuccess, setUserProfile, setUserStatus} from '../redux/profile-reducer';
+import {addPost, deletePost, savePhotoSuccess, setUserProfile, setUserStatus} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
 import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
@@ -112,7 +112,7 @@ export type PageProfileActionType =
     | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
-    | ReturnType<typeof setPhotoSuccess>
+    | ReturnType<typeof savePhotoSuccess>
 
 export type PageDialogsActionType =
     | ReturnType<typeof addMessage>

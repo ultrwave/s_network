@@ -15,9 +15,6 @@ type ProfileInfoProps = {
     savePhoto (photo: File): void
 }
 
-interface HTMLInputEvent extends Event {
-    target: HTMLInputElement & EventTarget;
-}
 
 export function ProfileInfo(props: ProfileInfoProps) {
 
@@ -35,7 +32,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
         }
     })
 
-    const onMainPhotoSelected = (e: HTMLInputEvent) => {
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             props.savePhoto(e.target.files[0])
         }
@@ -60,7 +57,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                     <div className={Style.contacts}>{contacts}</div>
                 </div>
             </div>
-            {props.isOwner && <input type='file' onChange={() => onMainPhotoSelected}/>}
+            {props.isOwner && <input type='file' onChange={onMainPhotoSelected}/>}
         </div>
     )
 }

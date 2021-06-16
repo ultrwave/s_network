@@ -1,18 +1,20 @@
 import React from 'react';
 import Style from './Post.module.css';
-
+import profileAvatarPlaceholder from '../../../../../assets/images/profile_avatar_placeholder.jpg'
 
 type PropsType = {
     message: string
     likesCount: number
-    avatar: string
+    avatar: string | null
 }
 
 export function Post(props: PropsType) {
 
+    const avatar = props.avatar || profileAvatarPlaceholder
+
     return (
         <div className={Style.item}>
-            <img src={props.avatar}
+            <img src={avatar}
                  alt="avatar"
                  className={Style.avatar}
             />

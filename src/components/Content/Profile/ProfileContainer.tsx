@@ -37,7 +37,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     showMeButton = true
 
     refreshProfile() {
-        debugger
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId || '2'
