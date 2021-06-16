@@ -67,6 +67,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
                          profile={this.props.profile}
                          status={this.props.status}
                          updateUserStatus={this.props.updateUserStatus}
+                         savePhoto={this.props.savePhoto}
                 />
                 {this.showMeButton && < span
                     className={Style.showMeButton}
@@ -94,7 +95,8 @@ export default compose(
         {
             getProfileThunk,
             getUserStatus: getStatusThunk,
-            updateUserStatus: updateStatusThunk
+            updateUserStatus: updateStatusThunk,
+            savePhotoThunk
         }),
     withRouter,
     withAuthRedirect,

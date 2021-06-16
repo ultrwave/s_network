@@ -5,7 +5,7 @@ import {
     toggleFetching,
     toggleFollow, toggleRequestIsInProgress
 } from '../redux/users-reducer';
-import {addPost, deletePost, setUserProfile, setUserStatus} from '../redux/profile-reducer';
+import {addPost, deletePost, setPhotoSuccess, setUserProfile, setUserStatus} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
 import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import store, {rootReducer} from '../redux/redux-store';
@@ -72,15 +72,17 @@ export type PostsDataType = {
     likesCount: number
 }
 
+export type PhotosType = {
+    small: string | null
+    large: string | null
+}
+
 export type UserType = {
     id: string
     name: string
     uniqueUrlName: string | null
     status: string | null
-    photos: {
-        small: string | null
-        large: string | null
-    }
+    photos: PhotosType
     followed: boolean
 }
 
@@ -100,10 +102,7 @@ export type UserProfileType = {
         github: string | null
         mainLink: string | null
     },
-    photos: {
-        small: string | null
-        large: string
-    }
+    photos: PhotosType
 }
 
 export type AppDispatchType = typeof store.dispatch // ReturnType? todo - норм типизация?
@@ -113,6 +112,7 @@ export type PageProfileActionType =
     | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setPhotoSuccess>
 
 export type PageDialogsActionType =
     | ReturnType<typeof addMessage>

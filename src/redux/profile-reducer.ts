@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionTypes, AppThunk, PostsDataType, UserProfileType} from '../types/types';
+import {ActionTypes, AppThunk, PhotosType, PostsDataType, UserProfileType} from '../types/types';
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 import {profileAPI} from '../api/api';
 
@@ -7,6 +7,7 @@ const ADD_POST = 'sn01/profile/ADD-POST'
 const DELETE_POST = 'sn01/profile/DELETE-POST'
 const SET_USER_PROFILE = 'sn01/profile/SET-USER-PROFILE'
 const SET_USER_STATUS = 'sn01/profile/SET-USER-STATUS'
+const SET_PHOTO_SUCCESS = 'sn01/profile/SAVE-PHOTO-SUCCESS'
 
 type PageStateType = {
     postsData: Array<PostsDataType>
@@ -78,6 +79,10 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
                 postsData: state.postsData.filter(p => p.id !== action.id)
             }
 
+        case SET_PHOTO_SUCCESS:
+
+            return state
+
         default:
             return state
     }
@@ -111,6 +116,13 @@ export const setUserStatus = (status: string) => {
     } as const
 }
 
+export const setPhotoSuccess = (photos: PhotosType) => {
+    return {
+        type: SET_PHOTO_SUCCESS,
+        photos
+    } as const
+}
+
 // Thunks
 
 export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
@@ -128,6 +140,10 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status))
     }
+}
+
+export const savePhotoThunk = (file: File): AppThunk => async (dispatch) => {
+    const response = await profileAPI.savePhoto(file);
 }
 
 export default profileReducer
