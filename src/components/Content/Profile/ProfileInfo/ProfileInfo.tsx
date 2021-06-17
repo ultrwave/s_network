@@ -12,7 +12,7 @@ type ProfileInfoProps = {
     status: string
     isOwner: boolean
     updateUserStatus(status: string): void
-    savePhoto (photo: File): void
+    savePhoto(photo: File): void
 }
 
 
@@ -48,16 +48,19 @@ export function ProfileInfo(props: ProfileInfoProps) {
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
                 <div className={Style.profileInfo}>
                     <div className={Style.fullName}>{props.profile.fullName}</div>
+                    <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
+                    <div className={Style.lookingForAJob}>
+                        {`Looking for a job: ${props.profile.lookingForAJob ? 'yes' : 'no'}`}</div>
+                    {props.profile.lookingForAJob &&
+                    <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>}
                     <ProfileStatusWithHooks
                         status={props.status}
                         updateUserStatus={props.updateUserStatus}
                     />
-                    <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
-                    <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>
                     <div className={Style.contacts}>{contacts}</div>
                 </div>
             </div>
-            {props.isOwner && <input type='file' onChange={onMainPhotoSelected}/>}
+            {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
         </div>
     )
 }
