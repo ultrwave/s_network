@@ -34,13 +34,15 @@ export type ProfileContainerPropsType = RouteComponentProps<MatchType> & MDTPTyp
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
-    showMeButton = true
+    showMeButton = false
 
     refreshProfile() {
         let userId = this.props.match.params.userId
+        let myId = this.props.authorizedUserId
+        this.showMeButton = userId? (userId !== myId) : false
         if (!userId) {
-            userId = this.props.authorizedUserId || '2'
-            if (!userId) {
+            userId = myId || '2'
+            if (!myId) {
                 this.props.history.push("/login")
             }
         }
@@ -72,9 +74,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
                 {this.showMeButton && < span
                     className={Style.showMeButton}
                     onClick={() => {
-                        this.props.getProfileThunk('13836')
-                        this.props.getUserStatus('13836')
-                        this.showMeButton = false
+                        this.props.history.push("/profile")
                     }}>Me</span>
                 }
             </div>
