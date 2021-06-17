@@ -5,6 +5,7 @@ import {UserProfileType} from '../../../../types/types';
 import avatarPlaceholder from '../../../../assets/images/profile_avatar_placeholder.jpg'
 import profileWallpaper from '../../../../assets/images/wallpaper_01.jpg'
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
+import {Contact} from './Contact';
 
 
 type ProfileInfoProps = {
@@ -26,7 +27,9 @@ export function ProfileInfo(props: ProfileInfoProps) {
 
     const contacts = Object.entries(props.profile.contacts).map((contact, i) => {
         if (contact[1]) {
-            return <div key={i}><span>{contact.join(': ')}</span></div>
+            return <div className={Style.contact} key={i}>
+                <Contact contactTitle={contact[0]} contactValue={contact[1]}/>
+            </div>
         } else {
             return null
         }
@@ -57,7 +60,9 @@ export function ProfileInfo(props: ProfileInfoProps) {
                         status={props.status}
                         updateUserStatus={props.updateUserStatus}
                     />
-                    <div className={Style.contacts}>{contacts}</div>
+                    <div className={Style.contacts}>Contacts:
+                        {contacts}
+                    </div>
                 </div>
             </div>
             {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
