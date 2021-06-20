@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Style from '../Profile.module.css';
 import {Preloader} from '../../../common/Preloader/Preloader';
 import {UserProfileType} from '../../../../types/types';
 import avatarPlaceholder from '../../../../assets/images/profile_avatar_placeholder.jpg'
 import profileWallpaper from '../../../../assets/images/wallpaper_01.jpg'
-import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 import {Contact} from './Contact';
+import {ProfileData} from './ProfileData';
+import {ProfileDataForm} from './ProfileDataForm';
 
 
 type ProfileInfoProps = {
@@ -18,6 +19,8 @@ type ProfileInfoProps = {
 
 
 export function ProfileInfo(props: ProfileInfoProps) {
+
+    let [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
         return <Preloader/>
@@ -49,25 +52,20 @@ export function ProfileInfo(props: ProfileInfoProps) {
             </div>
             <div className={Style.description}>
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
-                <div className={Style.profileInfo}>
-                    <div className={Style.fullName}>{props.profile.fullName}</div>
-                    <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
-                    <div className={Style.lookingForAJob}>
-                        {`Looking for a job: ${props.profile.lookingForAJob ? 'yes' : 'no'}`}</div>
-                    {props.profile.lookingForAJob &&
-                    <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>}
-                    <ProfileStatusWithHooks
-                        status={props.status}
-                        updateUserStatus={props.updateUserStatus}
+                {editMode
+                    ? <ProfileData profile={props.profile}
+                                 status={props.status}
+                                 isOwner={props.isOwner}
+                                 contacts={contacts}
+                                 updateUserStatus={props.updateUserStatus}
+                                 onMainPhotoSelected={onMainPhotoSelected}
                     />
-                    <div className={Style.contacts}>Contacts:
-                        {contacts}
-                    </div>
-                </div>
+                    : <ProfileDataForm
+
+                    />
+                }
             </div>
-            {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
         </div>
     )
 }
-
 
