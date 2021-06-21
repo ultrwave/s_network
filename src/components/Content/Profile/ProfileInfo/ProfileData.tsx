@@ -9,6 +9,7 @@ type ProfileDataProps = {
     isOwner: boolean
     contacts: Array<JSX.Element | null>
     updateUserStatus(status: string): void
+    goToEditMode(): void
     onMainPhotoSelected(e: React.ChangeEvent<HTMLInputElement>): void
 }
 

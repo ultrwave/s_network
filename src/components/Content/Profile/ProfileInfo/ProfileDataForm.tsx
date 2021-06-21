@@ -1,6 +1,12 @@
 import React from 'react';
 import {UserProfileType} from '../../../../types/types';
 
-export const ProfileDataForm = (profile: UserProfileType) => {
-    return <div></div>
+type ProfileDataFormType = {
+    profile: UserProfileType
+}
+
+export const ProfileDataForm = (profile: ProfileDataFormType) => {
+    return <div>
+        Form
+    </div>
 }

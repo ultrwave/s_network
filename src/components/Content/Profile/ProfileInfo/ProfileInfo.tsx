@@ -52,17 +52,16 @@ export function ProfileInfo(props: ProfileInfoProps) {
             </div>
             <div className={Style.description}>
                 <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
-                {editMode
+                {!editMode
                     ? <ProfileData profile={props.profile}
                                  status={props.status}
                                  isOwner={props.isOwner}
                                  contacts={contacts}
                                  updateUserStatus={props.updateUserStatus}
                                  onMainPhotoSelected={onMainPhotoSelected}
+                                 goToEditMode={() => {}}
                     />
-                    : <ProfileDataForm
-
-                    />
+                    : <ProfileDataForm profile={props.profile} />
                 }
             </div>
         </div>
