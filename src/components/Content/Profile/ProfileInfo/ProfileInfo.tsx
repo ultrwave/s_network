@@ -22,6 +22,8 @@ export function ProfileInfo(props: ProfileInfoProps) {
 
     let [editMode, setEditMode] = useState(false)
 
+    let toggleEditMode = () => setEditMode(!editMode)
+
     if (!props.profile) {
         return <Preloader/>
     }
@@ -59,7 +61,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                                  contacts={contacts}
                                  updateUserStatus={props.updateUserStatus}
                                  onMainPhotoSelected={onMainPhotoSelected}
-                                 goToEditMode={() => {}}
+                                 goToEditMode={toggleEditMode}
                     />
                     : <ProfileDataForm profile={props.profile} />
                 }
