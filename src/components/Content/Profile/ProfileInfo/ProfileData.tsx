@@ -17,6 +17,7 @@ export const ProfileData = (props: ProfileDataProps) => {
 
     return (
         <div className={Style.profileInfo}>
+            {props.isOwner && <button onClick={props.goToEditMode}>edit</button>}
             <div className={Style.fullName}>{props.profile.fullName}</div>
             <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
             <div className={Style.lookingForAJob}>
