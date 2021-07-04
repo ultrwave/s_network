@@ -1,6 +1,5 @@
 import React from 'react';
 import Style from './FormsControls.module.css'
-import {findAllByDisplayValue} from '@testing-library/react';
 import {Field} from 'redux-form';
 
 type TextAreaPropsType = { // todo - fix any
@@ -26,7 +25,7 @@ export const TextInputForm = ({input, meta, formType, ...props}: any) => {
     )
 }
 
-export const createNewField = (placeholder: string, name: string, validators: any, component: any, props = {}, text = '') => (<div>
+export const createField = (placeholder: string, name: string, validators: any, component: any, props = {}, text = '') => (<div>
     <Field placeholder={placeholder}
            name={name}
            validate={validators}

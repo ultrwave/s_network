@@ -43,5 +43,5 @@ export const DialogsMessageForm = (props: InjectedFormProps<FormDataType & Dialo
 }
 
 export const DialogsMessageReduxForm = reduxForm<FormDataType & DialogsMessagePropsType>({
-    form: 'dialogsMessage',
+    form: 'dialogsMessage'
 })(DialogsMessageForm)

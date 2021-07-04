@@ -6,7 +6,7 @@ import avatarPlaceholder from '../../../../assets/images/profile_avatar_placehol
 import profileWallpaper from '../../../../assets/images/wallpaper_01.jpg'
 import {Contact} from './Contact';
 import {ProfileData} from './ProfileData';
-import {ProfileDataForm} from './ProfileDataForm';
+import ProfileDataForm from './ProfileDataForm';
 
 
 type ProfileInfoProps = {
@@ -47,6 +47,10 @@ export function ProfileInfo(props: ProfileInfoProps) {
         }
     }
 
+    const onSubmit = ({formData}: any) => { // todo - fix any
+        console.log(formData)
+    }
+
     return (
         <div>
             <div>
@@ -64,7 +68,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                                  onMainPhotoSelected={onMainPhotoSelected}
                                  goToEditMode={setEditModeOn}
                     />
-                    : <ProfileDataForm profile={props.profile} />
+                    : <ProfileDataForm onSubmit={onSubmit}/>
                 }
             </div>
         </div>
