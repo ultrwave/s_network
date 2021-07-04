@@ -23,7 +23,6 @@ export function ProfileInfo(props: ProfileInfoProps) {
     let [editMode, setEditMode] = useState(false)
 
     let setEditModeOn = () => setEditMode(true)
-    let setEditModeOff = () => setEditMode(false)
 
     if (!props.profile) {
         return <Preloader/>
@@ -49,6 +48,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
 
     const onSubmit = ({formData}: any) => { // todo - fix any
         console.log(formData)
+        setEditMode(false)
     }
 
     return (
@@ -68,7 +68,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
                                  onMainPhotoSelected={onMainPhotoSelected}
                                  goToEditMode={setEditModeOn}
                     />
-                    : <ProfileDataForm onSubmit={onSubmit}/>
+                    : <ProfileDataForm onSubmit={onSubmit} />
                 }
             </div>
         </div>

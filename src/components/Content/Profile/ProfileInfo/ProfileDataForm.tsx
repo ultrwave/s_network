@@ -1,27 +1,23 @@
 import React from 'react';
 import {StateType, UserProfileType} from '../../../../types/types';
 import Style from '../Profile.module.css';
-import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 import {createField, TextInputForm} from '../../../common/FormsControls/FormsControls';
-import {InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
+import {clearSubmit, InjectedFormProps, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
+import {updateStatusThunk} from '../../../../redux/profile-reducer';
 
 type ProfileDataFormPropsType = {
     profile: UserProfileType
-    handleSubmit: SubmitHandler
-    isOwner: boolean
-    setEditModeOff(): void
-    updateUserStatus(status: string): void
-    onMainPhotoSelected(e: React.ChangeEvent<HTMLInputElement>): void
 }
 
 
-const ProfileDataForm = (props: InjectedFormProps & ProfileDataFormPropsType) => {
+const ProfileDataForm = (props: InjectedFormProps<ProfileDataFormPropsType>) => {
     console.log(props)
 
     return (
-        <form className={Style.profileInfo} onSubmit={props.handleSubmit}>
-            <button onClick={() => {}}>save changes</button>
+        <form className={Style.profileInfo}>
+            <button onClick={props.handleSubmit}>save changes</button>
+            <button onClick={props.handleSubmit}>cancel</button>
             <div className={Style.fullName}>{`Full name: `}</div>
             {createField('your name', 'fullName', [], TextInputForm)}
             <div className={Style.aboutMe}>{`about: `}</div>
@@ -30,27 +26,22 @@ const ProfileDataForm = (props: InjectedFormProps & ProfileDataFormPropsType) =>
             {createField('', 'lookingForAJob', [], TextInputForm, {type: 'checkbox'})}
             <div className={Style.mySkills}>{`My skills: `}</div>
             {createField('', 'mySkills', [], TextInputForm, {formType: 'textarea'})}
-            <ProfileStatusWithHooks
-                status={props.profile.aboutMe || ''}
-                updateUserStatus={props.updateUserStatus}
-            />
             <div className={Style.contacts}>Contacts:
 
             </div>
-            {props.isOwner && <input type="file" onChange={props.onMainPhotoSelected}/>}
         </form>
     )
 }
 
-const ProfileDataFormReduxForm = reduxForm<ProfileDataFormPropsType>({form: 'edit-profile'})(ProfileDataForm as any)
+const ProfileDataFormReduxForm = reduxForm<ProfileDataFormPropsType>({form: 'edit-profile'})(ProfileDataForm)
 
 
 const InitializeFromStateForm = connect(
     (state: StateType) => ({
         initialValues: {profile: state.pageProfile.profile}
     }),
-    {}
+    {updateUserStatus: updateStatusThunk}
 )(ProfileDataFormReduxForm)
 
 
-export default ProfileDataFormReduxForm
+export default InitializeFromStateForm
