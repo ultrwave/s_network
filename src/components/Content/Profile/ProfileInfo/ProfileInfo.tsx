@@ -68,7 +68,10 @@ export function ProfileInfo(props: ProfileInfoProps) {
                                  onMainPhotoSelected={onMainPhotoSelected}
                                  goToEditMode={setEditModeOn}
                     />
-                    : <ProfileDataForm onSubmit={onSubmit} />
+                    : <div>
+                        <button onClick={() => {setEditMode(false)}}>cancel</button>
+                        <ProfileDataForm onSubmit={onSubmit}/>
+                    </div>
                 }
             </div>
         </div>

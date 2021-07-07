@@ -11,12 +11,13 @@ type ProfileDataFormPropsType = {
 
 
 const ProfileDataForm = (props: InjectedFormProps<ProfileDataFormPropsType>) => {
+    console.log('==== form rendered ====')
     console.log(props)
+    console.log('==== ======== ====')
 
     return (
-        <form className={Style.profileInfo}>
-            <button onClick={() => props.handleSubmit({formData})}>save changes</button>
-            <button onClick={props.handleSubmit}>cancel</button>
+        <form className={Style.profileInfo} onSubmit={props.handleSubmit}>
+            <button type='submit'>save changes</button>
             <div className={Style.fullName}>{`Full name: `}</div>
             {createField('your name', 'fullName', [], TextInputForm)}
             <div className={Style.aboutMe}>{`about: `}</div>
