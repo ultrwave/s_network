@@ -2,9 +2,8 @@ import React from 'react';
 import {StateType, UserProfileType} from '../../../../types/types';
 import Style from '../Profile.module.css';
 import {createField, TextInputForm} from '../../../common/FormsControls/FormsControls';
-import {clearSubmit, InjectedFormProps, reduxForm} from 'redux-form';
+import {InjectedFormProps, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import {updateStatusThunk} from '../../../../redux/profile-reducer';
 
 type ProfileDataFormPropsType = {
     profile: UserProfileType
@@ -16,7 +15,7 @@ const ProfileDataForm = (props: InjectedFormProps<ProfileDataFormPropsType>) => 
 
     return (
         <form className={Style.profileInfo}>
-            <button onClick={props.handleSubmit}>save changes</button>
+            <button onClick={() => props.handleSubmit({formData})}>save changes</button>
             <button onClick={props.handleSubmit}>cancel</button>
             <div className={Style.fullName}>{`Full name: `}</div>
             {createField('your name', 'fullName', [], TextInputForm)}
@@ -40,7 +39,7 @@ const InitializeFromStateForm = connect(
     (state: StateType) => ({
         initialValues: {profile: state.pageProfile.profile}
     }),
-    {updateUserStatus: updateStatusThunk}
+    {}
 )(ProfileDataFormReduxForm)
 
 
