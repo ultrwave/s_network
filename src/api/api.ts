@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {UserType} from '../types/types';
+import {UserProfileType, UserType} from '../types/types';
 
 const instance = axios.create({
     withCredentials: true,
@@ -38,6 +38,9 @@ export const profileAPI = {
         const formData = new FormData()
         formData.append('image', photo)
         return instance.put(`profile/photo`, formData)
+    },
+    saveProfile(profile: UserProfileType) {
+        return instance.put(`profile`, profile)
     }
 }
 

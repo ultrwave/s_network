@@ -11,23 +11,24 @@ type ProfileDataFormPropsType = {
 
 
 const ProfileDataForm = (props: InjectedFormProps<ProfileDataFormPropsType>) => {
-    console.log('==== form rendered ====')
-    console.log(props)
-    console.log('==== ======== ====')
 
     return (
         <form className={Style.profileInfo} onSubmit={props.handleSubmit}>
             <button type='submit'>save changes</button>
-            <div className={Style.fullName}>{`Full name: `}</div>
-            {createField('your name', 'fullName', [], TextInputForm)}
-            <div className={Style.aboutMe}>{`about: `}</div>
-            {createField('Full name', 'aboutMe', [], TextInputForm)}
-            <div className={Style.lookingForAJob}>{`Looking for a job: `}</div>
+            <div className={Style.fullName}>{`Full name: `}
+            {createField('Name', 'fullName', [], TextInputForm)}
+            </div>
+            <div className={Style.aboutMe}>{`about: `}
+            {createField('About me', 'aboutMe', [], TextInputForm)}
+            </div>
+            <div className={Style.lookingForAJob}>{`Looking for a job: `}
             {createField('', 'lookingForAJob', [], TextInputForm, {type: 'checkbox'})}
-            <div className={Style.mySkills}>{`My skills: `}</div>
-            {createField('', 'mySkills', [], TextInputForm, {formType: 'textarea'})}
+            </div>
+            <div className={Style.mySkills}>{`My skills: `}
+            {createField('', 'LookingForAJobDescription', [], TextInputForm, {formType: 'textarea'})}
+            </div>
             <div className={Style.contacts}>Contacts:
-
+            % to be added %
             </div>
         </form>
     )

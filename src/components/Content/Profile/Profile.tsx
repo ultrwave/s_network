@@ -10,10 +10,10 @@ type PageProfilePropsType = {
     isOwner: boolean
     updateUserStatus (status: string): void
     savePhoto (photo: File): void
+    saveProfile (profile: UserProfileType): void
 }
 
 export function Profile(props:PageProfilePropsType) {
-
 
 
     return (
@@ -22,6 +22,7 @@ export function Profile(props:PageProfilePropsType) {
                          status={props.status}
                          isOwner={props.isOwner}
                          savePhoto={props.savePhoto}
+                         saveProfile={props.saveProfile}
                          updateUserStatus={props.updateUserStatus}
             />
             <MyPostsContainer />
