@@ -19,14 +19,16 @@ export const ProfileData = (props: ProfileDataProps) => {
         <div className={Style.profileInfo}>
             {props.isOwner && <button className={Style.editButton}
                                       onClick={props.goToEditMode}>
-                edit
+                Edit
             </button>}
             <div className={Style.fullName}>{props.profile.fullName}</div>
             <ProfileStatusWithHooks
                 status={props.status}
                 updateUserStatus={props.updateUserStatus}
             />
-            <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
+            <div className={Style.aboutMe}>
+                {'About me:'}
+                {props.profile.aboutMe}</div>
             <div className={Style.lookingForAJob}>
                 {`Looking for a job: ${props.profile.lookingForAJob ? 'yes' : 'no'}`}</div>
             {props.profile.lookingForAJob &&

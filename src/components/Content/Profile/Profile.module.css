@@ -30,17 +30,13 @@
     background-color: #e7d9c8;
 }
 
-.editButton {
+.editButton, .editModeCancelButton {
     align-self: flex-end;
     position: absolute;
     margin-right: 20px;
 }
 
-.editModeCancelButton {
-    align-self: flex-end;
-}
-
-.profileInfoEditMode > div {
+.profileInfoEditMode .editModeItem {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -49,7 +45,24 @@
 
 .profileInfoEditMode textarea {
     resize: none;
-    width: 200px;
+    width: 240px;
+    height: 60px;
+    margin-right: 60px;
+}
+
+.profileInfoEditMode input {
+    resize: none;
+    width: 240px;
+    margin-right: 60px;
+}
+
+.profileInfoEditMode {
+
+}
+
+.profileInfoEditMode .editModeSubmitButton {
+    margin: 20px auto;
+    font-size: 24px;
 }
 
 .fullName {
@@ -67,6 +80,11 @@
 .lookingForAJob {
     padding: 10px;
     color: #4781c8;
+}
+
+.lookingForAJobCheckbox input {
+    width: revert;
+    margin-right: 292px;
 }
 
 .contacts {
