@@ -105,8 +105,6 @@ export type UserProfileType = {
     photos: PhotosType
 }
 
-export type AppDispatchType = typeof store.dispatch // ReturnType? todo - норм типизация?
-
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof deletePost>

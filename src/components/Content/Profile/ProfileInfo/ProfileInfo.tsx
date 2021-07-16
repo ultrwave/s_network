@@ -47,7 +47,7 @@ export function ProfileInfo(props: ProfileInfoProps) {
         }
     }
 
-    const onSubmit = (formData: any) => { // todo - fix any
+    const onSubmit = (formData: UserProfileType & any) => { // todo - any?
         props.saveProfile(formData)
         setEditMode(false)
     }
@@ -69,8 +69,11 @@ export function ProfileInfo(props: ProfileInfoProps) {
                                  onMainPhotoSelected={onMainPhotoSelected}
                                  goToEditMode={setEditModeOn}
                     />
-                    : <div>
-                        <button onClick={() => {setEditMode(false)}}>cancel</button>
+                    : <div className={`${Style.profileInfo} ${Style.profileInfoEditMode}`}>
+                        <button className={Style.editModeCancelButton}
+                                onClick={() => {setEditMode(false)}}>
+                            cancel
+                        </button>
                         <ProfileDataForm onSubmit={onSubmit}/>
                     </div>
                 }

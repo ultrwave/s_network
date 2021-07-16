@@ -5,42 +5,36 @@ import {createField, TextInputForm} from '../../../common/FormsControls/FormsCon
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 
-type ProfileDataFormPropsType = {
-    profile: UserProfileType
-}
-
-
-const ProfileDataForm = (props: InjectedFormProps<ProfileDataFormPropsType>) => {
+const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
 
     return (
-        <form className={Style.profileInfo} onSubmit={props.handleSubmit}>
-            <button type='submit'>save changes</button>
-            <div className={Style.fullName}>{`Full name: `}
-            {createField('Name', 'fullName', [], TextInputForm)}
+        <form onSubmit={props.handleSubmit}>
+            <div className={Style.BLANK}>{`Full name: `}
+                {createField('Name', 'fullName', [], TextInputForm)}
             </div>
-            <div className={Style.aboutMe}>{`about: `}
-            {createField('About me', 'aboutMe', [], TextInputForm)}
+            <div className={Style.BLANK}>{`About me: `}
+                {createField('About me', 'aboutMe', [], TextInputForm)}
             </div>
-            <div className={Style.lookingForAJob}>{`Looking for a job: `}
-            {createField('', 'lookingForAJob', [], TextInputForm, {type: 'checkbox'})}
+            <div className={Style.BLANK}>{`Looking for a job: `}
+                {createField('', 'lookingForAJob', [], TextInputForm, {type: 'checkbox'})}
             </div>
-            <div className={Style.mySkills}>{`My skills: `}
-            {createField('', 'LookingForAJobDescription', [], TextInputForm, {formType: 'textarea'})}
+            <div className={Style.BLANK}>{`Skills description: `}
+                {createField('', 'lookingForAJobDescription', [], TextInputForm, {formType: 'textarea'})}
             </div>
-            <div className={Style.contacts}>Contacts:
-            % to be added %
+            <div className={Style.BLANK}>{`Contacts: `}
+                {createField('Facebook', 'contacts.facebook', [], TextInputForm)}
             </div>
+            <button className={Style.BLANK} type='submit'>save changes</button>
         </form>
     )
 }
 
-const ProfileDataFormReduxForm = reduxForm<ProfileDataFormPropsType>({form: 'edit-profile'})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm<UserProfileType>({form: 'edit-profile'})(ProfileDataForm)
 
 
 const InitializeFromStateForm = connect(
-    (state: StateType) => ({
-        initialValues: {profile: state.pageProfile.profile}
-    }),
+    (state: StateType) => (
+        {initialValues: state.pageProfile.profile}),
     {}
 )(ProfileDataFormReduxForm)
 

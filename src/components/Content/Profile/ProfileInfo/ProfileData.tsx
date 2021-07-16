@@ -17,17 +17,20 @@ export const ProfileData = (props: ProfileDataProps) => {
 
     return (
         <div className={Style.profileInfo}>
-            {props.isOwner && <button onClick={props.goToEditMode}>edit</button>}
+            {props.isOwner && <button className={Style.editButton}
+                                      onClick={props.goToEditMode}>
+                edit
+            </button>}
             <div className={Style.fullName}>{props.profile.fullName}</div>
+            <ProfileStatusWithHooks
+                status={props.status}
+                updateUserStatus={props.updateUserStatus}
+            />
             <div className={Style.aboutMe}>{props.profile.aboutMe}</div>
             <div className={Style.lookingForAJob}>
                 {`Looking for a job: ${props.profile.lookingForAJob ? 'yes' : 'no'}`}</div>
             {props.profile.lookingForAJob &&
             <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>}
-            <ProfileStatusWithHooks
-                status={props.status}
-                updateUserStatus={props.updateUserStatus}
-            />
             <div className={Style.contacts}>Contacts:
                 {props.contacts}
             </div>
