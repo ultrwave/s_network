@@ -33,7 +33,7 @@
     flex-direction: column;
     min-width: 500px;
     margin: 10px;
-    padding: 20px 0 0 25px;
+    padding: 10px 0 0 25px;
     border: 3px dotted white;
     border-radius: 10px;
     background-color: #e7d9c8;
@@ -54,6 +54,11 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 10px 20px 0 0;
+}
+
+.editModeContactsSection {
+    display: flex;
+    flex-direction: column;
 }
 
 .profileInfoEditMode textarea {

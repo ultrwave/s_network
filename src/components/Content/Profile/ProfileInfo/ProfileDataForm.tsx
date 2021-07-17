@@ -10,52 +10,29 @@ const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={Style.editModeItem}>
-                <span>{`Full name: `}</span>
+                <span><b>{`Full name: `}</b></span>
                 {createField('Name', 'fullName', [], TextInputForm)}
             </div>
             <div className={Style.editModeItem}>
-                <span>{`About me: `}</span>
+                <span><b>{`About me: `}</b></span>
                 {createField('About me', 'aboutMe', [], TextInputForm)}
             </div>
             <div className={`${Style.editModeItem} ${Style.lookingForAJobCheckbox}`}>
-                <span>{`Looking for a job: `}</span>
+                <span><b>{`Looking for a job: `}</b></span>
                 {createField('', 'lookingForAJob', [], TextInputForm, {type: 'checkbox'})}
             </div>
             <div className={Style.editModeItem}>
-                <span>{`Skills description: `}</span>
+                <span><b>{`Skills description: `}</b></span>
                 {createField('', 'lookingForAJobDescription', [], TextInputForm, {formType: 'textarea'})}
             </div>
-            <div className={Style.editModeItem}>
-                <span>{`Contacts: `}</span>
-                {createField('Facebook', 'contacts.facebook', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('VK', 'contacts.vk', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('Twitter', 'contacts.twitter', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('Instagram', 'contacts.instagram', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('Youtube', 'contacts.youtube', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('Github', 'contacts.github', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('mainLink', 'contacts.mainLink', [], TextInputForm)}
-            </div>
-            <div className={Style.editModeItem}>
-                <span/>
-                {createField('Website', 'contacts.website', [], TextInputForm)}
+            <div className={Style.editModeContactsSection}>
+                <span><b>{`Contacts: `}</b></span>
+                {Object.keys(props.initialValues.contacts || {}).map((contactItem, i) => {
+                    return <div className={Style.editModeItem} key={i}>
+                        <span>{contactItem} :</span>
+                        {createField(contactItem, 'contacts.' + contactItem, [], TextInputForm)}
+                    </div>
+                })}
             </div>
             <button className={`${Style.editModeItem} ${Style.editModeSubmitButton}`} type='submit'>
                 save changes

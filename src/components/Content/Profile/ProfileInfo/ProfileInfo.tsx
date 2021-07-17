@@ -8,7 +8,6 @@ import {Contact} from './Contact';
 import {ProfileData} from './ProfileData';
 import ProfileDataForm from './ProfileDataForm';
 
-
 type ProfileInfoProps = {
     profile: UserProfileType | null
     status: string
