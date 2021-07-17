@@ -22,21 +22,31 @@ export const ProfileData = (props: ProfileDataProps) => {
                 Edit
             </button>}
             <div className={Style.fullName}>{props.profile.fullName}</div>
-            <ProfileStatusWithHooks
+            <div className={Style.statusContainer}>
+                <ProfileStatusWithHooks
                 status={props.status}
                 updateUserStatus={props.updateUserStatus}
             />
-            <div className={Style.aboutMe}>
-                {'About me:'}
-                {props.profile.aboutMe}</div>
-            <div className={Style.lookingForAJob}>
-                {`Looking for a job: ${props.profile.lookingForAJob ? 'yes' : 'no'}`}</div>
-            {props.profile.lookingForAJob &&
-            <div className={Style.lookingForAJob}>{props.profile.lookingForAJobDescription}</div>}
-            <div className={Style.contacts}>Contacts:
-                {props.contacts}
+                <div className={Style.lookingForAJob}>
+                    {`${props.profile.lookingForAJob ? 'Looking for a job!' : ''}`}
+                </div>
             </div>
-            {props.isOwner && <input type="file" onChange={props.onMainPhotoSelected}/>}
+            <div className={Style.profileDataContainer}>
+                <div className={`${Style.profileInfoSection} ${Style.aboutMe}`}>
+                    <span className={Style.profileInfoTitle}>{'About me:'}</span>
+                    <div>{props.profile.aboutMe}</div>
+                </div>
+
+                <div className={`${Style.profileInfoSection} ${Style.lookingForAJobDescription}`}>
+                    <span className={Style.profileInfoTitle}>{'Skills:'}</span>
+                    <div>{props.profile.lookingForAJobDescription}</div>
+                </div>
+
+                <div className={`${Style.profileInfoSection} ${Style.contacts}`}>
+                    <span className={Style.profileInfoTitle}>{'Contacts:'}</span>
+                    <div>{props.contacts}</div>
+                </div>
+            </div>
         </div>
     )
 }

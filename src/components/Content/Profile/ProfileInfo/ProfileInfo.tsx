@@ -15,7 +15,7 @@ type ProfileInfoProps = {
     isOwner: boolean
     updateUserStatus(status: string): void
     savePhoto(photo: File): void
-    saveProfile (profile: UserProfileType): void
+    saveProfile(profile: UserProfileType): void
 }
 
 
@@ -59,19 +59,24 @@ export function ProfileInfo(props: ProfileInfoProps) {
                      className={Style.profileWallpaper}/>
             </div>
             <div className={Style.description}>
-                <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
+                <div className={Style.avatarContainer}>
+                    <img className={Style.userAvatar} src={userAvatarSrc} alt="User avatar"/>
+                    {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+                </div>
                 {!editMode
                     ? <ProfileData profile={props.profile}
-                                 status={props.status}
-                                 isOwner={props.isOwner}
-                                 contacts={contacts}
-                                 updateUserStatus={props.updateUserStatus}
-                                 onMainPhotoSelected={onMainPhotoSelected}
-                                 goToEditMode={setEditModeOn}
+                                   status={props.status}
+                                   isOwner={props.isOwner}
+                                   contacts={contacts}
+                                   updateUserStatus={props.updateUserStatus}
+                                   onMainPhotoSelected={onMainPhotoSelected}
+                                   goToEditMode={setEditModeOn}
                     />
                     : <div className={`${Style.profileInfo} ${Style.profileInfoEditMode}`}>
                         <button className={Style.editModeCancelButton}
-                                onClick={() => {setEditMode(false)}}>
+                                onClick={() => {
+                                    setEditMode(false)
+                                }}>
                             cancel
                         </button>
                         <ProfileDataForm onSubmit={onSubmit}/>

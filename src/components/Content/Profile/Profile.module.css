@@ -12,13 +12,22 @@
     flex-direction: row;
 }
 
+.avatarContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.avatarContainer > * {
+    margin: 10px 10px 0;
+}
+
 .userAvatar {
     width: 250px;
     height: 250px;
     border: 5px solid white;
     border-radius: 10px;
-    margin: 10px;
 }
+
 .profileInfo {
     display: flex;
     flex-direction: column;
@@ -28,6 +37,10 @@
     border: 3px dotted white;
     border-radius: 10px;
     background-color: #e7d9c8;
+}
+
+.profileDataContainer {
+    background-color: wheat;
 }
 
 .editButton, .editModeCancelButton {
@@ -70,15 +83,19 @@
     font-weight: bold;
 }
 
-.aboutMe {
+.statusContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 10px 5px;
+}
+
+.status {
+    font-size: 18px;
     font-style: italic;
-    font-weight: bold;
-    color: #9d867b;
-    padding-left: 10px;
+    color: grey;
 }
 
 .lookingForAJob {
-    padding: 10px;
     color: #4781c8;
 }
 
@@ -87,13 +104,33 @@
     margin-right: 292px;
 }
 
-.contacts {
+.profileInfoSection {
+    padding-top: 15px;
+    font-size: 15px;
+    line-height: 110%;
+}
+
+.profileInfoSection > :not(.profileInfoTitle) {
+    padding-left: 15px;
+}
+
+.profileInfoTitle {
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.aboutMe {
+    padding-top: 0;
+}
+
+.lookingForAJobDescription {
+
 }
 
 .contact {
-    font-size: 15px;
     color: #714b90;
-    line-height: 110%;
 }
 
 .showMeButton {
