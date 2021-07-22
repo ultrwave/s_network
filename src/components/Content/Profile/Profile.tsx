@@ -10,7 +10,7 @@ type PageProfilePropsType = {
     isOwner: boolean
     updateUserStatus (status: string): void
     savePhoto (photo: File): void
-    saveProfile (profile: UserProfileType): void
+    saveProfile (profile: UserProfileType): Promise<Object>
 }
 
 export function Profile(props:PageProfilePropsType) {

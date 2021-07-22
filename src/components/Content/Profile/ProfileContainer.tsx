@@ -19,7 +19,7 @@ export type MDTPType = {
     getUserStatus (userId: string): void
     updateUserStatus (status: string): void
     savePhotoThunk (photo: File): void
-    saveProfileThunk (profile: UserProfileType): void
+    saveProfileThunk (profile: UserProfileType): Promise<Object>
 }
 
 export type MSTPType = {

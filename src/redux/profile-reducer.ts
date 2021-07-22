@@ -158,11 +158,12 @@ export const saveProfileThunk = (profile: UserProfileType): AppThunk => async(di
         dispatch(getProfileThunk(userId || '2'))
         // todo - сделать default user id для неавторизованного юзера
     } else {
-        let message = response.data.messages.length > 0
+        const message = response.data.messages.length > 0
             ? response.data.messages[0]
             : 'unknown error'
-        let action = stopSubmit('edit-profile', {_error: message})
+        const action = stopSubmit('edit-profile', {_error: message})
         dispatch(action)
+        return Promise.reject(message)
     }
 }
 
