@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 import {ActionTypes, AppThunk, PhotosType, PostsDataType, UserProfileType} from '../types/types';
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 import {profileAPI} from '../api/api';
+import {stopSubmit} from 'redux-form';
 
 const ADD_POST = 'sn01/profile/ADD-POST'
 const DELETE_POST = 'sn01/profile/DELETE-POST'
@@ -156,6 +157,12 @@ export const saveProfileThunk = (profile: UserProfileType): AppThunk => async(di
     if (response.data.resultCode === 0) {
         dispatch(getProfileThunk(userId || '2'))
         // todo - сделать default user id для неавторизованного юзера
+    } else {
+        let message = response.data.messages.length > 0
+            ? response.data.messages[0]
+            : 'unknown error'
+        let action = stopSubmit('edit-profile', {_error: message})
+        dispatch(action)
     }
 }
 

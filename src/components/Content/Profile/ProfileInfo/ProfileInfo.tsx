@@ -47,8 +47,10 @@ export function ProfileInfo(props: ProfileInfoProps) {
     }
 
     const onSubmit = (formData: UserProfileType & any) => { // todo - any?
-        props.saveProfile(formData)
-        setEditMode(false)
+        if (!formData.error) {
+            props.saveProfile(formData)
+            // setEditMode(false)
+        }
     }
 
     return (

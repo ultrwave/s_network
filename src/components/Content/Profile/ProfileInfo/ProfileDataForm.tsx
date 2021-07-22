@@ -27,7 +27,8 @@ const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
             </div>
             <div className={Style.editModeContactsSection}>
                 <span><b>{`Contacts: `}</b></span>
-                {Object.keys(props.initialValues.contacts || {}).map((contactItem, i) => {
+                {Object.keys(props.initialValues.contacts || {})
+                    .sort().map((contactItem, i) => {
                     return <div className={Style.editModeItem} key={i}>
                         <span>{contactItem} :</span>
                         {createField(contactItem, 'contacts.' + contactItem, [], TextInputForm)}
@@ -37,10 +38,13 @@ const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
             <button className={`${Style.editModeItem} ${Style.editModeSubmitButton}`} type='submit'>
                 save changes
             </button>
+            {props.error && <div style={{color: 'red',fontWeight: 'bold'}}>
+                {props.error}
+            </div>}
         </form>
     )
 }
-
+// todo - parse error to specific field
 const ProfileDataFormReduxForm = reduxForm<UserProfileType>({form: 'edit-profile'})(ProfileDataForm)
 
 
