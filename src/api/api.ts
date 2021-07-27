@@ -63,6 +63,13 @@ export const authAPI = {
     }
 }
 
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get('auth/me')
+            .then(response => response.data)
+    },
+}
+
 type authLoginType = {
     email: string
     password: string
