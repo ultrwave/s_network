@@ -1,5 +1,5 @@
 import {ActionTypes, AppThunk} from '../types/types';
-import {authAPI} from '../api/api';
+import {authAPI, securityAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
 
@@ -67,7 +67,7 @@ export const setAuthThunk = (): AppThunk => async (dispatch) => {
     }
 }
 
-export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunk =>
+export const loginThunk = (email: string, password: string, rememberMe: boolean): AppThunk =>
     async (dispatch) => {
         const response = await authAPI.login({email, password, rememberMe});
         if (response.resultCode === 0) {
@@ -90,8 +90,10 @@ export const logoutThunk = (): AppThunk =>
     }
 
 export const getCaptchaThunk = (): AppThunk => async (dispatch) => {
-    const captchaURL = await authAPI.getCaptcha()
-        dispatch(showCaptcha(captchaURL))
+    const response = await securityAPI.getCaptchaUrl()
+    const captchaURL = response.data.url
+
+    dispatch(showCaptcha(captchaURL))
 }
 
 export default authReducer
