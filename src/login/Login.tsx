@@ -1,5 +1,5 @@
 import React from 'react';
-import {LoginReduxForm} from './LoginForm';
+import {LoginReduxFormWithCaptcha} from './LoginForm';
 import {connect} from 'react-redux';
 import {loginThunk, logoutThunk} from '../redux/auth-reducer';
 import {Redirect} from 'react-router-dom';
@@ -9,17 +9,17 @@ type LoginPropsType = {
     loginThunk(email: string, password: string, rememberMe: boolean, captcha?: string): void
     logoutThunk(): void
     isAuth: boolean
+    captcha?: string
 }
 
 type FormDataType = {
     email: string
     password: string
     rememberMe?: boolean
-    captcha?: string
 }
 
- function Login ({loginThunk, isAuth}: LoginPropsType) {
-    const onSubmit = (formData: FormDataType) => {
+ function Login ({loginThunk, isAuth, captcha}: LoginPropsType) {
+    const onSubmit = (formData: FormDataType & any) => {
         loginThunk(formData.email, formData.password, !!formData.rememberMe, formData.captcha)
     }
 
@@ -30,7 +30,7 @@ type FormDataType = {
     return (
         <div style={{margin: '50px'}}>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxFormWithCaptcha onSubmit={onSubmit}/>
         </div>
     )
 }

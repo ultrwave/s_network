@@ -47,7 +47,6 @@ const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
 // todo - parse error to specific field
 const ProfileDataFormReduxForm = reduxForm<UserProfileType>({form: 'edit-profile'})(ProfileDataForm)
 
-
 const InitializeFromStateForm = connect(
     (state: StateType) => (
         {initialValues: state.pageProfile.profile}),

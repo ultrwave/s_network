@@ -49,7 +49,7 @@ export const authAPI = {
         return instance.get('auth/me')
             .then(response => response.data)
     },
-    login({email, password, rememberMe = false, captcha}: authLoginType) {
+    login({email, password, rememberMe = false, captcha = undefined}: authLoginType) {
         return instance.post('/auth/login', {email, password, rememberMe, captcha})
             .then(response => response.data)
     },

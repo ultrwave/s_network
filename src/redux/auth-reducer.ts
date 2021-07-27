@@ -67,12 +67,15 @@ export const setAuthThunk = (): AppThunk => async (dispatch) => {
     }
 }
 
-export const loginThunk = (email: string, password: string, rememberMe: boolean): AppThunk =>
+export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunk =>
     async (dispatch) => {
-        const response = await authAPI.login({email, password, rememberMe});
+        const response = await authAPI.login({email, password, rememberMe, captcha});
         if (response.resultCode === 0) {
             dispatch(setAuthThunk())
         } else {
+            if (response.resultCode === 10) {
+                dispatch(getCaptchaThunk())
+            }
             let message = response.messages.length > 0
                 ? response.messages[0]
                 : 'unknown error'
@@ -89,11 +92,12 @@ export const logoutThunk = (): AppThunk =>
         }
     }
 
-export const getCaptchaThunk = (): AppThunk => async (dispatch) => {
-    const response = await securityAPI.getCaptchaUrl()
-    const captchaURL = response.data.url
+export const getCaptchaThunk = (): AppThunk =>
+    async (dispatch) => {
+        const response = await securityAPI.getCaptchaUrl()
+        const captchaURL = response.data.url
 
-    dispatch(showCaptcha(captchaURL))
-}
+        dispatch(showCaptcha(captchaURL))
+    }
 
 export default authReducer

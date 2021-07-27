@@ -1,20 +1,18 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm, SubmitHandler} from 'redux-form';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {TextInputForm} from '../components/common/FormsControls/FormsControls';
 import {required} from '../utils/validators/validators';
+import {connect} from 'react-redux';
+import {StateType} from '../types/types';
 
 type loginFormPropsType = {
-    email: string
-    password: string
-    rememberMe?: boolean
-    captcha: string
-    handleSubmit: SubmitHandler
+    captcha: string | undefined | null
 }
 
-export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = ({handleSubmit, error}) => {
+export const LoginForm = (props: InjectedFormProps<loginFormPropsType>) => {
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={props.handleSubmit}>
             <div>
                 <Field placeholder={'email'}
                        name={'email'}
@@ -30,9 +28,17 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = ({hand
                        validate={[required]}
                 />
             </div>
-            { error && <div style={{color: 'red',fontWeight: 'bold'}}>
-                {error}
+            {props.error && <div style={{color: 'red', fontWeight: 'bold'}}>
+                {props.error}
             </div>}
+            {props.initialValues.captcha &&
+            <div>
+                <img src={props.initialValues.captcha}/>
+                <Field name={'captcha'}
+                       component={TextInputForm}
+                />
+            </div>
+            }
             <div>
                 <Field type={'checkbox'}
                        name={'rememberMe'}
@@ -46,8 +52,13 @@ export const LoginForm: React.FC<InjectedFormProps<loginFormPropsType>> = ({hand
     )
 }
 
-export const LoginReduxForm = reduxForm<loginFormPropsType>({
-        form: 'login',
-        // initialValues: {captcha: props.captchaMSTP}
-    }
-)(LoginForm)
+const LoginReduxForm = reduxForm
+<loginFormPropsType>({form: 'login'})(LoginForm)
+
+    export const LoginReduxFormWithCaptcha = connect(
+    (state: StateType) => (
+    {initialValues: {captcha: state.auth.captcha}}),
+    {}
+    )(LoginReduxForm)
+
+
