@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {HashRouter, Route, withRouter} from 'react-router-dom';
+import {HashRouter, Route, withRouter, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import {Navbar} from './components/Navbar/Navbar';
 import {News} from './components/Content/News/News';
@@ -43,13 +43,18 @@ class App extends React.Component<AppPropsType> {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Suspense fallback={<Preloader/>}>
-                        <Route path="/login" render={() => <Login/>}/>
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                        <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                        <Route path="/users" render={() => <UsersContainer/>}/>
-                        <Route path="/news" component={News}/>
-                        <Route path="/music" component={Music}/>
-                        <Route path="/settings" component={Settings}/>
+                        <Switch>
+                            <Route path="/login" render={() => <Login/>}/>
+                            <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                            <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                            <Route path="/users" render={() => <UsersContainer/>}/>
+                            <Route path="/news" component={News}/>
+                            <Route path="/music" component={Music}/>
+                            <Route path="/settings" component={Settings}/>
+
+                            <Route path={'/404'} render={() => <div>404</div>}/>
+                            <Redirect from={'*'} to={'/404'}/>
+                        </Switch>
                     </Suspense>
                 </div>
             </div>
@@ -61,7 +66,6 @@ class App extends React.Component<AppPropsType> {
 const MSTP = (state: StateType) => ({
     initialized: state.app.initialized
 })
-
 
 const AppContainer = compose(
     withRouter,

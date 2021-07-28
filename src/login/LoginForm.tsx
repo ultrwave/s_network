@@ -34,7 +34,8 @@ export const LoginForm = (props: InjectedFormProps<loginFormPropsType>) => {
             {props.initialValues.captcha &&
             <div>
                 <img src={props.initialValues.captcha}/>
-                <Field name={'captcha'}
+                <Field placeholder={'Type symbols from image'}
+                       name={'captcha'}
                        component={TextInputForm}
                 />
             </div>
@@ -53,12 +54,12 @@ export const LoginForm = (props: InjectedFormProps<loginFormPropsType>) => {
 }
 
 const LoginReduxForm = reduxForm
-<loginFormPropsType>({form: 'login'})(LoginForm)
+    < loginFormPropsType > ({form: 'login'})(LoginForm)
 
-    export const LoginReduxFormWithCaptcha = connect(
+export const LoginReduxFormWithCaptcha = connect(
     (state: StateType) => (
-    {initialValues: {captcha: state.auth.captcha}}),
+        {initialValues: {captcha: state.auth.captcha}}),
     {}
-    )(LoginReduxForm)
+)(LoginReduxForm)
 
 

@@ -1,14 +1,16 @@
 import {
-    setCurrentPage, setItemsOnPage,
+    setCurrentPage,
+    setItemsOnPage,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
-    toggleFollow, toggleRequestIsInProgress
+    toggleFollow,
+    toggleRequestIsInProgress
 } from '../redux/users-reducer';
 import {addPost, deletePost, savePhotoSuccess, setUserProfile, setUserStatus} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
 import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
-import store, {rootReducer} from '../redux/redux-store';
+import {rootReducer} from '../redux/redux-store';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 import {setInitialized} from '../redux/app-reducer';
@@ -20,36 +22,6 @@ export type AppThunk<ReturnType = any> = ThunkAction<ReturnType, // todo fix any
     StateType,
     unknown,
     Action<string>>
-
-// export type StoreType = {
-//     _state: StateType
-//     _callSubscriber: (s: StateType) => void
-//     getState: () => StateType
-//     subscribe: (callback: () => void) => void
-//     dispatch: (action: ActionTypes) => void
-// }
-
-// export type StateType = {
-//     pageProfile: {
-//         profile: UserProfileType | null
-//         postsData: Array<PostsDataType>
-//         newPostText: string
-//     }
-//     pageDialogs: {
-//         dialogsData: DialogsDataType
-//         dialogItems: Array<DialogItemType>
-//         activeDialogId: string
-//         newMessageText: string
-//     }
-//     pageUsers: {
-//         users: Array<UserType>
-//         pageSize: number
-//         totalUsersCount: number
-//         currentPage: number
-//         isFetching: boolean
-//     }
-//     [key: string]: any
-// }
 
 export type DialogsDataType = {
     [id: string]: Array<MessageDataType>
