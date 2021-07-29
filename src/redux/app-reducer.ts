@@ -1,15 +1,16 @@
 import {ActionTypes, AppThunk} from '../types/types';
 import {setAuthThunk} from './auth-reducer';
 
-
 const SET_INITIALIZED = 'sn01/app/SET-INITIALIZED'
 
 type AppStateType = {
     initialized: boolean
+    globalError: string | null
 }
 
 const initialState: AppStateType = {
-    initialized: false
+    initialized: false,
+    globalError: null
 }
 
 const appReducer = (state: AppStateType = initialState, action: ActionTypes): AppStateType => {

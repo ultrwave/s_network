@@ -6,7 +6,7 @@ import {InjectedFormProps, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 
 const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
-    console.log(props)
+
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={Style.editModeItem}>
@@ -44,7 +44,6 @@ const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
         </form>
     )
 }
-// todo - parse error to specific field
 const ProfileDataFormReduxForm = reduxForm<UserProfileType>({form: 'edit-profile'})(ProfileDataForm)
 
 const InitializeFromStateForm = connect(

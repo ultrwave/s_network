@@ -17,7 +17,7 @@ type PageStateType = {
 }
 
 export const defaultUser: UserProfileType = {
-    userId: '2', // todo - fix default
+    userId: '-1',
     fullName: '',
     aboutMe: null,
     lookingForAJob: false,
@@ -138,9 +138,14 @@ export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => 
 }
 
 export const updateStatusThunk = (status: string): AppThunk => async (dispatch) => {
-    const response = await profileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(status))
+    try {
+        const response = await profileAPI.updateStatus(status);
+        if (response.data.resultCode === 0) {
+            dispatch(setUserStatus(status))
+        }
+    }
+    catch (error) {
+        console.warn(error)
     }
 }
 
@@ -155,8 +160,7 @@ export const saveProfileThunk = (profile: UserProfileType): AppThunk => async (d
     const userId = getState().auth.userId
     const response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
-        dispatch(getProfileThunk(userId || '2'))
-        // todo - сделать default user id для неавторизованного юзера
+        dispatch(getProfileThunk(userId || '-1'))
     } else {
         const message = response.data.messages.length > 0
             ? response.data.messages[0]
@@ -167,8 +171,6 @@ export const saveProfileThunk = (profile: UserProfileType): AppThunk => async (d
             .filter((s: string) => s !== ')' && s !== ' ')
             .join('')
             error = error[0].toLowerCase() + error.slice(1)
-        let x = `contacts.` + error
-        debugger
         const action = stopSubmit(
             'edit-profile',
             {contacts: {[error]: message.split(' format')[0]}}
