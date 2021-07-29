@@ -151,7 +151,7 @@ export const savePhotoThunk = (file: File): AppThunk => async (dispatch) => {
     }
 }
 
-export const saveProfileThunk = (profile: UserProfileType): AppThunk => async(dispatch, getState) => {
+export const saveProfileThunk = (profile: UserProfileType): AppThunk => async (dispatch, getState) => {
     const userId = getState().auth.userId
     const response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
@@ -161,7 +161,18 @@ export const saveProfileThunk = (profile: UserProfileType): AppThunk => async(di
         const message = response.data.messages.length > 0
             ? response.data.messages[0]
             : 'unknown error'
-        const action = stopSubmit('edit-profile', {_error: message})
+        let error = message
+            .split('>')[1]
+            .split('')
+            .filter((s: string) => s !== ')' && s !== ' ')
+            .join('')
+            error = error[0].toLowerCase() + error.slice(1)
+        let x = `contacts.` + error
+        debugger
+        const action = stopSubmit(
+            'edit-profile',
+            {contacts: {[error]: message.split(' format')[0]}}
+        )
         dispatch(action)
         return Promise.reject(message)
     }

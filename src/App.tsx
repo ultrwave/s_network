@@ -52,7 +52,7 @@ class App extends React.Component<AppPropsType> {
                             <Route path="/music" component={Music}/>
                             <Route path="/settings" component={Settings}/>
 
-                            <Route path={'/404'} render={() => <div>404</div>}/>
+                            <Route path={'/404'} render={() => <h1>404 not found</h1>}/>
                             <Redirect from={'*'} to={'/404'}/>
                         </Switch>
                     </Suspense>

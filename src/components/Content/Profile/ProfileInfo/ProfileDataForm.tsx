@@ -6,7 +6,7 @@ import {InjectedFormProps, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 
 const ProfileDataForm = (props: InjectedFormProps<UserProfileType>) => {
-
+    console.log(props)
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={Style.editModeItem}>
