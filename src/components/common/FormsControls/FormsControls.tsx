@@ -2,9 +2,9 @@ import React from 'react';
 import Style from './FormsControls.module.css'
 import {Field} from 'redux-form';
 
-type TextAreaPropsType = { // todo - fix any
-    input: any,
-    meta: any
+type TextAreaPropsType = {
+    input: string,
+    meta: string
 }
 
 

@@ -13,7 +13,7 @@ type UserPropsType = {
 function User ({user, toggleFollow, followRequestsInProgress}: UserPropsType) {
 
     return (
-        <div key={user.id} className={Style.user}>
+        <div className={Style.user}>
             <NavLink to={'/profile/' + user.id}>
                 <div className={Style.avatar}>
                     <img

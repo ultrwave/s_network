@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Pagination.module.css';
 
 type PaginationType = {
@@ -13,7 +13,7 @@ function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, onSetti
 
     let pages: JSX.Element[] = []
 
-    const lastPage = Math.ceil(totalItems / itemsOnPage)
+    let lastPage = Math.ceil(totalItems / itemsOnPage)
 
     for (let i = 1; i <= lastPage; i++) pages.push((
         <button
@@ -50,9 +50,11 @@ function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, onSetti
         pages = pages.filter((p, i) => i < 2 || i > currentPage - (2 + centralPartWidth));
     }
 
-    if (currentPage > lastPage) {
-        onPageChange(lastPage)
-    }
+    useEffect(() => {
+        if (currentPage > lastPage) {
+            onPageChange(lastPage)
+        }
+    }, [currentPage])
 
     return (
         <div className={s.main}>

@@ -19,6 +19,7 @@ import {
     getTotalUsersCount,
     getUsers
 } from '../../redux/users-selectors';
+import Pagination from '../common/Pagination/Pagination';
 
 
 type UsersAPIPropsType = {
@@ -28,12 +29,12 @@ type UsersAPIPropsType = {
     currentPage: number
     isFetching: boolean
     followRequestsInProgress: string[]
-    setCurrentPage (currentPage: number): void
-    setTotalUsersCount (totalUsersCount: number): void
-    setItemsOnPage (amount: number): void
-    toggleRequestIsInProgress (userId: string, toggle: boolean): void
-    toggleFollow (user: UserType): void
-    getUsers (): void
+    setCurrentPage(currentPage: number): void
+    setTotalUsersCount(totalUsersCount: number): void
+    setItemsOnPage(amount: number): void
+    toggleRequestIsInProgress(userId: string, toggle: boolean): void
+    toggleFollow(user: UserType): void
+    getUsers(): void
 }
 
 class UsersAPI extends React.Component<UsersAPIPropsType> {
@@ -63,16 +64,21 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> :
-                <Users
-                    totalUsersCount={this.props.totalUsersCount}
-                    users={this.props.users}
-                    currentPage={this.props.currentPage}
-                    itemsOnPage={this.props.itemsOnPage}
-                    onPageChange={this.onPageChange}
-                    onSettingsChange={this.onSettingsChange}
-                    toggleFollow={this.toggleFollow}
-                    followRequestsInProgress={this.props.followRequestsInProgress}
-                />}
+                <>
+                    <Pagination
+                        totalItems={this.props.totalUsersCount}
+                        currentPage={this.props.currentPage}
+                        itemsOnPage={this.props.itemsOnPage}
+                        onPageChange={this.onPageChange}
+                        onSettingsChange={this.onSettingsChange}
+                    />
+                    <Users
+                        users={this.props.users}
+                        toggleFollow={this.toggleFollow}
+                        followRequestsInProgress={this.props.followRequestsInProgress}
+                    />
+                </>
+            }
         </>
     }
 }
