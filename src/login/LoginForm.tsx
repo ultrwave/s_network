@@ -33,7 +33,7 @@ export const LoginForm = (props: InjectedFormProps<loginFormPropsType>) => {
             </div>}
             {props.initialValues.captcha &&
             <div>
-                <img src={props.initialValues.captcha}/>
+                <img src={props.initialValues.captcha} alt={'captcha'}/>
                 <Field placeholder={'Type symbols from image'}
                        name={'captcha'}
                        component={TextInputForm}

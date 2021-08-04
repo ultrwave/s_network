@@ -3,12 +3,16 @@ import Style from './FormsControls.module.css'
 import {Field} from 'redux-form';
 
 type TextAreaPropsType = {
-    input: string,
-    meta: string
+    input: {}
+    meta: {
+        error: string
+        touched: string
+    }
+    formType: string
 }
 
 
-export const TextInputForm = ({input, meta, formType, ...props}: any) => {
+export const TextInputForm = ({input, meta, formType, ...props}: TextAreaPropsType) => {
 
     const hasError = meta.error && meta.touched
 

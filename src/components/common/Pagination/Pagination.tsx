@@ -54,7 +54,7 @@ function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, onSetti
         if (currentPage > lastPage) {
             onPageChange(lastPage)
         }
-    }, [currentPage])
+    }, [currentPage, lastPage, onPageChange])
 
     return (
         <div className={s.main}>
