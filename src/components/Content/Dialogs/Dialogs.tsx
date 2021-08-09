@@ -36,7 +36,6 @@ export function Dialogs(props: DialogsContentType) {
 
     return (
         <div className={Style.dialogs}>
-            {console.log('dialogs rendered')}
             <div className={Style.dialogsItems}>
                 {dialogItems}
             </div>

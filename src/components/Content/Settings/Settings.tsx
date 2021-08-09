@@ -7,7 +7,7 @@ type PropsType = {
 
 export function Settings(props: PropsType) {
     return (
-        <div>
+        <div className={Style.BLANK}>
             Settings
         </div>
     )

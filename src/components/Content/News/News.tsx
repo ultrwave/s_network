@@ -7,7 +7,7 @@ type PropsType = {
 
 export function News(props: PropsType) {
     return (
-        <div>
+        <div className={Style.BLANK}>
             News
         </div>
     )

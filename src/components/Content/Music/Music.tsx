@@ -7,7 +7,7 @@ type PropsType = {
 
 export function Music(props: PropsType) {
     return (
-        <div>
+        <div className={Style.BLANK}>
             Music
         </div>
     )
