@@ -9,7 +9,7 @@ import {
 } from '../redux/users-reducer';
 import {
     addPost,
-    deletePost,
+    deletePost, editPost,
     savePhotoSuccess,
     setUserProfile,
     setUserStatus,
@@ -87,6 +87,7 @@ export type UserProfileType = {
 
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
+    | ReturnType<typeof editPost>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof toggleMyLike>
     | ReturnType<typeof setUserProfile>

@@ -8,6 +8,7 @@ type MyPostsType = {
     postsData: Array<PostsDataType>
     profile: UserProfileType
     addPost(message: string): void
+    editPost(postId: string, message: string): void
     toggleMyLike(postId: string): void
 }
 
@@ -15,10 +16,12 @@ export const MyPosts = React.memo((props: MyPostsType) => {
 
         const posts = props.postsData.map(p =>
             <Post key={p.id}
+                  postId={p.id}
                   message={p.message}
                   likesCount={p.likesCount}
                   myLike={p.myLike}
                   toggleMyLike={() => props.toggleMyLike(p.id)}
+                  editPost={props.editPost}
                   avatar={props.profile.photos.large}
             />)
 

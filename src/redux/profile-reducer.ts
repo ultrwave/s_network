@@ -5,6 +5,7 @@ import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
 const ADD_POST = 'sn01/profile/ADD-POST' // todo - replace -
+const EDIT_POST = 'sn01/profile/EDIT-POST'
 const DELETE_POST = 'sn01/profile/DELETE-POST'
 const TOGGLE_MY_LIKE = 'sn01/profile/TOGGLE-MY-LIKE'
 const SET_USER_PROFILE = 'sn01/profile/SET-USER-PROFILE'
@@ -75,6 +76,14 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return newState
         }
 
+        case EDIT_POST:
+            return {
+                ...state,
+                postsData: state.postsData.map(p =>
+                    p.id === action.postId? {...p, message: action.message} : p
+                )
+            }
+
         case DELETE_POST:
             return {
                 ...state,
@@ -108,10 +117,25 @@ export const addPost = (message: string) => {
     } as const
 }
 
+export const editPost = (postId: string, message: string) => { // todo - action payloads
+    return {
+        type: EDIT_POST,
+        postId,
+        message
+    } as const
+}
+
 export const deletePost = (id: string) => {
     return {
         type: DELETE_POST,
         id
+    } as const
+}
+
+export const toggleMyLike = (postId: string) => {
+    return {
+        type: TOGGLE_MY_LIKE,
+        postId
     } as const
 }
 
@@ -136,12 +160,6 @@ export const savePhotoSuccess = (photos: PhotosType) => {
     } as const
 }
 
-export const toggleMyLike = (postId: string) => { // todo - action payloads
-    return {
-        type: TOGGLE_MY_LIKE,
-        postId
-    } as const
-}
 
 // Thunks
 
