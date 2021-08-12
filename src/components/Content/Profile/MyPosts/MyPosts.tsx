@@ -6,8 +6,9 @@ import {MyPostsReduxForm} from './MyPostsForm';
 
 type MyPostsType = {
     postsData: Array<PostsDataType>
-    addPost: (message: string) => void
     profile: UserProfileType
+    addPost(message: string): void
+    toggleMyLike(postId: string): void
 }
 
 export const MyPosts = React.memo((props: MyPostsType) => {
@@ -16,6 +17,8 @@ export const MyPosts = React.memo((props: MyPostsType) => {
             <Post key={p.id}
                   message={p.message}
                   likesCount={p.likesCount}
+                  myLike={p.myLike}
+                  toggleMyLike={() => props.toggleMyLike(p.id)}
                   avatar={props.profile.photos.large}
             />)
 

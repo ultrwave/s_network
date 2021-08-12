@@ -5,7 +5,9 @@ import profileAvatarPlaceholder from '../../../../../assets/images/profile_avata
 type PropsType = {
     message: string
     likesCount: number
+    myLike: boolean
     avatar: string | null
+    toggleMyLike(): void
 }
 
 export function Post(props: PropsType) {
@@ -22,8 +24,10 @@ export function Post(props: PropsType) {
                 <div className={Style.message}>
                     <span>{props.message}</span>
                 </div>
-                <div className={Style.likes}>
-                    <span>Like ({props.likesCount} likes)</span>
+                <div className={`${Style.likes} ${props.myLike? Style.myLike : ''}`}>
+                    <span onClick={() => props.toggleMyLike()}>
+                        Like ({props.likesCount + (props.myLike? 1 : 0)} likes)
+                    </span>
                 </div>
             </div>
         </div>

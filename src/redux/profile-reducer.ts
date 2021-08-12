@@ -4,8 +4,9 @@ import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholde
 import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
-const ADD_POST = 'sn01/profile/ADD-POST'
+const ADD_POST = 'sn01/profile/ADD-POST' // todo - replace -
 const DELETE_POST = 'sn01/profile/DELETE-POST'
+const TOGGLE_MY_LIKE = 'sn01/profile/TOGGLE-MY-LIKE'
 const SET_USER_PROFILE = 'sn01/profile/SET-USER-PROFILE'
 const SET_USER_STATUS = 'sn01/profile/SET-USER-STATUS'
 const SET_PHOTO_SUCCESS = 'sn01/profile/SAVE-PHOTO-SUCCESS'
@@ -41,9 +42,9 @@ export const defaultUser: UserProfileType = {
 let initialState = {
     profile: defaultUser,
     postsData: [
-        {id: v1(), message: 'It\'s my first post!', likesCount: 12},
-        {id: v1(), message: 'Hello!', likesCount: 432},
-        {id: v1(), message: 'Good day!', likesCount: 2}
+        {id: v1(), message: 'It\'s my first post!', likesCount: 12, myLike: false},
+        {id: v1(), message: 'Hello!', likesCount: 432, myLike: false},
+        {id: v1(), message: 'Good day!', likesCount: 2, myLike: false}
     ],
     status: ''
 }
@@ -66,7 +67,8 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             let newPost: PostsDataType = {
                 id: v1(),
                 message: (action.message && action.message.trim()) ? action.message : 'Test message',
-                likesCount: Math.round(Math.random() * 1000)
+                likesCount: Math.round(Math.random() * 1000),
+                myLike: false
             }
             let newState = {...state}
             newState.postsData = [newPost, ...state.postsData]
@@ -78,6 +80,15 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
                 ...state,
                 postsData: state.postsData.filter(p => p.id !== action.id)
             }
+
+        case TOGGLE_MY_LIKE: {
+            return {
+                ...state,
+                postsData: state.postsData.map(p =>
+                    p.id === action.postId? {...p, myLike: !p.myLike} : p
+                )
+            }
+        }
 
         case SET_PHOTO_SUCCESS: {
             const newState = {...state}
@@ -125,6 +136,13 @@ export const savePhotoSuccess = (photos: PhotosType) => {
     } as const
 }
 
+export const toggleMyLike = (postId: string) => { // todo - action payloads
+    return {
+        type: TOGGLE_MY_LIKE,
+        postId
+    } as const
+}
+
 // Thunks
 
 export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
@@ -143,8 +161,7 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
         if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status))
         }
-    }
-    catch (error) {
+    } catch (error) {
         console.warn(error)
     }
 }
@@ -170,7 +187,7 @@ export const saveProfileThunk = (profile: UserProfileType): AppThunk => async (d
             .split('')
             .filter((s: string) => s !== ')' && s !== ' ')
             .join('')
-            error = error[0].toLowerCase() + error.slice(1)
+        error = error[0].toLowerCase() + error.slice(1)
         const action = stopSubmit(
             'edit-profile',
             {contacts: {[error]: message.split(' format')[0]}}

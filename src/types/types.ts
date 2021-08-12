@@ -7,7 +7,14 @@ import {
     toggleFollow,
     toggleRequestIsInProgress
 } from '../redux/users-reducer';
-import {addPost, deletePost, savePhotoSuccess, setUserProfile, setUserStatus} from '../redux/profile-reducer';
+import {
+    addPost,
+    deletePost,
+    savePhotoSuccess,
+    setUserProfile,
+    setUserStatus,
+    toggleMyLike
+} from '../redux/profile-reducer';
 import {addMessage, setDialogId} from '../redux/dialogs-reducer';
 import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import {rootReducer} from '../redux/redux-store';
@@ -42,6 +49,7 @@ export type PostsDataType = {
     id: string
     message: string
     likesCount: number
+    myLike: boolean
 }
 
 export type PhotosType = {
@@ -80,6 +88,7 @@ export type UserProfileType = {
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof deletePost>
+    | ReturnType<typeof toggleMyLike>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof savePhotoSuccess>
