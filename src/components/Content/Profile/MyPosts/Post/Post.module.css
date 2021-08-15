@@ -1,8 +1,11 @@
-.item {
+.postItem {
     margin: 10px;
-    padding: 15px;
+    padding: 10px;
     border: 2px dotted white;
     background-color: #d2c8b8;
+}
+
+.postHeader {
     display: flex;
     flex-direction: row;
 }
@@ -37,4 +40,19 @@
 
 .myLike {
     color: #34a568;
+}
+
+.postFooter {
+    margin-top: 10px;
+    padding-left: 110px;
+}
+
+.postFooter > span {
+    width: 120px;
+}
+
+.postDate {
+    color: #7f7f7f;
+    font-size: 12px;
+    float: right;
 }

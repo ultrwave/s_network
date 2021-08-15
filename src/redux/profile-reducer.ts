@@ -43,9 +43,9 @@ export const defaultUser: UserProfileType = {
 let initialState = {
     profile: defaultUser,
     postsData: [
-        {id: v1(), message: 'It\'s my first post!', likesCount: 12, myLike: false},
-        {id: v1(), message: 'Hello!', likesCount: 432, myLike: false},
-        {id: v1(), message: 'Good day!', likesCount: 2, myLike: false}
+        {id: v1(), message: 'It\'s my first post! (test)', likesCount: 12, myLike: false, date: '1/10/2021, 23:04:56'},
+        {id: v1(), message: 'Test message 2', likesCount: 432, myLike: false, date: '1/10/2021, 23:04:56'},
+        {id: v1(), message: 'Test 3', likesCount: 2, myLike: false, date: '1/10/2021, 23:04:56'}
     ],
     status: ''
 }
@@ -69,7 +69,8 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
                 id: v1(),
                 message: (action.message && action.message.trim()) ? action.message : 'Test message',
                 likesCount: Math.round(Math.random() * 1000),
-                myLike: false
+                myLike: false,
+                date: (new Date()).toLocaleString([], {hour12: false} as any)
             }
             let newState = {...state}
             newState.postsData = [newPost, ...state.postsData]

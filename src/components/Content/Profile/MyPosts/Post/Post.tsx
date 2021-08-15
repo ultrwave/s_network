@@ -10,12 +10,13 @@ type PropsType = {
     likesCount: number
     myLike: boolean
     avatar: string | null
+    date: string
     editPost(postId: string, message: string): void
     toggleMyLike(): void
 }
 
 export function Post(props: PropsType) {
-// todo - add dates to posts
+
     const avatar = props.avatar || profileAvatarPlaceholder
 
     let [editMode, setEditMode] = useState(false)
@@ -26,15 +27,15 @@ export function Post(props: PropsType) {
     }
 
     return (
-        <div className={Style.item}>
-            <img src={avatar}
-                 alt="avatar"
-                 className={Style.avatar}
-            />
-            <div className={Style.messageContainer}>
-                {editMode
-                    ? <div>
-                        <div>
+        <div className={Style.postItem}>
+            <div className={Style.postHeader}>
+                <img src={avatar}
+                     alt="avatar"
+                     className={Style.avatar}
+                />
+                <div className={Style.messageContainer}>
+                    {editMode
+                        ? <div>
                             <EditPostReduxForm onSubmit={onSubmit}
                                                key={props.postId}
                                                form={props.postId}
@@ -42,18 +43,22 @@ export function Post(props: PropsType) {
                             />
                             <span onClick={() => setEditMode(false)}> cancel</span>
                         </div>
-                    </div>
-                    : <div className={Style.message}>
-                        <span>{props.message}</span>
-                        <div onClick={() => setEditMode(true)}>
-                            <i>edit</i>
-                        </div>
-                    </div>}
-                <div className={`${Style.likes} ${props.myLike ? Style.myLike : ''}`}>
-                    <span onClick={() => props.toggleMyLike()}>
-                        Like ({props.likesCount + (props.myLike ? 1 : 0)} likes)
-                    </span>
+                        : <div className={Style.message}>
+                            <span>{props.message}</span>
+                            <div onClick={() => setEditMode(true)}>
+                                <i>edit</i>
+                            </div>
+                        </div>}
                 </div>
+            </div>
+            <div className={Style.postFooter}>
+                <span className={`${Style.likes} ${props.myLike ? Style.myLike : ''}`}
+                      onClick={() => props.toggleMyLike()}>
+                    Like ({props.likesCount + (props.myLike ? 1 : 0)} likes)
+                </span>
+                <span className={Style.postDate}>
+                    {props.date}
+                </span>
             </div>
         </div>
     )

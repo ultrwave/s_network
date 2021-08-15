@@ -50,6 +50,7 @@ export type PostsDataType = {
     message: string
     likesCount: number
     myLike: boolean
+    date: string
 }
 
 export type PhotosType = {

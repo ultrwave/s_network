@@ -20,6 +20,7 @@ export const MyPosts = React.memo((props: MyPostsType) => {
                   message={p.message}
                   likesCount={p.likesCount}
                   myLike={p.myLike}
+                  date={p.date}
                   toggleMyLike={() => props.toggleMyLike(p.id)}
                   editPost={props.editPost}
                   avatar={props.profile.photos.large}
