@@ -36,18 +36,22 @@ export function Post(props: PropsType) {
                 <div className={Style.messageContainer}>
                     {editMode
                         ? <div>
+                            <button className={Style.toggleEditModeButton}
+                                    onClick={() => setEditMode(false)}>
+                                cancel
+                            </button>
                             <EditPostReduxForm onSubmit={onSubmit}
                                                key={props.postId}
                                                form={props.postId}
                                                initialValues={{postMessage: props.message}}
                             />
-                            <span onClick={() => setEditMode(false)}> cancel</span>
                         </div>
                         : <div className={Style.message}>
                             <span>{props.message}</span>
-                            <div onClick={() => setEditMode(true)}>
-                                <i>edit</i>
-                            </div>
+                            <button className={Style.toggleEditModeButton}
+                                    onClick={() => setEditMode(true)}>
+                                edit
+                            </button>
                         </div>}
                 </div>
             </div>
