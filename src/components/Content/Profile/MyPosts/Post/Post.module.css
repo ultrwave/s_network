@@ -64,3 +64,13 @@
     background: none;
     cursor: pointer;
 }
+
+.editSaveButton {
+    background-color: #5e73b0;
+}
+
+.editTextArea textarea {
+    width: 90%;
+    height: 50px;
+    resize: none;
+}
