@@ -9,10 +9,10 @@ type ProfileStatusPropsType = {
 export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
 
     let [editMode, setEditMode] = useState(false)
-    let [status, setStatus] = useState(props.status)
+    let [status, setStatus] = useState('')
 
     useEffect(() => {
-        setStatus(props.status)
+        setStatus(props.status || '')
     }, [props.status])
 
     const activateEditMode = () => setEditMode(true)
@@ -29,10 +29,8 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
         <div className={Style.status}>
             {!editMode
                 ?
-                <div>
-                        <span onDoubleClick={activateEditMode}
-                        >{props.status || 'loading...'}</span>
-                </div>
+                <span onDoubleClick={activateEditMode}
+                >{props.status || ''}</span>
                 :
                 <div>
                     <input autoFocus={true}

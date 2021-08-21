@@ -95,9 +95,17 @@
 }
 
 .status {
+    cursor: pointer;
     font-size: 18px;
     font-style: italic;
     color: grey;
+}
+
+.status > span {
+    display: block;
+    background-color: #cecece;
+    min-width: 50px;
+    min-height: 20px;
 }
 
 .lookingForAJob {

@@ -23,10 +23,13 @@ export const ProfileData = (props: ProfileDataProps) => {
             </button>}
             <div className={Style.fullName}>{props.profile.fullName}</div>
             <div className={Style.statusContainer}>
-                <ProfileStatusWithHooks
-                status={props.status}
-                updateUserStatus={props.updateUserStatus}
-            />
+                {props.isOwner
+                    ? <ProfileStatusWithHooks
+                        status={props.status}
+                        updateUserStatus={props.updateUserStatus}
+                    />
+                    : <span>{props.status}</span>
+                }
                 <div className={Style.lookingForAJob}>
                     {`${props.profile.lookingForAJob ? 'Looking for a job!' : ''}`}
                 </div>
