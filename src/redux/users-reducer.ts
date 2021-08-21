@@ -1,13 +1,13 @@
 import {ActionTypes, AppThunk, UserType} from '../types/types';
 import {appAPI} from '../api/api';
 
-const TOGGLE_FOLLOW = 'sn01/users/TOGGLE-FOLLOW'
-const SET_USERS = 'sn01/users/SET-USERS'
-const SET_CURRENT_PAGE = 'sn01/users/SET-CURRENT-PAGE'
-const SET_ITEMS_ON_PAGE = 'sn01/users/SET-ITEMS-ON-PAGE'
-const SET_TOTAL_USERS_COUNT = 'sn01/users/SET-TOTAL-USERS-COUNT'
-const TOGGLE_FETCHING = 'sn01/users/TOGGLE-FETCHING'
-const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE-REQUEST-IS-IN-PROGRESS'
+const TOGGLE_FOLLOW = 'sn01/users/TOGGLE_FOLLOW'
+const SET_USERS = 'sn01/users/SET_USERS'
+const SET_CURRENT_PAGE = 'sn01/users/SET_CURRENT_PAGE'
+const SET_ITEMS_ON_PAGE = 'sn01/users/SET_ITEMS_ON_PAGE'
+const SET_TOTAL_USERS_COUNT = 'sn01/users/SET_TOTAL_USERS_COUNT'
+const TOGGLE_FETCHING = 'sn01/users/TOGGLE_FETCHING'
+const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE_REQUEST_IS_IN_PROGRESS'
 
 type PageStateType = {
     users: Array<UserType>

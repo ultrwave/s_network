@@ -3,8 +3,8 @@ import {authAPI, securityAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
 
-const SET_USER_DATA = 'sn01/auth/SET-USER-DATA'
-const SHOW_CAPTCHA = 'sn01/auth/SHOW-CAPTCHA'
+const SET_USER_DATA = 'sn01/auth/SET_USER_DATA'
+const SHOW_CAPTCHA = 'sn01/auth/SHOW_CAPTCHA'
 
 type AuthStateType = {
     userId: string | null

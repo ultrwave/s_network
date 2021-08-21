@@ -2,8 +2,8 @@ import {v1} from 'uuid';
 import {ActionTypes, DialogItemType, DialogsDataType, MessageDataType} from '../types/types';
 import {dialogItems, dialogsData} from './app-store';
 
-const ADD_MESSAGE = 'sn01/dialogs/ADD-MESSAGE'
-const SET_DIALOG_ID = 'sn01/dialogs/SET-DIALOG-ID'
+const ADD_MESSAGE = 'sn01/dialogs/ADD_MESSAGE'
+const SET_DIALOG_ID = 'sn01/dialogs/SET_DIALOG_ID'
 
 type PageStateType = {
     dialogsData: DialogsDataType

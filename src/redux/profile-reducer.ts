@@ -4,13 +4,13 @@ import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholde
 import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
-const ADD_POST = 'sn01/profile/ADD-POST' // todo - replace -
-const EDIT_POST = 'sn01/profile/EDIT-POST'
-const DELETE_POST = 'sn01/profile/DELETE-POST'
-const TOGGLE_MY_LIKE = 'sn01/profile/TOGGLE-MY-LIKE'
-const SET_USER_PROFILE = 'sn01/profile/SET-USER-PROFILE'
-const SET_USER_STATUS = 'sn01/profile/SET-USER-STATUS'
-const SET_PHOTO_SUCCESS = 'sn01/profile/SAVE-PHOTO-SUCCESS'
+const ADD_POST = 'sn01/profile/ADD_POST'
+const EDIT_POST = 'sn01/profile/EDIT_POST'
+const DELETE_POST = 'sn01/profile/DELETE_POST'
+const TOGGLE_MY_LIKE = 'sn01/profile/TOGGLE_MY_LIKE'
+const SET_USER_PROFILE = 'sn01/profile/SET_USER_PROFILE'
+const SET_USER_STATUS = 'sn01/profile/SET_USER_STATUS'
+const SET_PHOTO_SUCCESS = 'sn01/profile/SAVE_PHOTO_SUCCESS'
 
 type PageStateType = {
     postsData: Array<PostsDataType>
