@@ -16,6 +16,7 @@ type PageStateType = {
     postsData: Array<PostsDataType>
     profile: UserProfileType
     status: string
+    isOwner: boolean
 }
 
 export const defaultUser: UserProfileType = {
@@ -47,7 +48,8 @@ let initialState = {
         {id: v1(), message: 'Test message 2', likesCount: 432, myLike: false, date: '1/10/2021, 23:04:56'},
         {id: v1(), message: 'Test 3', likesCount: 2, myLike: false, date: '1/10/2021, 23:04:56'}
     ],
-    status: ''
+    status: '',
+    isOwner: false
 }
 
 const profileReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
