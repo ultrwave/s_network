@@ -15,10 +15,14 @@ type MyPostsType = {
 
 export const MyPosts = React.memo((props: MyPostsType) => {
 
+    const fullName = props.profile.fullName
+    const userNameCapital = (fullName[0].toUpperCase() + fullName.slice(1)).split(' ')[0]
+
         const posts = props.postsData.map(p =>
             <Post key={p.id}
                   postId={p.id}
                   message={p.message}
+                  isOwner={props.isOwner}
                   likesCount={p.likesCount}
                   myLike={p.myLike}
                   date={p.date}
@@ -33,8 +37,8 @@ export const MyPosts = React.memo((props: MyPostsType) => {
 
         return (
             <div>
-                <span className={Style.postButton}>My Posts</span>
-                <MyPostsReduxForm onSubmit={addPost}/>
+                {props.isOwner && <MyPostsReduxForm onSubmit={addPost}/>}
+                <span className={Style.postButton}>{`${userNameCapital}'s posts:`}</span>
                 <div className={Style.posts}>
                     {posts}
                 </div>

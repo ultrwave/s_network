@@ -11,6 +11,7 @@ type PropsType = {
     myLike: boolean
     avatar: string | null
     date: string
+    isOwner: boolean
     editPost(postId: string, message: string): void
     toggleMyLike(): void
 }
@@ -34,7 +35,7 @@ export function Post(props: PropsType) {
                      className={Style.avatar}
                 />
                 <div className={Style.messageContainer}>
-                    {editMode
+                    {(editMode && props.isOwner)
                         ? <div>
                             <button className={Style.toggleEditModeButton}
                                     onClick={() => setEditMode(false)}>
@@ -48,10 +49,11 @@ export function Post(props: PropsType) {
                         </div>
                         : <div className={Style.message}>
                             <span>{props.message}</span>
+                            {props.isOwner &&
                             <button className={Style.toggleEditModeButton}
                                     onClick={() => setEditMode(true)}>
                                 edit
-                            </button>
+                            </button>}
                         </div>}
                 </div>
             </div>
