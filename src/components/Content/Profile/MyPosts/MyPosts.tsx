@@ -7,6 +7,7 @@ import {MyPostsReduxForm} from './MyPostsForm';
 type MyPostsType = {
     postsData: Array<PostsDataType>
     profile: UserProfileType
+    isOwner: boolean
     addPost(message: string): void
     editPost(postId: string, message: string): void
     toggleMyLike(postId: string): void

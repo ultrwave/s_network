@@ -10,7 +10,7 @@ import {
 import {
     addPost,
     deletePost, editPost,
-    savePhotoSuccess,
+    savePhotoSuccess, setOwner,
     setUserProfile,
     setUserStatus,
     toggleMyLike
@@ -93,6 +93,7 @@ export type PageProfileActionType =
     | ReturnType<typeof toggleMyLike>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setOwner>
     | ReturnType<typeof savePhotoSuccess>
 
 export type PageDialogsActionType =

@@ -7,7 +7,7 @@ import {
     getProfileThunk,
     getStatusThunk,
     savePhotoThunk,
-    saveProfileThunk,
+    saveProfileThunk, setOwner,
     updateStatusThunk
 } from '../../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
@@ -19,14 +19,15 @@ export type MDTPType = {
     getUserStatus (userId: string): void
     updateUserStatus (status: string): void
     savePhotoThunk (photo: File): void
+    setOwner (isOwner: boolean): void
     saveProfileThunk (profile: UserProfileType): Promise<Object>
 }
 
 export type MSTPType = {
     profile: UserProfileType | null
     status: string
-    authorizedUserId: string | null
     isAuth: boolean
+    authorizedUserId: string | null
 }
 
 export type MSTPIsAuthType = {
@@ -46,7 +47,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     refreshProfile() {
         let userId = this.props.match.params.userId
         let myId = this.props.authorizedUserId
-        this.showMeButton = userId? (userId !== myId) : false
+        let isOwner = userId? false : (userId !== myId)
+        this.showMeButton = !isOwner
+        this.props.setOwner(isOwner)
         if (!userId) {
             userId = myId || '2'
             if (!myId) {
@@ -104,7 +107,8 @@ export default compose(
             getUserStatus: getStatusThunk,
             updateUserStatus: updateStatusThunk,
             savePhotoThunk,
-            saveProfileThunk
+            saveProfileThunk,
+            setOwner
         }),
     withRouter,
     withAuthRedirect,

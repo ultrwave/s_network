@@ -5,6 +5,7 @@ import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
 const ADD_POST = 'sn01/profile/ADD_POST'
+const SET_OWNER = 'sn01/profile/SET_OWNER'
 const EDIT_POST = 'sn01/profile/EDIT_POST'
 const DELETE_POST = 'sn01/profile/DELETE_POST'
 const TOGGLE_MY_LIKE = 'sn01/profile/TOGGLE_MY_LIKE'
@@ -65,6 +66,9 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
 
         case SET_USER_STATUS :
             return {...state, status: action.status}
+
+        case SET_OWNER :
+            return {...state, isOwner: action.isOwner}
 
         case ADD_POST: {
             let newPost: PostsDataType = {
@@ -153,6 +157,13 @@ export const setUserStatus = (status: string) => {
     return {
         type: SET_USER_STATUS,
         status
+    } as const
+}
+
+export const setOwner = (isOwner: boolean) => {
+    return {
+        type: SET_OWNER,
+        isOwner
     } as const
 }
 
