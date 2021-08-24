@@ -9,6 +9,7 @@ const SET_OWNER = 'sn01/profile/SET_OWNER'
 const EDIT_POST = 'sn01/profile/EDIT_POST'
 const DELETE_POST = 'sn01/profile/DELETE_POST'
 const TOGGLE_MY_LIKE = 'sn01/profile/TOGGLE_MY_LIKE'
+const SET_LIKES = 'sn01/profile/SET_LIKES'
 const SET_USER_PROFILE = 'sn01/profile/SET_USER_PROFILE'
 const SET_USER_STATUS = 'sn01/profile/SET_USER_STATUS'
 const SET_PHOTO_SUCCESS = 'sn01/profile/SAVE_PHOTO_SUCCESS'
@@ -87,7 +88,7 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return {
                 ...state,
                 postsData: state.postsData.map(p =>
-                    p.id === action.postId? {...p, message: action.message} : p
+                    p.id === action.postId ? {...p, message: action.message} : p
                 )
             }
 
@@ -101,7 +102,16 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return {
                 ...state,
                 postsData: state.postsData.map(p =>
-                    p.id === action.postId? {...p, myLike: !p.myLike} : p
+                    p.id === action.postId ? {...p, myLike: !p.myLike} : p
+                )
+            }
+        }
+
+        case SET_LIKES: {
+            return {
+                ...state,
+                postsData: state.postsData.map(p =>
+                    p.id === action.postId ? {...p, likesCount: action.likesAmount} : p
                 )
             }
         }
@@ -146,6 +156,14 @@ export const toggleMyLike = (postId: string) => {
     } as const
 }
 
+export const setLikes = (postId: string, likesAmount: number) => {
+    return {
+        type: SET_LIKES,
+        postId,
+        likesAmount
+    } as const
+}
+
 export const setUserProfile = (profile: UserProfileType) => {
     return {
         type: SET_USER_PROFILE,
@@ -185,6 +203,19 @@ export const getProfileThunk = (userId: string): AppThunk => async (dispatch) =>
 export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => {
     const response = await profileAPI.getStatus(userId);
     dispatch(setUserStatus(response.data))
+}
+
+export const addLikesAnimationThunk = (postId: string): AppThunk => (dispatch, getState) => {
+    const newLikesAmount = 100 // todo - перенести анимацию в компоненту + reqAnimFr
+    const postsData = getState().pageProfile.postsData
+    const post = postsData.length && postsData.find(p => p.id === postId)
+    if (post) {
+        const currentLikes = post.likesCount
+        for (let i = 0; i < newLikesAmount; i++) {
+            setTimeout(() => {
+                dispatch(setLikes(postId, currentLikes + (post.myLike? -i : i)))}, 2)
+        }
+    }
 }
 
 export const updateStatusThunk = (status: string): AppThunk => async (dispatch) => {
