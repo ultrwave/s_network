@@ -11,15 +11,15 @@ type MyPostsType = {
     addPost(message: string): void
     editPost(postId: string, message: string): void
     toggleMyLike(postId: string): void
-    addLikesAnimation(postId: string): void
+    addLikesAnimation(postId: string, newLikesAmount: number): void
 }
 
 export const MyPosts = React.memo((props: MyPostsType) => {
 
     const fullName = (props.profile.fullName && props.profile.fullName) || 'loading'
     const userNameCapital = (fullName[0].toUpperCase() + fullName.slice(1)).split(' ')[0]
-    const addLikes = (postId: string) => {
-        props.addLikesAnimation(postId)
+    const addLikes = (postId: string, newLikesAmount: number) => {
+        props.addLikesAnimation(postId, newLikesAmount)
         props.toggleMyLike(postId)
     }
 
@@ -31,7 +31,7 @@ export const MyPosts = React.memo((props: MyPostsType) => {
                   likesCount={p.likesCount}
                   myLike={p.myLike}
                   date={p.date}
-                  toggleMyLike={() => addLikes(p.id)}
+                  toggleMyLike={(newLikes: number) => addLikes(p.id, newLikes)}
                   editPost={props.editPost}
                   avatar={props.profile.photos.large}
             />)

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Style from './Post.module.css';
 import profileAvatarPlaceholder from '../../../../../assets/images/profile_avatar_placeholder.jpg'
 import EditPostReduxForm from './EditPostForm';
@@ -13,7 +13,7 @@ type PropsType = {
     date: string
     isOwner: boolean
     editPost(postId: string, message: string): void
-    toggleMyLike(): void
+    toggleMyLike(newLikes: number): void
 }
 
 export function Post(props: PropsType) {
@@ -21,11 +21,36 @@ export function Post(props: PropsType) {
     const avatar = props.avatar || profileAvatarPlaceholder
 
     let [editMode, setEditMode] = useState(false)
+    let [likes, setPostLikes] = useState(props.likesCount)
+    let [blockLikeButton, setBlockLikeButton] = useState(false)
+
+    let rafReference: number
+    let progress = 0
+
+    const addLikes = () => {
+        const newLikes = 25
+        if (blockLikeButton) return
+        if (progress < newLikes) {
+            setBlockLikeButton(true)
+            setPostLikes(l => l + (props.myLike ? -1 : 1))
+            progress++
+            rafReference = window.requestAnimationFrame(addLikes)
+        } else {
+            cancelAnimationFrame(rafReference)
+            props.toggleMyLike(newLikes)
+            setBlockLikeButton(false)
+        }
+    }
+
+    useEffect(() => {
+        return cancelAnimationFrame(rafReference)
+    })
 
     const onSubmit = (formData: UserProfileType & any) => {
         props.editPost(props.postId, formData.postMessage)
         setEditMode(false)
     }
+
 
     return (
         <div className={Style.postItem}>
@@ -59,8 +84,8 @@ export function Post(props: PropsType) {
             </div>
             <div className={Style.postFooter}>
                 <span className={`${Style.likes} ${props.myLike ? Style.myLike : ''}`}
-                      onClick={() => props.toggleMyLike()}>
-                    Like ({props.likesCount + (props.myLike ? 1 : 0)} likes)
+                      onClick={addLikes}>
+                    Like ({likes} likes)
                 </span>
                 <span className={Style.postDate}>
                     {props.date}

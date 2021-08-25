@@ -205,16 +205,14 @@ export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => 
     dispatch(setUserStatus(response.data))
 }
 
-export const addLikesAnimationThunk = (postId: string): AppThunk => (dispatch, getState) => {
-    const newLikesAmount = 100 // todo - перенести анимацию в компоненту + reqAnimFr
+export const addLikesAnimationThunk = (postId: string, newLikesAmount: number): AppThunk => (dispatch, getState) => {
     const postsData = getState().pageProfile.postsData
     const post = postsData.length && postsData.find(p => p.id === postId)
     if (post) {
         const currentLikes = post.likesCount
-        for (let i = 0; i < newLikesAmount; i++) {
-            setTimeout(() => {
-                dispatch(setLikes(postId, currentLikes + (post.myLike? -i : i)))}, 2)
-        }
+        dispatch(setLikes(
+            postId, currentLikes + (post.myLike ? -newLikesAmount : newLikesAmount))
+        )
     }
 }
 
