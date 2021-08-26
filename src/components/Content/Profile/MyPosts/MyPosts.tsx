@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {PostsDataType, UserProfileType} from '../../../../types/types';
@@ -10,7 +10,9 @@ type MyPostsType = {
     isOwner: boolean
     addPost(message: string): void
     editPost(postId: string, message: string): void
+    deletePost(postId: string): void
     toggleMyLike(postId: string): void
+    generateRandomPosts(): void
     addLikesAnimation(postId: string, newLikesAmount: number): void
 }
 
@@ -23,6 +25,13 @@ export const MyPosts = React.memo((props: MyPostsType) => {
         props.toggleMyLike(postId)
     }
 
+    useEffect(() => { // todo - add states for visited pages
+        if (fullName !== 'loading' && !props.isOwner) { // generate random posts on friend's page
+            props.postsData.forEach(p => props.deletePost(p.id))
+            props.generateRandomPosts()
+        }
+    }, [props.isOwner])
+
         const posts = props.postsData.map(p =>
             <Post key={p.id}
                   postId={p.id}
@@ -33,6 +42,7 @@ export const MyPosts = React.memo((props: MyPostsType) => {
                   date={p.date}
                   toggleMyLike={(newLikes: number) => addLikes(p.id, newLikes)}
                   editPost={props.editPost}
+                  deletePost={props.deletePost}
                   avatar={props.profile.photos.large}
             />)
 

@@ -13,6 +13,7 @@ type PropsType = {
     date: string
     isOwner: boolean
     editPost(postId: string, message: string): void
+    deletePost(postId: string): void
     toggleMyLike(newLikes: number): void
 }
 
@@ -65,6 +66,10 @@ export function Post(props: PropsType) {
                             <button className={Style.toggleEditModeButton}
                                     onClick={() => setEditMode(false)}>
                                 cancel
+                            </button>
+                            <button className={Style.toggleEditModeButton}
+                                    onClick={() => props.deletePost(props.postId)}>
+                                delete post
                             </button>
                             <EditPostReduxForm onSubmit={onSubmit}
                                                key={props.postId}
