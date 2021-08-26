@@ -4,6 +4,7 @@ import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {StateType, UserProfileType} from '../../../types/types';
 import {
+    generateRandomPosts,
     getProfileThunk,
     getStatusThunk,
     savePhotoThunk,
@@ -15,12 +16,13 @@ import {withAuthRedirect} from '../../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
 export type MDTPType = {
-    getProfileThunk (userId: string): void
-    getUserStatus (userId: string): void
-    updateUserStatus (status: string): void
-    savePhotoThunk (photo: File): void
-    setOwner (isOwner: boolean): void
-    saveProfileThunk (profile: UserProfileType): Promise<Object>
+    getProfileThunk(userId: string): void
+    getUserStatus(userId: string): void
+    updateUserStatus(status: string): void
+    savePhotoThunk(photo: File): void
+    setOwner(isOwner: boolean): void
+    saveProfileThunk(profile: UserProfileType): Promise<Object>
+    generateRandomPosts(): void
 }
 
 export type MSTPType = {
@@ -50,6 +52,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         let isOwner = userId? false : (userId !== myId)
         this.showMeButton = !isOwner
         this.props.setOwner(isOwner)
+        if (!isOwner) { // generate random posts on friend's page
+            this.props.generateRandomPosts()
+        }
         if (!userId) {
             userId = myId || '2'
             if (!myId) {
@@ -108,7 +113,8 @@ export default compose(
             updateUserStatus: updateStatusThunk,
             savePhotoThunk,
             saveProfileThunk,
-            setOwner
+            setOwner,
+            generateRandomPosts
         }),
     withRouter,
     withAuthRedirect,

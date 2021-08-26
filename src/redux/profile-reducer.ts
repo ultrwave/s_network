@@ -142,7 +142,7 @@ export const editPost = (postId: string, message: string) => { // todo - action 
     } as const
 }
 
-export const deletePost = (id: string) => {
+export const deletePost = (id: string) => { // todo - add on page
     return {
         type: DELETE_POST,
         id
@@ -205,17 +205,6 @@ export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => 
     dispatch(setUserStatus(response.data))
 }
 
-export const addLikesAnimationThunk = (postId: string, newLikesAmount: number): AppThunk => (dispatch, getState) => {
-    const postsData = getState().pageProfile.postsData
-    const post = postsData.length && postsData.find(p => p.id === postId)
-    if (post) {
-        const currentLikes = post.likesCount
-        dispatch(setLikes(
-            postId, currentLikes + (post.myLike ? -newLikesAmount : newLikesAmount))
-        )
-    }
-}
-
 export const updateStatusThunk = (status: string): AppThunk => async (dispatch) => {
     try {
         const response = await profileAPI.updateStatus(status);
@@ -224,6 +213,26 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
         }
     } catch (error) {
         console.warn(error)
+    }
+}
+
+export const generateRandomPosts = (): AppThunk => async (dispatch) => {
+    let newPostsAmount = Math.floor(Math.random() * 10 + 1)
+    while (newPostsAmount > 0) {
+        const randomText = `GENERATED ${newPostsAmount}` // todo - add generator
+        dispatch(addPost(randomText))
+        newPostsAmount--
+    }
+}
+
+export const addLikesAnimationThunk = (postId: string, newLikesAmount: number): AppThunk => (dispatch, getState) => {
+    const postsData = getState().pageProfile.postsData
+    const post = postsData.length && postsData.find(p => p.id === postId)
+    if (post) {
+        const currentLikes = post.likesCount
+        dispatch(setLikes(
+            postId, currentLikes + (post.myLike ? -newLikesAmount : newLikesAmount))
+        )
     }
 }
 
