@@ -4,6 +4,7 @@ import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholde
 import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
+const CREATE_POST = 'sn01/profile/CREATE_POST'
 const ADD_POST = 'sn01/profile/ADD_POST'
 const SET_OWNER = 'sn01/profile/SET_OWNER'
 const EDIT_POST = 'sn01/profile/EDIT_POST'
@@ -45,11 +46,7 @@ export const defaultUser: UserProfileType = {
 
 let initialState = {
     profile: defaultUser,
-    postsData: [
-        {id: v1(), message: 'It\'s my first post! (test)', likesCount: 12, myLike: false, date: '1/10/2021, 23:04:56'},
-        {id: v1(), message: 'Test message 2', likesCount: 432, myLike: false, date: '1/10/2021, 23:04:56'},
-        {id: v1(), message: 'Test 3', likesCount: 2, myLike: false, date: '1/10/2021, 23:04:56'}
-    ],
+    postsData: [],
     status: '',
     isOwner: false
 }
@@ -70,6 +67,11 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
 
         case SET_OWNER :
             return {...state, isOwner: action.isOwner}
+
+        case CREATE_POST:
+            let postsData = state.postsData
+            postsData.push(action.post)
+            return {...state, postsData}
 
         case ADD_POST: {
             let newPost: PostsDataType = {
@@ -127,6 +129,13 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
+export const createPost = (post: PostsDataType) => {
+    return {
+        type: CREATE_POST,
+        post
+    } as const
+}
+
 export const addPost = (message: string) => {
     return {
         type: ADD_POST,
@@ -142,7 +151,7 @@ export const editPost = (postId: string, message: string) => { // todo - action 
     } as const
 }
 
-export const deletePost = (id: string) => { // todo - add on page
+export const deletePost = (id: string) => {
     return {
         type: DELETE_POST,
         id
@@ -198,6 +207,7 @@ export const savePhotoSuccess = (photos: PhotosType) => {
 export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
     const response = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(response.data))
+    dispatch(loadPostsData(userId))
 }
 
 export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => {
@@ -222,6 +232,13 @@ export const generateRandomPosts = (): AppThunk => async (dispatch) => {
         const randomText = `GENERATED ${newPostsAmount}` // todo - add generator
         dispatch(addPost(randomText))
         newPostsAmount--
+    }
+}
+
+export const loadPostsData = (userId: string): AppThunk => async(dispatch, getState) => {
+    const user = getState().userPostsData.find(u => u.userId === userId)
+    if (user) {
+        user.userPosts.forEach(p => dispatch(createPost(p)))
     }
 }
 

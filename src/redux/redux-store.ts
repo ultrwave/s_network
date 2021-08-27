@@ -6,11 +6,13 @@ import authReducer from './auth-reducer';
 import thunkMiddleware from 'redux-thunk';
 import appReducer from './app-reducer';
 import {reducer as formReducer} from 'redux-form'
+import userPostsReducer from './user-posts-reducer';
 
 export const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
     pageProfile: profileReducer,
+    userPostsData: userPostsReducer,
     pageDialogs: dialogsReducer,
     pageUsers: usersReducer,
     form: formReducer,
