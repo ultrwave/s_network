@@ -3,6 +3,7 @@ import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {PostsDataType, UserProfileType} from '../../../../types/types';
 import {MyPostsReduxForm} from './MyPostsForm';
+import {loadPostsData} from '../../../../redux/profile-reducer';
 
 type MyPostsType = {
     postsData: Array<PostsDataType>
@@ -11,12 +12,13 @@ type MyPostsType = {
     addPost(message: string): void
     editPost(postId: string, message: string): void
     deletePost(postId: string): void
+    loadPostsData(userId: string): void
     toggleMyLike(postId: string): void
-    generateRandomPosts(): void
+    generateRandomPosts(userId: string): void
     addLikesAnimation(postId: string, newLikesAmount: number): void
 }
 
-export const MyPosts = React.memo((props: MyPostsType) => {
+export const MyPosts = React.memo((props: MyPostsType) => { // todo - destructure props
 
     const fullName = (props.profile.fullName && props.profile.fullName) || 'loading'
     const userNameCapital = (fullName[0].toUpperCase() + fullName.slice(1)).split(' ')[0]
@@ -26,14 +28,19 @@ export const MyPosts = React.memo((props: MyPostsType) => {
     }
 
     useEffect(() => { // todo - add states for visited pages
+        props.postsData.forEach(p => props.deletePost(p.id))
         if (fullName !== 'loading' && !props.isOwner) { // generate random posts on friend's page
-            props.postsData.forEach(p => props.deletePost(p.id))
-            props.generateRandomPosts()
-        }
-    }, [props.isOwner])
+            console.log('props:')
+            console.log(props)
+            props.generateRandomPosts(props.profile.userId)
 
-        const posts = props.postsData.map(p =>
-            <Post key={p.id}
+        }
+        props.loadPostsData(props.profile.userId)
+
+    }, [props.profile.userId, fullName])
+
+        const posts = props.postsData.map((p, i) =>
+            <Post key={i}
                   postId={p.id}
                   message={p.message}
                   isOwner={props.isOwner}

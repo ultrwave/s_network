@@ -21,10 +21,17 @@ const userPostsReducer = (state: UserPostsStateType = initialState, action: Acti
 
     switch (action.type) {
 
-        case ADD_POSTS_DATA: {
+        case ADD_POSTS_DATA:
+            console.log('action:')
+            console.log(action)
+            if (state.find(u => u.userId === action.userId)) {
+                return [...state.map(
+                    u => u.userId === action.userId? {...u, userPosts: action.postsData} : u)]
+            }
+            return [...state, {userId: String(action.userId), userPosts: action.postsData}]
 
+        default:
             return state
-        }
     }
 }
 
@@ -35,6 +42,5 @@ export const addPostData = (userId: string, postsData: Array<PostsDataType>) => 
         postsData
     } as const
 }
-
 
 export default userPostsReducer

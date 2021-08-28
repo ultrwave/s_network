@@ -3,6 +3,7 @@ import {ActionTypes, AppThunk, PhotosType, PostsDataType, UserProfileType} from 
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
+import {addPostData} from './user-posts-reducer';
 
 const CREATE_POST = 'sn01/profile/CREATE_POST'
 const ADD_POST = 'sn01/profile/ADD_POST'
@@ -207,7 +208,9 @@ export const savePhotoSuccess = (photos: PhotosType) => {
 export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
     const response = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(response.data))
-    dispatch(loadPostsData(userId))
+    console.log('loading postsData for')
+    console.log(String(userId))
+    dispatch(loadPostsData(String(userId)))
 }
 
 export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => {
@@ -226,17 +229,26 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
     }
 }
 
-export const generateRandomPosts = (): AppThunk => async (dispatch) => {
-    let newPostsAmount = Math.floor(Math.random() * 10 + 1)
-    while (newPostsAmount > 0) {
-        const randomText = `GENERATED ${newPostsAmount}` // todo - add generator
-        dispatch(addPost(randomText))
-        newPostsAmount--
+export const generateRandomPosts = (userId: string): AppThunk => async (dispatch, getState) => {
+    const postsData = getState().userPostsData
+    if (postsData && !postsData.find(u => u.userId === userId)) {
+        console.log('No posts data found, generating new posts...')
+        let newPostsAmount = Math.floor(Math.random() * 10 + 1)
+        while (newPostsAmount > 0) {
+            const randomText = `GENERATED ${newPostsAmount}` // todo - add generator
+            dispatch(addPost(randomText))
+            newPostsAmount--
+        }
+        const posts = getState().pageProfile.postsData
+        console.log(userId)
+        dispatch(addPostData(userId, posts))
+    } else {
+        console.log('posts data found')
     }
 }
 
 export const loadPostsData = (userId: string): AppThunk => async(dispatch, getState) => {
-    const user = getState().userPostsData.find(u => u.userId === userId)
+    const user = getState().userPostsData?.find(u => u.userId === String(userId))
     if (user) {
         user.userPosts.forEach(p => dispatch(createPost(p)))
     }

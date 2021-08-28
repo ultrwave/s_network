@@ -2,7 +2,7 @@ import {
     addLikesAnimationThunk,
     addPost, deletePost,
     editPost,
-    generateRandomPosts,
+    generateRandomPosts, loadPostsData,
     toggleMyLike
 } from '../../../../redux/profile-reducer';
 import {MyPosts} from './MyPosts';
@@ -17,6 +17,7 @@ export const MyPostsContainer = connect(mapStateToProps, {
     addPost,
     editPost,
     deletePost,
+    loadPostsData,
     toggleMyLike,
     generateRandomPosts,
     addLikesAnimation: addLikesAnimationThunk
