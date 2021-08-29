@@ -11,9 +11,9 @@ type UserPostsStateType = {
 let initialState = [{
     userId: '13836',
     userPosts: [
-        {id: v1(), message: 'It\'s my first post! (test)', likesCount: 12, myLike: false, date: '1/10/2021, 23:04:56'},
-        {id: v1(), message: 'Test message 2', likesCount: 432, myLike: false, date: '1/10/2021, 23:04:56'},
-        {id: v1(), message: 'Test 3', likesCount: 2, myLike: false, date: '1/10/2021, 23:04:56'}]
+        {id: v1(), message: '1 My Message', likesCount: 12, myLike: false, date: '1/10/2021, 23:04:56'},
+        {id: v1(), message: '2 My Message', likesCount: 432, myLike: false, date: '1/10/2021, 23:04:56'},
+        {id: v1(), message: '3 My Message', likesCount: 2, myLike: false, date: '1/10/2021, 23:04:56'}]
 }]
 
 
@@ -24,9 +24,9 @@ const userPostsReducer = (state: UserPostsStateType = initialState, action: Acti
         case ADD_POSTS_DATA:
             console.log('action:')
             console.log(action)
-            if (state.find(u => u.userId === action.userId)) {
-                return [...state.map(
-                    u => u.userId === action.userId? {...u, userPosts: action.postsData} : u)]
+            if (state.find(u => u.userId === String(action.userId))) {
+                return [...state].map(
+                    u => u.userId === action.userId? {...u, userPosts: action.postsData} : u)
             }
             return [...state, {userId: String(action.userId), userPosts: action.postsData}]
 
@@ -42,5 +42,7 @@ export const addPostData = (userId: string, postsData: Array<PostsDataType>) => 
         postsData
     } as const
 }
+
+// todo - setPostsData thunk
 
 export default userPostsReducer

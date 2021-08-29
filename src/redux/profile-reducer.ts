@@ -6,6 +6,7 @@ import {stopSubmit} from 'redux-form';
 import {addPostData} from './user-posts-reducer';
 
 const CREATE_POST = 'sn01/profile/CREATE_POST'
+const CLEAR_POSTS_STATE = 'sn01/profile/CLEAR_POSTS_STATE'
 const ADD_POST = 'sn01/profile/ADD_POST'
 const SET_OWNER = 'sn01/profile/SET_OWNER'
 const EDIT_POST = 'sn01/profile/EDIT_POST'
@@ -74,6 +75,9 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             postsData.push(action.post)
             return {...state, postsData}
 
+        case CLEAR_POSTS_STATE:
+            return {...state, postsData: []}
+
         case ADD_POST: {
             let newPost: PostsDataType = {
                 id: v1(),
@@ -134,6 +138,12 @@ export const createPost = (post: PostsDataType) => {
     return {
         type: CREATE_POST,
         post
+    } as const
+}
+
+export const clearPostsState = () => {
+    return {
+        type: CLEAR_POSTS_STATE,
     } as const
 }
 
@@ -231,7 +241,12 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
 
 export const generateRandomPosts = (userId: string): AppThunk => async (dispatch, getState) => {
     const postsData = getState().userPostsData
-    if (postsData && !postsData.find(u => u.userId === userId)) {
+    userId = String(userId)
+    console.log(postsData)
+    if (postsData && !postsData.find(u => {
+        console.log('LOOKING FOR ID: ' + userId)
+        console.log('current post data id:' + u.userId)
+        return u.userId === userId})) {
         console.log('No posts data found, generating new posts...')
         let newPostsAmount = Math.floor(Math.random() * 10 + 1)
         while (newPostsAmount > 0) {
@@ -240,7 +255,9 @@ export const generateRandomPosts = (userId: string): AppThunk => async (dispatch
             newPostsAmount--
         }
         const posts = getState().pageProfile.postsData
-        console.log(userId)
+        console.log('userId: ' + userId)
+        console.log('posts data:')
+        console.log(posts)
         dispatch(addPostData(userId, posts))
     } else {
         console.log('posts data found')

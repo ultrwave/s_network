@@ -8,7 +8,7 @@ import {
     toggleRequestIsInProgress
 } from '../redux/users-reducer';
 import {
-    addPost, createPost,
+    addPost, clearPostsState, createPost,
     deletePost, editPost,
     savePhotoSuccess, setLikes, setOwner,
     setUserProfile,
@@ -90,6 +90,7 @@ export type UserProfileType = {
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof createPost>
+    | ReturnType<typeof clearPostsState>
     | ReturnType<typeof editPost>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof toggleMyLike>

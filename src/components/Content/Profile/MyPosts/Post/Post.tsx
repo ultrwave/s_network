@@ -19,6 +19,8 @@ type PropsType = {
 
 export function Post(props: PropsType) {
 
+    console.log('%%%%%%%%% POSTID:' + props.postId)
+
     const avatar = props.avatar || profileAvatarPlaceholder
 
     let [editMode, setEditMode] = useState(false)
