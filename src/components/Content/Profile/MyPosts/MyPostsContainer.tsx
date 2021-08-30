@@ -5,11 +5,11 @@ import {
     deletePostThunk,
     editPostThunk,
     generateRandomPosts,
-    toggleMyLike, toggleMyLikeThunk
+    toggleMyLikeThunk
 } from '../../../../redux/profile-reducer';
 import {MyPosts} from './MyPosts';
 import {connect} from 'react-redux';
-import {PostsDataType, PostType, StateType, UserProfileType} from '../../../../types/types';
+import {PostsDataType, StateType, UserProfileType} from '../../../../types/types';
 
 type MyPostsContainerType = {
     postsData: PostsDataType
@@ -26,12 +26,15 @@ type MyPostsContainerType = {
 const MyPostsContainer = (props: MyPostsContainerType) => {
 
     const userPosts = props.postsData[String(props.profile.userId)]
+    const userId = props.profile.userId
+    const friendsPage = !props.isOwner
+    const emulatePosts = props.generateRandomPosts
 
     useEffect(() => { // generate random posts on friend's page
-        if (props.profile.fullName && !props.isOwner) {
-            props.generateRandomPosts(props.profile.userId)
+        if (friendsPage) {
+            emulatePosts(userId)
         }
-    }, [props.profile.userId, props.profile.fullName])
+    }, [emulatePosts, friendsPage, userId])
 
     const {generateRandomPosts, postsData, ...restProps} = props
     const myPostsProps = {...restProps, posts: userPosts || []}

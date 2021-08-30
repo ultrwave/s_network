@@ -4,7 +4,6 @@ import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholde
 import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
-const CREATE_POST = 'sn01/profile/CREATE_POST'
 const ADD_POST = 'sn01/profile/ADD_POST'
 const SET_OWNER = 'sn01/profile/SET_OWNER'
 const EDIT_POST = 'sn01/profile/EDIT_POST'
