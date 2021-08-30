@@ -2,11 +2,21 @@ import React from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {MyPostsReduxForm} from './MyPostsForm';
-import {MyPostsType} from './MyPostsContainer';
+import {PostType, UserProfileType} from '../../../../types/types';
+
+export type MyPostsType = {
+    posts: Array<PostType>
+    profile: UserProfileType
+    isOwner: boolean
+    addPost(message: string): void
+    editPost(postId: string, message: string): void
+    deletePost(postId: string): void
+    toggleMyLike(postId: string): void
+    addLikesAnimation(postId: string, newLikesAmount: number): void
+}
 
 export const MyPosts = React.memo((props: MyPostsType) => { // todo - destructure props
-    console.log('mp')
-    console.log(props)
+
     const fullName = props.profile.fullName || 'loading'
     const userNameCapital = (fullName[0].toUpperCase() + fullName.slice(1)).split(' ')[0]
     const addLikes = (postId: string, newLikesAmount: number) => {
@@ -14,15 +24,15 @@ export const MyPosts = React.memo((props: MyPostsType) => { // todo - destructur
         props.toggleMyLike(postId)
     }
 
-        const posts = props.postsData.map((p, i) =>
-            <Post key={p.id}
-                  postId={p.id}
+        const posts = props.posts.map((p, i) =>
+            <Post key={p.postId}
+                  postId={p.postId}
                   message={p.message}
                   isOwner={props.isOwner}
                   likesCount={p.likesCount}
                   myLike={p.myLike}
                   date={p.date}
-                  toggleMyLike={(newLikes: number) => addLikes(p.id, newLikes)}
+                  toggleMyLike={(newLikes: number) => addLikes(p.postId, newLikes)}
                   editPost={props.editPost}
                   deletePost={props.deletePost}
                   avatar={props.profile.photos.large}
@@ -37,6 +47,7 @@ export const MyPosts = React.memo((props: MyPostsType) => { // todo - destructur
                 {props.isOwner && <MyPostsReduxForm onSubmit={addPost}/>}
                 <span className={Style.postButton}>{`${userNameCapital}'s posts:`}</span>
                 <div className={Style.posts}>
+                    {!props.posts.length && <span>No posts yet!</span>}
                     {posts}
                 </div>
             </div>

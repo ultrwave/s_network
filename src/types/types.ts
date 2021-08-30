@@ -8,9 +8,12 @@ import {
     toggleRequestIsInProgress
 } from '../redux/users-reducer';
 import {
-    addPost, clearPostsState, createPost,
-    deletePost, editPost,
-    savePhotoSuccess, setLikes, setOwner,
+    addPost,
+    deletePost,
+    editPost,
+    savePhotoSuccess,
+    setLikes,
+    setOwner,
     setUserProfile,
     setUserStatus,
     toggleMyLike
@@ -21,7 +24,6 @@ import {rootReducer} from '../redux/redux-store';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 import {setInitialized} from '../redux/app-reducer';
-import {addPostData} from '../redux/user-posts-reducer';
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
@@ -46,12 +48,16 @@ export type MessageDataType = {
     message: string
 }
 
-export type PostsDataType = {
-    id: string
+export type PostType = {
+    postId: string
     message: string
     likesCount: number
     myLike: boolean
     date: string
+}
+
+export type PostsDataType = {
+    [userId: string]: PostType[]
 }
 
 export type PhotosType = {
@@ -89,8 +95,6 @@ export type UserProfileType = {
 
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
-    | ReturnType<typeof createPost>
-    | ReturnType<typeof clearPostsState>
     | ReturnType<typeof editPost>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof toggleMyLike>
@@ -99,9 +103,6 @@ export type PageProfileActionType =
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setOwner>
     | ReturnType<typeof savePhotoSuccess>
-
-export type UserPostsDataActionType =
-    |ReturnType<typeof addPostData>
 
 export type PageDialogsActionType =
     | ReturnType<typeof addMessage>
@@ -125,7 +126,6 @@ export type AppActionType =
 
 export type ActionTypes =
     | PageProfileActionType
-    | UserPostsDataActionType
     | PageDialogsActionType
     | UsersActionType
     | AuthActionType

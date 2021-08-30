@@ -19,8 +19,6 @@ type PropsType = {
 
 export function Post(props: PropsType) {
 
-    console.log('%%%%%%%%% POSTID:' + props.postId)
-
     const avatar = props.avatar || profileAvatarPlaceholder
 
     let [editMode, setEditMode] = useState(false)
@@ -53,7 +51,6 @@ export function Post(props: PropsType) {
         props.editPost(props.postId, formData.postMessage)
         setEditMode(false)
     }
-
 
     return (
         <div className={Style.postItem}>
