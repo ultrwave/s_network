@@ -31,7 +31,7 @@ const MyPostsContainer = (props: MyPostsContainerType) => {
     const emulatePosts = props.generateRandomPosts
 
     useEffect(() => { // generate random posts on friend's page
-        if (friendsPage) {
+        if (friendsPage && userId !== '-1') {
             emulatePosts(userId)
         }
     }, [emulatePosts, friendsPage, userId])

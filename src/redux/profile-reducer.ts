@@ -3,6 +3,7 @@ import {ActionTypes, AppThunk, PhotosType, PostsDataType, PostType, UserProfileT
 import profileAvatarPlaceholder from '../assets/images/profile_avatar_placeholder.jpg'
 import {profileAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
+import {generateMessage} from '../components/Content/Profile/MyPosts/messageGenerator';
 
 const ADD_POST = 'sn01/profile/ADD_POST'
 const SET_OWNER = 'sn01/profile/SET_OWNER'
@@ -271,11 +272,12 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
 
 export const generateRandomPosts = (userId: string): AppThunk => async (dispatch, getState) => {
     const postsData = getState().pageProfile.postsData
+    const name = getState().pageProfile.profile.fullName
     userId = String(userId)
     if (!postsData[userId]) {
         let newPostsAmount = Math.floor(Math.random() * 10 + 1)
         while (newPostsAmount > 0) {
-            const randomText = `GENERATED ${newPostsAmount}` // todo - add generator
+            const randomText = generateMessage(name)
             dispatch(addPost(userId, randomText))
             newPostsAmount--
         }
