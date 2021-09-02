@@ -37,7 +37,12 @@ const MyPostsContainer = (props: MyPostsContainerType) => {
     }, [emulatePosts, friendsPage, userId])
 
     const {generateRandomPosts, postsData, ...restProps} = props
-    const myPostsProps = {...restProps, posts: userPosts || []}
+    const myPostsProps = {
+        ...restProps,
+        posts: userPosts || [],
+        avatar: props.profile.photos.large || '',
+        fullName: props.profile.fullName
+    }
 
     return <MyPosts {...myPostsProps}/>
 }

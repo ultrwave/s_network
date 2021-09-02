@@ -2,11 +2,12 @@ import React from 'react';
 import Style from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {MyPostsReduxForm} from './MyPostsForm';
-import {PostType, UserProfileType} from '../../../../types/types';
+import {PostType} from '../../../../types/types';
 
 export type MyPostsType = {
     posts: Array<PostType>
-    profile: UserProfileType
+    fullName: string
+    avatar: string
     isOwner: boolean
     addPost(message: string): void
     editPost(postId: string, message: string): void
@@ -15,9 +16,9 @@ export type MyPostsType = {
     addLikesAnimation(postId: string, newLikesAmount: number): void
 }
 
-export const MyPosts = React.memo((props: MyPostsType) => { // todo - destructure props
+export const MyPosts = React.memo((props: MyPostsType) => {
 
-    const fullName = props.profile.fullName || 'loading'
+    const fullName = props.fullName || 'loading'
     const userNameCapital = (fullName[0].toUpperCase() + fullName.slice(1)).split(' ')[0]
     const addLikes = (postId: string, newLikesAmount: number) => {
         props.addLikesAnimation(postId, newLikesAmount)
@@ -35,7 +36,7 @@ export const MyPosts = React.memo((props: MyPostsType) => { // todo - destructur
                   toggleMyLike={(newLikes: number) => addLikes(p.postId, newLikes)}
                   editPost={props.editPost}
                   deletePost={props.deletePost}
-                  avatar={props.profile.photos.large}
+                  avatar={props.avatar}
             />)
 
         const addPost = (values: { message: string }) => {
