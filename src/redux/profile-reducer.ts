@@ -72,31 +72,31 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
     switch (action.type) {
 
         case SET_USER_PROFILE :
-            const newProfile = {...action.profile}
+            const newProfile = {...action.payload.profile}
             if (!newProfile.photos.large) {
                 newProfile.photos.large = profileAvatarPlaceholder
             }
             return {...state, profile: newProfile}
 
         case SET_USER_STATUS :
-            return {...state, status: action.status}
+            return {...state, status: action.payload.status}
 
         case SET_OWNER :
-            return {...state, isOwner: action.isOwner}
+            return {...state, isOwner: action.payload.isOwner}
 
         case ADD_POST: {
             const newPost: PostType = {
                 postId: v1(),
-                message: (action.message && action.message.trim()) ? action.message : 'Test message',
+                message: (action.payload.message && action.payload.message.trim()) ? action.payload.message : 'Test message',
                 likesCount: Math.round(Math.random() * 1000),
                 myLike: false,
                 date: (new Date()).toLocaleString([], {hour12: false} as any)
             }
-            const posts = state.postsData[action.userId] || []
+            const posts = state.postsData[action.payload.userId] || []
             return {
                 ...state,
                 postsData: {
-                    ...state.postsData, [action.userId]: [newPost].concat(posts)
+                    ...state.postsData, [action.payload.userId]: [newPost].concat(posts)
                 }
             }
 
@@ -106,9 +106,11 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return {
                 ...state,
                 postsData: {
-                    ...state.postsData, [action.userId]: state.postsData[action.userId]
+                    ...state.postsData, [action.payload.userId]: state.postsData[action.payload.userId]
                         .map(p =>
-                            p.postId === action.postId ? {...p, message: action.message} : p
+                            p.postId === action.payload.postId
+                                ? {...p, message: action.payload.message}
+                                : p
                         )
                 }
             }
@@ -117,9 +119,9 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return {
                 ...state,
                 postsData: {
-                    ...state.postsData, [action.userId]: state.postsData[action.userId]
+                    ...state.postsData, [action.payload.userId]: state.postsData[action.payload.userId]
                         .filter(p =>
-                            p.postId !== action.postId)
+                            p.postId !== action.payload.postId)
                 }
             }
 
@@ -127,9 +129,11 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return {
                 ...state,
                 postsData: {
-                    ...state.postsData, [action.userId]: state.postsData[action.userId]
+                    ...state.postsData, [action.payload.userId]: state.postsData[action.payload.userId]
                         .map(p =>
-                            p.postId === action.postId ? {...p, myLike: !p.myLike} : p
+                            p.postId === action.payload.postId
+                                ? {...p, myLike: !p.myLike}
+                                : p
                         )
                 }
             }
@@ -138,16 +142,18 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
             return {
                 ...state,
                 postsData: {
-                    ...state.postsData, [action.userId]: state.postsData[action.userId]
+                    ...state.postsData, [action.payload.userId]: state.postsData[action.payload.userId]
                         .map(p =>
-                            p.postId === action.postId ? {...p, likesCount: action.likesAmount} : p
+                            p.postId === action.payload.postId
+                                ? {...p, likesCount: action.payload.likesAmount}
+                                : p
                         )
                 }
             }
 
         case SET_PHOTO_SUCCESS: {
             const newState = {...state}
-            newState.profile.photos = action.photos
+            newState.profile.photos = action.payload.photos
             return newState
         }
 
@@ -156,97 +162,62 @@ const profileReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
-export const addPost = (userId: string, message: string) => {
-    return {
-        type: ADD_POST,
-        userId,
-        message
-    } as const
+export const addPost = (payload: {userId: string, message: string}) => {
+    return {type: ADD_POST, payload} as const
 }
 
-export const editPost = (userId: string, postId: string, message: string) => { // todo - action payloads
-    return {
-        type: EDIT_POST,
-        userId,
-        postId,
-        message
-    } as const
+export const editPost = (payload: {userId: string, postId: string, message: string}) => {
+    return {type: EDIT_POST, payload} as const
 }
 
-export const deletePost = (userId: string, postId: string) => {
-    return {
-        type: DELETE_POST,
-        userId,
-        postId
-    } as const
+export const deletePost = (payload: {userId: string, postId: string}) => {
+    return {type: DELETE_POST, payload} as const
 }
 
-export const toggleMyLike = (userId: string, postId: string) => {
-    return {
-        type: TOGGLE_MY_LIKE,
-        userId,
-        postId
-    } as const
+export const toggleMyLike = (payload: {userId: string, postId: string}) => {
+    return {type: TOGGLE_MY_LIKE, payload} as const
 }
 
-export const setLikes = (userId: string, postId: string, likesAmount: number) => {
-    return {
-        type: SET_LIKES,
-        userId,
-        postId,
-        likesAmount
-    } as const
+export const setLikes = (payload: {userId: string, postId: string, likesAmount: number}) => {
+    return {type: SET_LIKES, payload} as const
 }
 
-export const setUserProfile = (profile: UserProfileType) => {
-    return {
-        type: SET_USER_PROFILE,
-        profile
-    } as const
+export const setUserProfile = (payload: {profile: UserProfileType}) => {
+    return {type: SET_USER_PROFILE, payload} as const
 }
 
-export const setUserStatus = (status: string) => {
-    return {
-        type: SET_USER_STATUS,
-        status
-    } as const
+export const setUserStatus = (payload: {status: string}) => {
+    return {type: SET_USER_STATUS, payload} as const
 }
 
-export const setOwner = (isOwner: boolean) => {
-    return {
-        type: SET_OWNER,
-        isOwner
-    } as const
+export const setOwner = (payload: {isOwner: boolean}) => {
+    return {type: SET_OWNER, payload} as const
 }
 
-export const savePhotoSuccess = (photos: PhotosType) => {
-    return {
-        type: SET_PHOTO_SUCCESS,
-        photos
-    } as const
+export const savePhotoSuccess = (payload: {photos: PhotosType}) => {
+    return {type: SET_PHOTO_SUCCESS, payload} as const
 }
-
 
 // Thunks
 
 export const addPostThunk = (message: string): AppThunk => (dispatch, getState) => {
     const userId = getState().pageProfile.profile.userId
-    dispatch(addPost(userId, message))
+    dispatch(addPost({userId, message}))
 }
 
 export const deletePostThunk = (postId: string): AppThunk => (dispatch, getState) => {
     const userId = getState().pageProfile.profile.userId
-    dispatch(deletePost(userId, postId))
+    dispatch(deletePost({userId, postId}))
 }
 
 export const editPostThunk = (postId: string, message: string): AppThunk => (dispatch, getState) => {
     const userId = getState().pageProfile.profile.userId
-    dispatch(editPost(userId, postId, message))
+    dispatch(editPost({userId, postId, message}))
 }
 
 export const toggleMyLikeThunk = (postId: string): AppThunk => (dispatch, getState) => {
     const userId = getState().pageProfile.profile.userId
-    dispatch(toggleMyLike(userId, postId))
+    dispatch(toggleMyLike({userId, postId}))
 }
 
 export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
@@ -263,7 +234,7 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
     try {
         const response = await profileAPI.updateStatus(status);
         if (response.data.resultCode === 0) {
-            dispatch(setUserStatus(status))
+            dispatch(setUserStatus({status}))
         }
     } catch (error) {
         console.warn(error)
@@ -278,7 +249,7 @@ export const generateRandomPosts = (userId: string): AppThunk => async (dispatch
         let newPostsAmount = Math.floor(Math.random() * 10 + 1)
         while (newPostsAmount > 0) {
             const randomText = generateMessage(name)
-            dispatch(addPost(userId, randomText))
+            dispatch(addPost({userId, message: randomText}))
             newPostsAmount--
         }
     }
@@ -291,7 +262,8 @@ export const addLikesAnimationThunk = (postId: string, newLikesAmount: number): 
     if (post) {
         const currentLikes = post.likesCount
         dispatch(setLikes(
-            userId, postId, currentLikes + (post.myLike ? -newLikesAmount : newLikesAmount))
+            {userId, postId,
+                likesAmount: currentLikes + (post.myLike ? -newLikesAmount : newLikesAmount)})
         )
     }
 }
