@@ -25,7 +25,7 @@ export const MyPosts = React.memo((props: MyPostsType) => {
         props.toggleMyLike(postId)
     }
 
-        const posts = props.posts.map((p, i) =>
+        const posts = props.posts.map((p) =>
             <Post key={p.postId}
                   postId={p.postId}
                   message={p.message}
@@ -33,7 +33,7 @@ export const MyPosts = React.memo((props: MyPostsType) => {
                   likesCount={p.likesCount}
                   myLike={p.myLike}
                   date={p.date}
-                  toggleMyLike={(newLikes: number) => addLikes(p.postId, newLikes)}
+                  setMyLike={(newLikes: number) => addLikes(p.postId, newLikes)}
                   editPost={props.editPost}
                   deletePost={props.deletePost}
                   avatar={props.avatar}

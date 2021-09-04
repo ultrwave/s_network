@@ -14,7 +14,7 @@ type PropsType = {
     isOwner: boolean
     editPost(postId: string, message: string): void
     deletePost(postId: string): void
-    toggleMyLike(newLikes: number): void
+    setMyLike(newLikes: number): void
 }
 
 export function Post(props: PropsType) {
@@ -38,7 +38,7 @@ export function Post(props: PropsType) {
             rafReference = window.requestAnimationFrame(addLikes)
         } else {
             cancelAnimationFrame(rafReference)
-            props.toggleMyLike(newLikes)
+            props.setMyLike(newLikes)
             setBlockLikeButton(false)
         }
     }
