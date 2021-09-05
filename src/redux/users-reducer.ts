@@ -33,23 +33,23 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
     switch (action.type) {
 
         case SET_USERS:
-            return {...state, users: [...action.users]}
+            return {...state, users: [...action.payload.users]}
 
         case TOGGLE_FETCHING :
-            return {...state, isFetching: action.isFetching}
+            return {...state, isFetching: action.payload.isFetching}
 
         case TOGGLE_REQUEST_IS_IN_PROGRESS:
 
-            if (action.toggle) {
+            if (action.payload.toggle) {
                 return {
                     ...state,
-                    followRequestsInProgress: [...state.followRequestsInProgress, action.userId]
+                    followRequestsInProgress: [...state.followRequestsInProgress, action.payload.userId]
                 }
             } else {
                 return {
                     ...state,
                     followRequestsInProgress: state.followRequestsInProgress
-                        .filter(id => id !== action.userId)
+                        .filter(id => id !== action.payload.userId)
                 }
             }
 
@@ -57,26 +57,28 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
             return {
                 ...state,
                 users: state.users.map(
-                    user => user.id === action.userId ? {...user, followed: !user.followed} : user
+                    user => user.id === action.payload.userId
+                        ? {...user, followed: !user.followed}
+                        : user
                 )
             }
 
         case SET_CURRENT_PAGE:
             return {
                 ...state,
-                currentPage: action.currentPage
+                currentPage: action.payload.currentPage
             }
 
         case SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
-                totalUsersCount: action.totalUsersCount
+                totalUsersCount: action.payload.totalUsersCount
             }
 
         case SET_ITEMS_ON_PAGE:
             return {
                 ...state,
-                itemsOnPage: action.itemsOnPage
+                itemsOnPage: action.payload.itemsOnPage
             }
 
         default:
@@ -84,65 +86,43 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
     }
 }
 
-export const toggleFetching = (isFetching: boolean) => (
-    {
-        type: TOGGLE_FETCHING,
-        isFetching
-    } as const
+export const toggleFetching = (payload: {isFetching: boolean}) => (
+    {type: TOGGLE_FETCHING, payload} as const
 )
 
-export const toggleRequestIsInProgress = (userId: string, toggle: boolean) => (
-    {
-        type: TOGGLE_REQUEST_IS_IN_PROGRESS,
-        userId,
-        toggle
-    } as const
+export const toggleRequestIsInProgress = (payload: {userId: string, toggle: boolean}) => (
+    {type: TOGGLE_REQUEST_IS_IN_PROGRESS, payload} as const
 )
 
-export const toggleFollow = (userId: string) => (
-    {
-        type: TOGGLE_FOLLOW,
-        userId
-    } as const
+export const toggleFollow = (payload: {userId: string}) => (
+    {type: TOGGLE_FOLLOW, payload} as const
 )
 
-export const setUsers = (users: Array<UserType>) => (
-    {
-        type: SET_USERS,
-        users
-    } as const
+export const setUsers = (payload: {users: Array<UserType>}) => (
+    {type: SET_USERS, payload} as const
 )
 
-export const setCurrentPage = (currentPage: number) => (
-    {
-        type: SET_CURRENT_PAGE,
-        currentPage
-    } as const
+export const setCurrentPage = (payload: {currentPage: number}) => (
+    {type: SET_CURRENT_PAGE, payload} as const
 )
 
-export const setItemsOnPage = (itemsOnPage: number) => (
-    {
-        type: SET_ITEMS_ON_PAGE,
-        itemsOnPage
-    } as const
+export const setItemsOnPage = (payload: {itemsOnPage: number}) => (
+    {type: SET_ITEMS_ON_PAGE, payload} as const
 )
 
-export const setTotalUsersCount = (totalUsersCount: number) => (
-    {
-        type: SET_TOTAL_USERS_COUNT,
-        totalUsersCount
-    } as const
+export const setTotalUsersCount = (payload: {totalUsersCount: number}) => (
+    {type: SET_TOTAL_USERS_COUNT, payload} as const
 )
 
 // Thunks
 
 export const toggleFollowThunkCreator = (user: UserType): AppThunk => async (dispatch) => {
 
-    dispatch(toggleRequestIsInProgress(user.id, true));
+    dispatch(toggleRequestIsInProgress({userId: user.id, toggle: true}));
 
     const resultCode = await appAPI.toggleFollow(user)
-    if (resultCode === 0) dispatch(toggleFollow(user.id))
-    dispatch(toggleRequestIsInProgress(user.id, false))
+    if (resultCode === 0) dispatch(toggleFollow({userId: user.id}))
+    dispatch(toggleRequestIsInProgress({userId: user.id, toggle: false}))
 
 }
 
@@ -151,13 +131,13 @@ export const getUsersThunkCreator = (): AppThunk => async (dispatch, getState) =
     const newPage = getState().pageUsers.currentPage || 1
     const pageSize = getState().pageUsers.itemsOnPage
 
-    dispatch(toggleFetching(true))
-    dispatch(setCurrentPage(newPage))
+    dispatch(toggleFetching({isFetching: true}))
+    dispatch(setCurrentPage({currentPage: newPage}))
 
 
     const response = await appAPI.getUsers(newPage, pageSize);
 
-    dispatch(toggleFetching(false))
+    dispatch(toggleFetching({isFetching: false}))
     dispatch(setUsers(response.items))
     dispatch(setTotalUsersCount(response.totalCount))
 

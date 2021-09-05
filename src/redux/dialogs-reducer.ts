@@ -25,22 +25,24 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
 
             let newMessage: MessageDataType = {
                 id: v1(),
-                isMine: action.isMine,
-                message: (action.message && action.message.trim())? action.message : 'Test message',
+                isMine: action.payload.isMine,
+                message: (action.payload.message && action.payload.message.trim())
+                    ? action.payload.message
+                    : 'Test message',
             }
 
             return {
                 ...state,
                 dialogsData: {
                     ...state.dialogsData,
-                    [action.dialogId]: [newMessage, ...state.dialogsData[action.dialogId]]
+                    [action.payload.dialogId]: [newMessage, ...state.dialogsData[action.payload.dialogId]]
                 }
             }
 
         case SET_DIALOG_ID:
             return {
                 ...state,
-                activeDialogId: action.id
+                activeDialogId: action.payload.id
             }
 
         default:
@@ -48,20 +50,12 @@ const dialogsReducer = (state: PageStateType = initialState, action: ActionTypes
     }
 }
 
-export const addMessage = (dialogId: string, message: string, isMine: boolean) => {
-    return {
-        type: ADD_MESSAGE,
-        dialogId,
-        message,
-        isMine
-    } as const
+export const addMessage = (payload: {dialogId: string, message: string, isMine: boolean}) => {
+    return {type: ADD_MESSAGE, payload} as const
 }
 
-export const setDialogId = (id: string) => {
-    return {
-        type: SET_DIALOG_ID,
-        id
-    } as const
+export const setDialogId = (payload: {id: string}) => {
+    return {type: SET_DIALOG_ID, payload} as const
 }
 
 export default dialogsReducer

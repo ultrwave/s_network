@@ -35,7 +35,7 @@ const authReducer = (state: AuthStateType = initialState, action: ActionTypes): 
         case SHOW_CAPTCHA:
             return {
                 ...state,
-                captcha: action.captchaURL
+                captcha: action.payload.captchaURL
             }
 
         default:
@@ -44,17 +44,11 @@ const authReducer = (state: AuthStateType = initialState, action: ActionTypes): 
 }
 
 export const setAuthUserData = (payload: AuthStateType) => (
-    {
-        type: SET_USER_DATA,
-        payload
-    } as const
+    {type: SET_USER_DATA, payload} as const
 )
 
-export const showCaptcha = (captchaURL: string) => (
-    {
-        type: SHOW_CAPTCHA,
-        captchaURL
-    } as const
+export const showCaptcha = (payload: {captchaURL: string}) => (
+    {type: SHOW_CAPTCHA, payload} as const
 )
 
 // Thunks
