@@ -222,12 +222,12 @@ export const toggleMyLikeThunk = (postId: string): AppThunk => (dispatch, getSta
 
 export const getProfileThunk = (userId: string): AppThunk => async (dispatch) => {
     const response = await profileAPI.getProfile(userId);
-    dispatch(setUserProfile(response.data))
+    dispatch(setUserProfile({profile: response.data}))
 }
 
 export const getStatusThunk = (userId: string): AppThunk => async (dispatch) => {
     const response = await profileAPI.getStatus(userId);
-    dispatch(setUserStatus(response.data))
+    dispatch(setUserStatus({status: response.data}))
 }
 
 export const updateStatusThunk = (status: string): AppThunk => async (dispatch) => {
@@ -271,7 +271,7 @@ export const addLikesAnimationThunk = (postId: string, newLikesAmount: number): 
 export const savePhotoThunk = (file: File): AppThunk => async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+        dispatch(savePhotoSuccess({photos: response.data.data.photos}))
     }
 }
 

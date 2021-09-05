@@ -20,7 +20,7 @@ export type MDTPType = {
     getUserStatus(userId: string): void
     updateUserStatus(status: string): void
     savePhotoThunk(photo: File): void
-    setOwner(isOwner: boolean): void
+    setOwner(payload: {isOwner: boolean}): void
     saveProfileThunk(profile: UserProfileType): Promise<Object>
 }
 
@@ -50,7 +50,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         let myId = this.props.authorizedUserId
         let isOwner = userId? false : (userId !== myId)
         this.showMeButton = !isOwner
-        this.props.setOwner(isOwner)
+        this.props.setOwner({isOwner})
         if (!userId) {
             userId = myId || '2'
             if (!myId) {

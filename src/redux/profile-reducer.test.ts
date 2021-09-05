@@ -17,18 +17,18 @@ let state = {
 
 test('posts length should be incremented', () => {
     // 1. test data
-    let action = addPost('testUserId', 'new post added (test)')
+    let action = addPost({userId: 'testUserId', message: 'new post added (test)'})
 
     //2. action
     let newState = profileReducer(state, action)
 
     // 3. expectation
-    expect(newState.postsData.length).toBe(4)
+    expect(newState.postsData['testUserId'].length).toBe(4)
 });
 
 test('last post text must be correct', () => {
     // 1. test data
-    let action = addPost('testUserId', 'TEST ### ADDING NEW POST ### TEST')
+    let action = addPost({userId: 'testUserId', message: 'TEST ### ADDING NEW POST ### TEST'})
 
     //2. action
     let newState = profileReducer(state, action)
@@ -39,23 +39,23 @@ test('last post text must be correct', () => {
 
 test('after deleting length of messages should be decremented', () => {
     // 1. test data
-    let action = deletePost('testUserId', state.postsData['testUserId'][0].postId)
+    let action = deletePost({userId: 'testUserId', postId: state.postsData['testUserId'][0].postId})
 
     //2. action
     let newState = profileReducer(state, action)
 
     // 3. expectation
-    expect(newState.postsData.length).toBe(2)
+    expect(newState.postsData['testUserId'].length).toBe(2)
 });
 
 test('after deleting length should not decrement if id is incorrect', () => {
     // 1. test data
-    let action = deletePost('testUserId', 'wrongId')
+    let action = deletePost({userId: 'testUserId', postId: 'wrongId'})
 
     //2. action
     let newState = profileReducer(state, action)
 
     // 3. expectation
-    expect(newState.postsData.length).toBe(3)
+    expect(newState.postsData['testUserId'].length).toBe(3)
 });
 

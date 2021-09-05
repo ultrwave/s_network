@@ -116,17 +116,16 @@ export const setTotalUsersCount = (payload: {totalUsersCount: number}) => (
 
 // Thunks
 
-export const toggleFollowThunkCreator = (user: UserType): AppThunk => async (dispatch) => {
+export const toggleFollowThunk = (user: UserType): AppThunk => async (dispatch) => {
 
     dispatch(toggleRequestIsInProgress({userId: user.id, toggle: true}));
 
     const resultCode = await appAPI.toggleFollow(user)
     if (resultCode === 0) dispatch(toggleFollow({userId: user.id}))
     dispatch(toggleRequestIsInProgress({userId: user.id, toggle: false}))
-
 }
 
-export const getUsersThunkCreator = (): AppThunk => async (dispatch, getState) => {
+export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
 
     const newPage = getState().pageUsers.currentPage || 1
     const pageSize = getState().pageUsers.itemsOnPage
@@ -134,13 +133,11 @@ export const getUsersThunkCreator = (): AppThunk => async (dispatch, getState) =
     dispatch(toggleFetching({isFetching: true}))
     dispatch(setCurrentPage({currentPage: newPage}))
 
-
     const response = await appAPI.getUsers(newPage, pageSize);
 
     dispatch(toggleFetching({isFetching: false}))
-    dispatch(setUsers(response.items))
-    dispatch(setTotalUsersCount(response.totalCount))
-
+    dispatch(setUsers({users: response.items}))
+    dispatch(setTotalUsersCount({totalUsersCount: response.totalCount}))
 }
 
 export default usersReducer

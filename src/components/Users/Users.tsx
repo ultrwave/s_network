@@ -5,8 +5,8 @@ import User from './User';
 
 type UsersPropsType = {
     users: Array<UserType>
-    toggleFollow: (user: UserType) => void
     followRequestsInProgress: string[]
+    toggleFollow(user: UserType): void
 }
 
 

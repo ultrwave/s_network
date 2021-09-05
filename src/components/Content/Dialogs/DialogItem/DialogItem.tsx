@@ -6,14 +6,14 @@ import userAvatarPlaceholder  from '../../../../assets/images/avatar_type_0_1.pn
 type DialogItemProps = {
     dialogId: string
     name: string
-    callback: (id: string) => void
+    callback: (payload: {id: string}) => void
 }
 
 export function DialogItem (props: DialogItemProps) {
 
     let path: string = '/dialogs/' + props.dialogId;
 
-    const setDialogIdCallback = () => { props.callback(props.dialogId) }
+    const setDialogIdCallback = () => { props.callback({id: props.dialogId}) }
 
     return (
         <div className={Style.dialog}>

@@ -9,8 +9,8 @@ export type DialogsContentType = {
     dialogItems: Array<DialogItemType>
     dialogsData: DialogsDataType
     activeDialogId: string
-    setDialogId(id: string): void
-    addMessage(dialogId: string, message: string, isMine: boolean): void
+    setDialogId(payload: {id: string}): void
+    addMessage(payload: {dialogId: string, message: string, isMine: boolean}): void
     updateNewMessageText(text: string): void
 }
 
@@ -31,7 +31,11 @@ export function Dialogs(props: DialogsContentType) {
     />)
 
     const addNewMessage = (values: {message: string, sendAsFriend: boolean}) => {
-        props.addMessage(props.activeDialogId, values.message, !values.sendAsFriend)
+        props.addMessage({
+            dialogId: props.activeDialogId,
+            message: values.message,
+            isMine: !values.sendAsFriend
+        })
     }
 
     return (
