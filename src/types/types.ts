@@ -23,7 +23,7 @@ import {setAuthUserData, showCaptcha} from '../redux/auth-reducer';
 import {rootReducer} from '../redux/redux-store';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
-import {setInitialized} from '../redux/app-reducer';
+import {setGlobalError, setInitialized} from '../redux/app-reducer';
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
@@ -123,6 +123,7 @@ export type AuthActionType =
 
 export type AppActionType =
     | ReturnType<typeof setInitialized>
+    | ReturnType<typeof setGlobalError>
 
 export type ActionTypes =
     | PageProfileActionType
