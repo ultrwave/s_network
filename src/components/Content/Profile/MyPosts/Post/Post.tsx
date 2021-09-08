@@ -25,7 +25,7 @@ export function Post(props: PropsType) {
     let [likes, setPostLikes] = useState(props.likesCount)
     let [blockLikeButton, setBlockLikeButton] = useState(false)
 
-    let rafReference: number
+    let rAFReference: number
     let progress = 0
 
     const addLikes = () => {
@@ -35,16 +35,16 @@ export function Post(props: PropsType) {
             setBlockLikeButton(true)
             setPostLikes(l => l + (props.myLike ? -1 : 1))
             progress++
-            rafReference = window.requestAnimationFrame(addLikes)
+            rAFReference = window.requestAnimationFrame(addLikes)
         } else {
-            cancelAnimationFrame(rafReference)
+            cancelAnimationFrame(rAFReference)
             props.setMyLike(newLikes)
             setBlockLikeButton(false)
         }
     }
 
     useEffect(() => {
-        return cancelAnimationFrame(rafReference)
+        return cancelAnimationFrame(rAFReference)
     })
 
     const onSubmit = (formData: UserProfileType & any) => {
