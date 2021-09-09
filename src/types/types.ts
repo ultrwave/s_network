@@ -1,5 +1,5 @@
 import {
-    setCurrentPage,
+    setCurrentPage, setFriendsOnline,
     setItemsOnPage,
     setTotalUsersCount,
     setUsers,
@@ -111,6 +111,7 @@ export type PageDialogsActionType =
 export type UsersActionType =
     | ReturnType<typeof toggleFollow>
     | ReturnType<typeof setUsers>
+    | ReturnType<typeof setFriendsOnline>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setItemsOnPage>
     | ReturnType<typeof setTotalUsersCount>

@@ -1,15 +1,17 @@
 import {ActionTypes, AppThunk, UserType} from '../types/types';
 import {appAPI} from '../api/api';
 
-const TOGGLE_FOLLOW = 'sn01/users/TOGGLE_FOLLOW'
+const SET_FRIENDS_ONLINE = 'sn01/users/SET_FRIENDS_ONLINE'
 const SET_USERS = 'sn01/users/SET_USERS'
 const SET_CURRENT_PAGE = 'sn01/users/SET_CURRENT_PAGE'
 const SET_ITEMS_ON_PAGE = 'sn01/users/SET_ITEMS_ON_PAGE'
 const SET_TOTAL_USERS_COUNT = 'sn01/users/SET_TOTAL_USERS_COUNT'
+const TOGGLE_FOLLOW = 'sn01/users/TOGGLE_FOLLOW'
 const TOGGLE_FETCHING = 'sn01/users/TOGGLE_FETCHING'
 const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE_REQUEST_IS_IN_PROGRESS'
 
 type PageStateType = {
+    friendsOnline: Array<UserType>
     users: Array<UserType>
     itemsOnPage: number
     totalUsersCount: number
@@ -19,6 +21,7 @@ type PageStateType = {
 }
 
 const initialState: PageStateType = {
+    friendsOnline: [],
     users: [],
     totalUsersCount: 0,
     itemsOnPage: 5,
@@ -31,6 +34,9 @@ const initialState: PageStateType = {
 const usersReducer = (state: PageStateType = initialState, action: ActionTypes): PageStateType => {
 
     switch (action.type) {
+
+        case SET_FRIENDS_ONLINE:
+            return {...state, friendsOnline: [...action.payload.friendsOnline]}
 
         case SET_USERS:
             return {...state, users: [...action.payload.users]}
@@ -98,6 +104,10 @@ export const toggleFollow = (payload: {userId: string}) => (
     {type: TOGGLE_FOLLOW, payload} as const
 )
 
+export const setFriendsOnline = (payload: {friendsOnline: Array<UserType>}) => (
+    {type: SET_FRIENDS_ONLINE, payload} as const
+)
+
 export const setUsers = (payload: {users: Array<UserType>}) => (
     {type: SET_USERS, payload} as const
 )
@@ -138,6 +148,10 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
     dispatch(toggleFetching({isFetching: false}))
     dispatch(setUsers({users: response.items}))
     dispatch(setTotalUsersCount({totalUsersCount: response.totalCount}))
+}
+
+export const getFriendsOnlineThunk = (): AppThunk => async (dispatch, getState) => {
+
 }
 
 export default usersReducer
