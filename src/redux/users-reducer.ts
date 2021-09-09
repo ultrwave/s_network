@@ -150,8 +150,17 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
     dispatch(setTotalUsersCount({totalUsersCount: response.totalCount}))
 }
 
-export const getFriendsOnlineThunk = (): AppThunk => async (dispatch, getState) => {
-
+export const getFriendsOnlineThunk = (): AppThunk => async (dispatch) => { // todo - latest users with avatars
+    let page = 25
+    let friendsOnline: UserType[] = []
+    let attempts = 10
+    while ((friendsOnline.length < 3) && attempts) {
+        const response = await appAPI.getUsers(page,100);
+        friendsOnline = response.items.filter((u: UserType) => u.photos.large).slice(0, 3)
+        page += 25
+        attempts--
+    }
+    dispatch(setFriendsOnline({friendsOnline}))
 }
 
 export default usersReducer
