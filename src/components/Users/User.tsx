@@ -17,7 +17,7 @@ function User ({user, toggleFollow, followRequestsInProgress}: UserPropsType) {
             <NavLink to={'/profile/' + user.id}>
                 <div className={Style.avatar}>
                     <img
-                        src={user.photos.small != null ? user.photos.small : userAvatarPlaceholder}
+                        src={user.photos.small || userAvatarPlaceholder}
                         alt={user.name}
                     />
                 </div>
