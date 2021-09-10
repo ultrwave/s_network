@@ -92,35 +92,35 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
     }
 }
 
-export const toggleFetching = (payload: {isFetching: boolean}) => (
+export const toggleFetching = (payload: { isFetching: boolean }) => (
     {type: TOGGLE_FETCHING, payload} as const
 )
 
-export const toggleRequestIsInProgress = (payload: {userId: string, toggle: boolean}) => (
+export const toggleRequestIsInProgress = (payload: { userId: string, toggle: boolean }) => (
     {type: TOGGLE_REQUEST_IS_IN_PROGRESS, payload} as const
 )
 
-export const toggleFollow = (payload: {userId: string}) => (
+export const toggleFollow = (payload: { userId: string }) => (
     {type: TOGGLE_FOLLOW, payload} as const
 )
 
-export const setFriendsOnline = (payload: {friendsOnline: Array<UserType>}) => (
+export const setFriendsOnline = (payload: { friendsOnline: Array<UserType> }) => (
     {type: SET_FRIENDS_ONLINE, payload} as const
 )
 
-export const setUsers = (payload: {users: Array<UserType>}) => (
+export const setUsers = (payload: { users: Array<UserType> }) => (
     {type: SET_USERS, payload} as const
 )
 
-export const setCurrentPage = (payload: {currentPage: number}) => (
+export const setCurrentPage = (payload: { currentPage: number }) => (
     {type: SET_CURRENT_PAGE, payload} as const
 )
 
-export const setItemsOnPage = (payload: {itemsOnPage: number}) => (
+export const setItemsOnPage = (payload: { itemsOnPage: number }) => (
     {type: SET_ITEMS_ON_PAGE, payload} as const
 )
 
-export const setTotalUsersCount = (payload: {totalUsersCount: number}) => (
+export const setTotalUsersCount = (payload: { totalUsersCount: number }) => (
     {type: SET_TOTAL_USERS_COUNT, payload} as const
 )
 
@@ -151,14 +151,30 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
 }
 
 export const getFriendsOnlineThunk = (): AppThunk => async (dispatch) => { // todo - latest users with avatars
-    let page = 25
+    let page = Math.floor(Math.random() * 4 + 1)
     let friendsOnline: UserType[] = []
     let attempts = 10
     while ((friendsOnline.length < 3) && attempts) {
-        const response = await appAPI.getUsers(page,100);
-        friendsOnline = response.items.filter((u: UserType) => u.photos.large).slice(0, 3)
         page += 25
         attempts--
+        const response = await appAPI.getUsers(page, 50);
+        if (response) {
+            let friends = response.items.filter((u: UserType) => u.photos.large)
+            if (friends.length >= 3) {
+                let indexes: number[] = []
+                while ((friendsOnline.length < 3)) {
+                    let randomIndex = Math.floor(Math.random() * friends.length)
+                    let isDouble = indexes.find(el => el === randomIndex)
+                    if (!isDouble && isDouble !== 0) {
+                        friendsOnline.push(friends[randomIndex])
+                        indexes.push(randomIndex)
+                    }
+                }
+            }
+        } else {
+            console.log('Friends online request failed')
+            break
+        }
     }
     dispatch(setFriendsOnline({friendsOnline}))
 }
