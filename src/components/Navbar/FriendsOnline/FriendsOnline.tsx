@@ -13,13 +13,17 @@ export function FriendsOnline() {
         dispatch(getFriendsOnlineThunk())
     }, [dispatch])
 
-    const friends: UserType[] = useSelector((state: StateType) => state.pageUsers.friendsOnline)
+    let friends: Array<UserType | undefined> = useSelector((state: StateType) => state.pageUsers.friendsOnline)
+    if (!friends.length) {
+        friends = [undefined, undefined, undefined]
+    }
 
-    return (
+    return ( // todo - add refresh icon
         <div>
-            <h2 className={Style.friendsTitle}>Friends online</h2>
+            <h2 className={Style.friendsTitle}
+                onClick={() => dispatch(getFriendsOnlineThunk())}>Friends online</h2>
             <div className={Style.friendsOnline}>
-                {friends.map(f => <Friend friend={f} key={f.id}/>)}
+                {friends.map((f, i) => <Friend friend={f} key={(f && f.id) || i}/>)}
             </div>
         </div>
     )
