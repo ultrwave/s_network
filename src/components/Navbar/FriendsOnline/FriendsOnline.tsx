@@ -16,6 +16,7 @@ export function FriendsOnline() {
 
     let friends: Array<UserType | undefined> = useSelector(
         (state: StateType) => state.pageUsers.friendsOnline)
+
     if (!friends.length) {
         friends = (new Array(3)).fill(undefined)
     }
