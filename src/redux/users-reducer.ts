@@ -150,25 +150,29 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
     dispatch(setTotalUsersCount({totalUsersCount: response.totalCount}))
 }
 
-export const getFriendsOnlineThunk = (): AppThunk => async (dispatch) => { // todo - latest users with avatars
-    let page = Math.floor(Math.random() * 4 + 1)
+export const getFriendsOnlineThunk = (latestFriends: boolean = false): AppThunk => async (dispatch) => { // todo - remove clusters
+    let page = latestFriends? 1 : Math.floor(Math.random() * 4 + 1)
     let friendsOnline: UserType[] = []
     let attempts = 10
     while ((friendsOnline.length < 3) && attempts) {
-        page += 25
+        page += latestFriends? 1 : 25
         attempts--
-        const response = await appAPI.getUsers(page, 50);
+        const response = await appAPI.getUsers(page, latestFriends? 100 : 50);
         if (response) {
             let friends = response.items.filter((u: UserType) => u.photos.large)
             if (friends.length >= 3) {
-                let indexes: number[] = []
-                while ((friendsOnline.length < 3)) {
-                    let randomIndex = Math.floor(Math.random() * friends.length)
-                    let isDouble = indexes.find(el => el === randomIndex)
-                    if (!isDouble && isDouble !== 0) {
-                        friendsOnline.push(friends[randomIndex])
-                        indexes.push(randomIndex)
+                if (!latestFriends) {
+                    let indexes: number[] = []
+                    while ((friendsOnline.length < 3)) {
+                        let randomIndex = Math.floor(Math.random() * friends.length)
+                        let isDouble = indexes.find(el => el === randomIndex)
+                        if (!isDouble && isDouble !== 0) {
+                            friendsOnline.push(friends[randomIndex])
+                            indexes.push(randomIndex)
+                        }
                     }
+                } else {
+                    friendsOnline = friends.slice(0, 3)
                 }
             }
         } else {
