@@ -49,7 +49,7 @@ export const initializeApp = (): AppThunk => (dispatch) => {
         })
         .catch(error => {
             dispatch(setGlobalError({error}))
-            console.log(error)
+            console.log(`App error: ${error}`)
         })
 }
 

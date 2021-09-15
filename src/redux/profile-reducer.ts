@@ -237,7 +237,7 @@ export const updateStatusThunk = (status: string): AppThunk => async (dispatch) 
             dispatch(setUserStatus({status}))
         }
     } catch (error) {
-        console.warn(error)
+        console.log(`Profile error: ${error}`)
     }
 }
 

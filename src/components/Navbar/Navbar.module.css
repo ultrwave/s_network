@@ -28,6 +28,10 @@
     margin: 0 auto;
 }
 
+.toggleFriendsMode {
+    cursor: pointer;
+}
+
 .friend {
     display: flex;
     flex-direction: column;

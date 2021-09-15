@@ -151,14 +151,20 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
 }
 
 export const getFriendsOnlineThunk = (latestFriends: boolean = false): AppThunk => async (dispatch) => {
-    let page = latestFriends ? 0 : Math.floor(Math.random() * 4 + 1)
+    let page = 0, totalCount = 0, pageSize = 50, attempts = 10
     let friendsOnline: UserType[] = []
-    let attempts = 10
     while ((friendsOnline.length < 3) && attempts) {
-        page += latestFriends ? 1 : 25
+        page = latestFriends
+            ? page + 1
+            : totalCount
+                ? (1 + Math.round(Math.random() * (totalCount - 1)))
+                : Math.floor(Math.random() * 4 + 1)
         attempts--
-        const response = await appAPI.getUsers(page, 50);
+        const response = await appAPI.getUsers(page, pageSize);
         if (response) {
+            if (!totalCount) {
+                totalCount = Math.ceil(response.totalCount/pageSize)
+            }
             let friends = response.items.filter((u: UserType) => u.photos.large)
             if (friends.length >= 3) {
                 if (!latestFriends) {
@@ -172,7 +178,7 @@ export const getFriendsOnlineThunk = (latestFriends: boolean = false): AppThunk 
                         }
                     }
                 }
-            } else if (friends.length) {
+            } else if (friends.length && latestFriends) {
                 friendsOnline.push(...friends)
             }
             if (friendsOnline.length > 3) {

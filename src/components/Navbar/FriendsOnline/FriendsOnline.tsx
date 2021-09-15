@@ -32,7 +32,9 @@ export function FriendsOnline() {
         <div>
             <h2 className={Style.friendsTitle}
                 onClick={() => dispatch(getFriendsOnlineThunk(latestFriends))}>Friends online</h2>
-            <span onClick={toggleLatestFriends}>
+            <span className={Style.toggleFriendsMode}
+                  style={{color: latestFriends? '#9f9' : '#f9f'}}
+                  onClick={toggleLatestFriends}>
                 {'Showing ' + (latestFriends ? 'latest' : 'random')}</span>
             <div className={Style.friendsOnline}>
                 {friends.map((f, i) => <Friend friend={f} key={(f && f.id) || i}/>)}
