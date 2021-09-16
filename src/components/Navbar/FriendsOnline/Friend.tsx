@@ -15,6 +15,7 @@ export function Friend ({friend}: FriendPropsType) {
             ? <NavLink to={'/profile/' + friend.id}>
             <div className={Style.avatar}>
                 <img className={Style.friendAvatar}
+                     style={{border: `2px solid ${+friend.id === 2 ? 'gold' : 'white'}`}}
                      src={friend.photos.large || userAvatarPlaceholder}
                      alt={friend.name}
                 />

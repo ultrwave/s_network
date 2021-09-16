@@ -27,7 +27,7 @@ export const DialogsMessageForm = (props: InjectedFormProps<FormDataType & Dialo
                        validate={[maxLength]}
                        name={'message'}
                        className={Style.text}
-                       autoFocus={true}
+                       autoFocus={false}
                 />
                 <button>
                     Send

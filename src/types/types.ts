@@ -24,6 +24,7 @@ import {rootReducer} from '../redux/redux-store';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 import {setGlobalError, setInitialized} from '../redux/app-reducer';
+import {initSetting, updateSettings} from '../redux/settings-reducer';
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
@@ -118,6 +119,10 @@ export type UsersActionType =
     | ReturnType<typeof toggleFetching>
     | ReturnType<typeof toggleRequestIsInProgress>
 
+export type PageSettingsActionType =
+    | ReturnType<typeof updateSettings>
+    | ReturnType<typeof initSetting>
+
 export type AuthActionType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof showCaptcha>
@@ -130,6 +135,7 @@ export type ActionTypes =
     | PageProfileActionType
     | PageDialogsActionType
     | UsersActionType
+    | PageSettingsActionType
     | AuthActionType
     | AppActionType
 
