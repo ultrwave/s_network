@@ -5,7 +5,7 @@ const INIT_SETTING = 'sn01/settings/INIT_SETTING'
 
 type PageStateType = {
     pagination: {touched: boolean, value: number}
-    dialogs: {touched: boolean}
+    dialogs: {touched: boolean, value: boolean}
     friends: {touched: boolean, value: boolean}
 }
 
@@ -13,7 +13,7 @@ type settingNamesType = 'pagination' | 'dialogs' | 'friends'
 
 let initialState = {
     pagination: {touched: false, value: 10},
-    dialogs: {touched: false},
+    dialogs: {touched: false, value: false},
     friends: {touched: false, value: false}
 }
 
