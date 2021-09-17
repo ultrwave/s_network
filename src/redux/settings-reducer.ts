@@ -1,4 +1,4 @@
-import {ActionTypes} from '../types/types';
+import {ActionTypes, AppThunk} from '../types/types';
 
 const UPDATE_SETTINGS = 'sn01/settings/UPDATE_SETTINGS'
 const INIT_SETTING = 'sn01/settings/INIT_SETTING'
@@ -9,7 +9,7 @@ type PageStateType = {
     friends: {touched: boolean, value: boolean}
 }
 
-type settingNamesType = 'pagination' | 'dialogs' | 'friends'
+type SettingNamesType = 'pagination' | 'dialogs' | 'friends'
 
 let initialState = {
     pagination: {touched: false, value: 10},
@@ -35,12 +35,18 @@ const settingsReducer = (state: PageStateType = initialState, action: ActionType
     }
 }
 
-export const updateSettings = (payload: {setting: settingNamesType, value: number | boolean}) => {
+export const updateSettings = (payload: {setting: SettingNamesType, value: number | boolean}) => {
     return {type: UPDATE_SETTINGS, payload} as const
 }
 
-export const initSetting = (payload: {setting: settingNamesType}) => {
+export const initSetting = (payload: {setting: SettingNamesType}) => {
     return {type: INIT_SETTING, payload} as const
+}
+
+// Thunks
+
+export const synchronizeSettings = (setting: SettingNamesType, value: number | boolean): AppThunk => (dispatch) => {
+
 }
 
 export default settingsReducer
