@@ -15,26 +15,23 @@ import {
     getCurrentPage,
     getFollowRequestsInProgress,
     getIsFetching,
-    getItemsOnPage, getPreloadedSettings,
+    getItemsOnPage,
     getTotalUsersCount,
     getUsers
 } from '../../redux/users-selectors';
 import Pagination from '../common/Pagination/Pagination';
-import {initSetting} from '../../redux/settings-reducer';
 
 
 type UsersAPIPropsType = {
     users: Array<UserType>
     itemsOnPage: number
-    settings: {value: number, touched: boolean}
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followRequestsInProgress: string[]
+    followRequestsInProgress: Array<string>
     setCurrentPage(payload: {currentPage: number}): void
     setTotalUsersCount(payload: {totalUsersCount: number}): void
     setItemsOnPage(payload: {itemsOnPage: number}): void
-    initSetting(): void
     toggleRequestIsInProgress(payload: {userId: string, toggle: boolean}): void
     toggleFollow(user: UserType): void
     getUsers(): void
@@ -53,13 +50,6 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
         getUsers()
     }
 
-    onSettingsChange = (itemsOnPage: number) => {
-        const {getUsers, setItemsOnPage, initSetting} = this.props
-        setItemsOnPage({itemsOnPage})
-        initSetting()
-        getUsers()
-    }
-
     toggleFollow = (user: UserType) => {
         const {toggleFollow} = this.props
         toggleFollow(user)
@@ -71,11 +61,10 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
                 <>
                     <Pagination
                         totalItems={this.props.totalUsersCount}
-                        settings={this.props.settings}
                         currentPage={this.props.currentPage}
                         itemsOnPage={this.props.itemsOnPage}
+                        setItemsOnPage={this.props.setItemsOnPage}
                         onPageChange={this.onPageChange}
-                        onSettingsChange={this.onSettingsChange}
                     />
                     <Users
                         users={this.props.users}
@@ -93,7 +82,6 @@ const mapStateToProps = (state: StateType) => {
         currentPage: getCurrentPage(state),
         totalUsersCount: getTotalUsersCount(state),
         itemsOnPage: getItemsOnPage(state),
-        settings: getPreloadedSettings(state),
         followRequestsInProgress: getFollowRequestsInProgress(state),
         users: getUsers(state),
         isFetching: getIsFetching(state)
@@ -104,7 +92,6 @@ const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     setItemsOnPage,
-    initSetting: () => initSetting({setting: 'pagination'}),
     toggleRequestIsInProgress,
     getUsers: getUsersThunk,
     toggleFollow: toggleFollowThunk

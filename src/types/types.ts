@@ -1,6 +1,6 @@
 import {
     setCurrentPage, setFriendsOnline,
-    setItemsOnPage,
+    setItemsOnPage, setLatestFriendsMode,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
@@ -24,7 +24,6 @@ import {rootReducer} from '../redux/redux-store';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 import {setGlobalError, setInitialized} from '../redux/app-reducer';
-import {initSetting, updateSettings} from '../redux/settings-reducer';
 
 export type RootReducerType = typeof rootReducer
 export type StateType = ReturnType<RootReducerType>
@@ -113,15 +112,12 @@ export type UsersActionType =
     | ReturnType<typeof toggleFollow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setFriendsOnline>
+    | ReturnType<typeof setLatestFriendsMode>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setItemsOnPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleFetching>
     | ReturnType<typeof toggleRequestIsInProgress>
-
-export type PageSettingsActionType =
-    | ReturnType<typeof updateSettings>
-    | ReturnType<typeof initSetting>
 
 export type AuthActionType =
     | ReturnType<typeof setAuthUserData>
@@ -135,7 +131,6 @@ export type ActionTypes =
     | PageProfileActionType
     | PageDialogsActionType
     | UsersActionType
-    | PageSettingsActionType
     | AuthActionType
     | AppActionType
 

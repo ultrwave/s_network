@@ -5,17 +5,15 @@ type PaginationType = {
     totalItems: number
     currentPage: number
     itemsOnPage: number
-    settings: {value: number, touched: boolean}
     onPageChange(page: number): void
-    onSettingsChange(amount: number): void
+    setItemsOnPage(payload: {itemsOnPage: number}): void
 }
 
-function Pagination({currentPage, totalItems, itemsOnPage, settings, onPageChange, onSettingsChange}: PaginationType) {
+function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, setItemsOnPage}: PaginationType) {
 
     let pages: JSX.Element[] = []
 
     const lastPage = Math.ceil(totalItems / itemsOnPage)
-    const showItems = settings.touched? settings.value : itemsOnPage
 
     for (let i = 1; i <= lastPage; i++) pages.push((
         <button
@@ -61,9 +59,9 @@ function Pagination({currentPage, totalItems, itemsOnPage, settings, onPageChang
     return (
         <div className={s.main}>
             {pages}
-            <select value={showItems}
+            <select value={itemsOnPage}
                     onChange={e => {
-                        onSettingsChange(Number(e.currentTarget.value))
+                        setItemsOnPage({itemsOnPage: Number(e.currentTarget.value)})
                     }}
                     style={{marginLeft: '5px'}}>
                 <option value={5}>5</option>

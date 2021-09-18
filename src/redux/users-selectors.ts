@@ -9,10 +9,6 @@ export const getItemsOnPage = (state: StateType) => {
     return state.pageUsers.itemsOnPage
 }
 
-export const getPreloadedSettings = (state: StateType) => {
-    return state.settings.pagination
-}
-
 export const getTotalUsersCount = (state: StateType) => {
     return state.pageUsers.totalUsersCount
 }

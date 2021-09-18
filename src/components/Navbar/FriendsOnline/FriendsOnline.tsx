@@ -1,14 +1,14 @@
 import Style from '../Navbar.module.css';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFriendsOnlineThunk, setFriendsOnline} from '../../../redux/users-reducer';
+import {getFriendsOnlineThunk, setFriendsOnline, setLatestFriendsMode} from '../../../redux/users-reducer';
 import {StateType, UserType} from '../../../types/types';
 import {Friend} from './Friend';
 
 export function FriendsOnline() {
 
     const dispatch = useDispatch()
-    let [latestFriends, setLatestFriends] = useState(false)
+    const latestFriends = useSelector((state: StateType) => state.pageUsers.showLatestFriends)
 
     useEffect(() => {
         dispatch(getFriendsOnlineThunk(latestFriends))
@@ -25,7 +25,7 @@ export function FriendsOnline() {
 
     const toggleLatestFriends = () => {
         dispatch(setFriendsOnline({friendsOnline: friendsLoading}))
-        setLatestFriends(!latestFriends)
+        dispatch(setLatestFriendsMode({latestFriends: !latestFriends}))
     }
 
     return ( // todo - add refresh icon

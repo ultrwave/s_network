@@ -2,6 +2,7 @@ import {ActionTypes, AppThunk, UserType} from '../types/types';
 import {appAPI} from '../api/api';
 
 const SET_FRIENDS_ONLINE = 'sn01/users/SET_FRIENDS_ONLINE'
+const SET_LATEST_FRIENDS_MODE = 'sn01/users/SET_LATEST_FRIENDS_MODE'
 const SET_USERS = 'sn01/users/SET_USERS'
 const SET_CURRENT_PAGE = 'sn01/users/SET_CURRENT_PAGE'
 const SET_ITEMS_ON_PAGE = 'sn01/users/SET_ITEMS_ON_PAGE'
@@ -12,16 +13,18 @@ const TOGGLE_REQUEST_IS_IN_PROGRESS = 'sn01/users/TOGGLE_REQUEST_IS_IN_PROGRESS'
 
 type PageStateType = {
     friendsOnline: Array<UserType>
+    showLatestFriends: boolean
     users: Array<UserType>
     itemsOnPage: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followRequestsInProgress: string[]
+    followRequestsInProgress: Array<string>
 }
 
 const initialState: PageStateType = {
     friendsOnline: [],
+    showLatestFriends: false,
     users: [],
     totalUsersCount: 0,
     itemsOnPage: 5,
@@ -37,6 +40,9 @@ const usersReducer = (state: PageStateType = initialState, action: ActionTypes):
 
         case SET_FRIENDS_ONLINE:
             return {...state, friendsOnline: [...action.payload.friendsOnline]}
+
+        case SET_LATEST_FRIENDS_MODE:
+            return {...state, showLatestFriends: action.payload.latestFriends}
 
         case SET_USERS:
             return {...state, users: [...action.payload.users]}
@@ -106,6 +112,10 @@ export const toggleFollow = (payload: { userId: string }) => (
 
 export const setFriendsOnline = (payload: { friendsOnline: Array<UserType> }) => (
     {type: SET_FRIENDS_ONLINE, payload} as const
+)
+
+export const setLatestFriendsMode = (payload: { latestFriends: boolean }) => (
+    {type: SET_LATEST_FRIENDS_MODE, payload} as const
 )
 
 export const setUsers = (payload: { users: Array<UserType> }) => (
