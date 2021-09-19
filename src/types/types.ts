@@ -1,6 +1,6 @@
 import {
     setCurrentPage, setFriendsOnline,
-    setItemsOnPage, setLatestFriendsMode,
+    setItemsOnPage, setLatestFriendsMode, setMaxFriendsDisplay,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
@@ -113,6 +113,7 @@ export type UsersActionType =
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setFriendsOnline>
     | ReturnType<typeof setLatestFriendsMode>
+    | ReturnType<typeof setMaxFriendsDisplay>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setItemsOnPage>
     | ReturnType<typeof setTotalUsersCount>

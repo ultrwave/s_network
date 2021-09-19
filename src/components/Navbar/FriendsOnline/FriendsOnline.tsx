@@ -29,7 +29,7 @@ export function FriendsOnline() {
     }
 
     return ( // todo - add refresh icon
-        <div>
+        <div className={Style.friendsOnlineContainer}>
             <h2 className={Style.friendsTitle}
                 onClick={() => dispatch(getFriendsOnlineThunk(latestFriends))}>Friends online</h2>
             <span className={Style.toggleFriendsMode}
