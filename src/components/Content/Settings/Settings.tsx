@@ -6,7 +6,7 @@ import {setItemsOnPage, setLatestFriendsMode, setMaxFriendsDisplay} from '../../
 
 type PropsType = {}
 
-export function Settings(props: PropsType) {
+export function Settings(props: PropsType) { // todo - themes switching; AntDesign / Material
 
     const dispatch = useDispatch()
 
@@ -30,40 +30,50 @@ export function Settings(props: PropsType) {
         <div className={Style.BLANK}>
             <h1>Settings</h1>
             <div className={Style.settingsList}>
-                <div>
-                    <span>{`Friends display mode:`}</span>
-                    <span>
+                <div className={Style.settingsSection}>
+                    <div>
+                        <span>{`Friends display mode:`}</span>
+                        <span>
                         <input onChange={onFriendsModeChange}
                                type="radio"
                                name={'friendsSettings'}
                                value={'latest'}
                                checked={friendsSettings}/>
                         latest</span>
-                    <span>
+                        <span>
                         <input onChange={onFriendsModeChange}
                                type="radio"
                                name={'friendsSettings'}
                                value={'random'}
                                checked={!friendsSettings}/>
                         random</span>
+                    </div>
+                    <div className={Style.selectOption}>
+                        <span>{`Friends online amount: ${friendsOnlineAmount}`}</span>
+                        <select value={friendsOnlineAmount}
+                                onChange={onFriendsAmountChange}>
+                            <option value={3}>3</option>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={15}>15</option>
+                        </select>
+                    </div>
                 </div>
-                <span>{`Friends online amount: ${friendsOnlineAmount}`}</span>
-                <select value={friendsOnlineAmount}
-                        onChange={onFriendsAmountChange}>
-                    <option value={3}>3</option>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                </select>
-                <span>{`Dialogs: --- `}</span>
-                <span>{`Users per page display: ${usersPageSize}`}</span>
-                <select value={usersPageSize}
-                        onChange={onPaginationChange}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                    <option value={50}>50</option>
-                </select>
+                <div className={Style.settingsSection}>
+                    <span>{`Dialogs: --- `}</span>
+                </div>
+                <div className={Style.settingsSection}>
+                    <div className={Style.selectOption}>
+                        <span>{`Users per page display: ${usersPageSize}`}</span>
+                        <select value={usersPageSize}
+                                onChange={onPaginationChange}>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={50}>50</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -3,3 +3,18 @@
     flex-direction: column;
     padding: 10px
 }
+
+.settingsSection {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.selectOption {
+    display: flex;
+    flex-direction: row;
+}
+
+.selectOption select {
+    margin-left: 10px;
+}

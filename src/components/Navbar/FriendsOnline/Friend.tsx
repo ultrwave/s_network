@@ -8,7 +8,7 @@ import loader from '../../../assets/images/loader.gif';
 type FriendPropsType = {
     friend: UserType | undefined
 }
-export function Friend ({friend}: FriendPropsType) {
+export function Friend ({friend}: FriendPropsType) { // todo - style variations
 
     return <div className={Style.friend}>
         {friend
