@@ -170,10 +170,11 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
     dispatch(setTotalUsersCount({totalUsersCount: response.totalCount}))
 }
 
-export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppThunk => async (dispatch) => {
-    let page = 0, totalCount = 0, pageSize = 50, maxFriends = 7, attempts = 10
+export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppThunk => async (dispatch, getState) => {
+    let page = 0, totalCount = 0, pageSize = 50, attempts = 10
     let friendsOnline: UserType[] = []
-    while ((friendsOnline.length < maxFriends) && attempts) {
+    const maxFriendsAmount = getState().pageUsers.maxFriendsDisplay
+    while ((friendsOnline.length < maxFriendsAmount) && attempts) {
         page = latestFriendsMode
             ? page + 1
             : totalCount
@@ -186,10 +187,10 @@ export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppTh
                 totalCount = Math.ceil(response.totalCount/pageSize)
             }
             let friends = response.items.filter((u: UserType) => u.photos.large)
-            if (friends.length >= maxFriends) {
+            if (friends.length >= maxFriendsAmount) {
                 if (!latestFriendsMode) {
                     let indexes: number[] = []
-                    while ((friendsOnline.length < maxFriends)) {
+                    while ((friendsOnline.length < maxFriendsAmount)) {
                         let randomIndex = Math.floor(Math.random() * friends.length)
                         let isDouble = indexes.find(el => el === randomIndex)
                         if (!isDouble && isDouble !== 0) {
@@ -201,8 +202,8 @@ export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppTh
             } else if (friends.length && latestFriendsMode) {
                 friendsOnline.push(...friends)
             }
-            if (friendsOnline.length > maxFriends) {
-                friendsOnline.length = maxFriends
+            if (friendsOnline.length > maxFriendsAmount) {
+                friendsOnline.length = maxFriendsAmount
             }
         } else {
             console.log('Friends online request failed')

@@ -9,17 +9,18 @@ export function FriendsOnline() {
 
     const dispatch = useDispatch()
     const latestFriends = useSelector((state: StateType) => state.pageUsers.showLatestFriends)
+    const friendsAmount = useSelector((state: StateType) => state.pageUsers.maxFriendsDisplay)
 
     useEffect(() => {
         dispatch(getFriendsOnlineThunk(latestFriends))
-    }, [dispatch, latestFriends])
+    }, [dispatch, latestFriends, friendsAmount])
 
     let friends: Array<UserType | undefined> = useSelector(
         (state: StateType) => state.pageUsers.friendsOnline)
 
-    let friendsLoading = (new Array(3)).fill(undefined)
+    let friendsLoading = (new Array(friendsAmount)).fill(undefined)
 
-    if (!friends.length) {
+    if (friends.length !== friendsAmount) {
         friends = friendsLoading
     }
 
@@ -37,7 +38,8 @@ export function FriendsOnline() {
                   onClick={toggleLatestFriends}>
                 {'Showing ' + (latestFriends ? 'latest' : 'random')}</span>
             <div className={Style.friendsOnline}>
-                {friends.map((f, i) => <Friend friend={f} key={(f && f.id) || i}/>)}
+                {friends.map((f, i) =>
+                    <Friend friend={f} key={(f && f.id) || i}/>)}
             </div>
         </div>
     )
