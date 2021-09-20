@@ -50,6 +50,12 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
         getUsers()
     }
 
+    setItemsOnPage = (itemsOnPage: number) => {
+        const {getUsers, setItemsOnPage} = this.props
+        setItemsOnPage({itemsOnPage})
+        getUsers()
+    }
+
     toggleFollow = (user: UserType) => {
         const {toggleFollow} = this.props
         toggleFollow(user)
@@ -63,7 +69,7 @@ class UsersAPI extends React.Component<UsersAPIPropsType> {
                         totalItems={this.props.totalUsersCount}
                         currentPage={this.props.currentPage}
                         itemsOnPage={this.props.itemsOnPage}
-                        setItemsOnPage={this.props.setItemsOnPage}
+                        setItemsOnPage={this.setItemsOnPage}
                         onPageChange={this.onPageChange}
                     />
                     <Users

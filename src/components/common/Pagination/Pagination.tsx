@@ -6,7 +6,7 @@ type PaginationType = {
     currentPage: number
     itemsOnPage: number
     onPageChange(page: number): void
-    setItemsOnPage(payload: {itemsOnPage: number}): void
+    setItemsOnPage(itemsOnPage: number): void
 }
 
 function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, setItemsOnPage}: PaginationType) {
@@ -61,7 +61,7 @@ function Pagination({currentPage, totalItems, itemsOnPage, onPageChange, setItem
             {pages}
             <select value={itemsOnPage}
                     onChange={e => {
-                        setItemsOnPage({itemsOnPage: Number(e.currentTarget.value)})
+                        setItemsOnPage(Number(e.currentTarget.value))
                     }}
                     style={{marginLeft: '5px'}}>
                 <option value={5}>5</option>
