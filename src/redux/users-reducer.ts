@@ -27,7 +27,7 @@ type PageStateType = {
 const initialState: PageStateType = {
     friendsOnline: [],
     showLatestFriends: false,
-    maxFriendsDisplay: 5,
+    maxFriendsDisplay: 3,
     users: [],
     totalUsersCount: 0,
     itemsOnPage: 5,

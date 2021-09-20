@@ -53,9 +53,9 @@ export function Settings(props: PropsType) { // todo - themes switching; AntDesi
                         <select value={friendsOnlineAmount}
                                 onChange={onFriendsAmountChange}>
                             <option value={3}>3</option>
-                            <option value={5}>5</option>
+                            <option value={6}>6</option>
                             <option value={10}>10</option>
-                            <option value={15}>15</option>
+                            <option value={18}>18</option>
                         </select>
                     </div>
                 </div>

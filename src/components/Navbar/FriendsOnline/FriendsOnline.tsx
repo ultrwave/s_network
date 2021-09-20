@@ -1,4 +1,4 @@
-import Style from '../Navbar.module.css';
+import Style from '../Navbar.module.css'; // todo - add css module
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFriendsOnlineThunk, setFriendsOnline, setLatestFriendsMode} from '../../../redux/users-reducer';
