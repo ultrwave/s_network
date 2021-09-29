@@ -93,6 +93,13 @@ export type UserProfileType = {
     photos: PhotosType
 }
 
+export type authLoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
 export type PageProfileActionType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof editPost>

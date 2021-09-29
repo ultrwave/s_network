@@ -49,6 +49,7 @@ class App extends React.Component<AppPropsType> {
 
         return (
             <div className="app-wrapper">
+
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">

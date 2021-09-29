@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {UserProfileType, UserType} from '../types/types';
+import {authLoginType, UserProfileType, UserType} from '../types/types';
 
 const instance = axios.create({
     withCredentials: true,
@@ -69,9 +69,3 @@ export const securityAPI = {
     }
 }
 
-type authLoginType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha?: string
-}

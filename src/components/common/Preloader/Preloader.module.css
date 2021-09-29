@@ -1,4 +1,64 @@
-.preloader {
-    margin: 50px;
-    width: 50px;
+.dimScreen {
+    position:fixed;
+    padding:0;
+    margin:0;
+    transition: 0.2s all;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background:rgba(255,255,255,0.4);
+
+    z-index: 999;
+    opacity: 0.4;
+
+    -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 0.2s; /* Firefox < 16 */
+    -ms-animation: fadein 0.2s; /* Internet Explorer */
+    -o-animation: fadein 0.2s; /* Opera < 12.1 */
+    animation: fadein 0.2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+}
+
+.hideLoader {
+    opacity: 0.0;
+    transition: 0.2s all;
+}
+
+.preLoader {
+    position: fixed; /* or absolute */
+    top: 250px;
+    left: 50%;
+    transition: 0.2s all;
+    transform: translate(-50%, -50%);
 }

@@ -165,9 +165,9 @@ export const getUsersThunk = (): AppThunk => async (dispatch, getState) => {
 
     const response = await appAPI.getUsers(newPage, pageSize);
 
-    dispatch(toggleFetching({isFetching: false}))
     dispatch(setUsers({users: response.items}))
     dispatch(setTotalUsersCount({totalUsersCount: response.totalCount}))
+    dispatch(toggleFetching({isFetching: false}))
 }
 
 export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppThunk => async (dispatch, getState) => {
