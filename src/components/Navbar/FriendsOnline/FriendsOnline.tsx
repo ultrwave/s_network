@@ -25,7 +25,6 @@ export function FriendsOnline() {
     }
 
     const toggleLatestFriends = () => {
-        dispatch(setFriendsOnline({friendsOnline: friendsLoading}))
         dispatch(setLatestFriendsMode({latestFriends: !latestFriends}))
     }
 
