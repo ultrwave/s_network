@@ -45,9 +45,8 @@ export function FriendsOnline() {
                   onClick={toggleLatestFriends}>
                 {'Showing ' + (latestFriends ? 'latest' : 'random')}</span>
             <div className={Style.friendsOnline}>
-                {friends.map((f, i) => {
-                    console.log(`${f? f.name : i} mapped`);
-                    return <Friend friend={f} key={f ? f.id : i}/>})}
+                {friends.map((f, i) =>
+                    <Friend friend={f} key={f ? f.id : i}/>)}
             </div>
         </div>
     )

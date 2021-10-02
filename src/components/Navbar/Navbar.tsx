@@ -4,7 +4,6 @@ import {FriendsOnline} from './FriendsOnline/FriendsOnline';
 import NavbarItem from './NavbarItem';
 
 function Navbar() {
-
     return (
         <nav className={Style.navbar}>
             <div className={Style.navbarItems}>

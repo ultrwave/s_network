@@ -41,7 +41,7 @@ export function Friend ({friend}: FriendPropsType) {
                 />
             </div>
         </NavLink>
-        : <div className={Style.avatar} style={{position: 'relative', top: '0', left: '0'}}>
+        : <div className={Style.avatar}>
                 <img className={Style.friendAvatar}
                      style={responsiveStyle}
                      src={loader}
