@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import {HashRouter, Route, withRouter, Switch, Redirect} from 'react-router-dom';
 import './App.css';
-import {Navbar} from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import {News} from './components/Content/News/News';
 import {Music} from './components/Content/Music/Music';
 import {Settings} from './components/Content/Settings/Settings';
@@ -20,6 +20,7 @@ const DialogsContainer = React.lazy(
 
 const UsersContainer = React.lazy(
     () => import('./components/Users/UsersContainer'))
+
 
 type AppPropsType = {
     initialized: boolean

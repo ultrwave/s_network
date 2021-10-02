@@ -174,36 +174,34 @@ export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppTh
     let page = 0, totalCount = 0, pageSize = 50, attempts = 15
     let friendsOnline: UserType[] = []
     const maxFriendsAmount = getState().pageUsers.maxFriendsDisplay
-    let friendsLoading = (new Array(maxFriendsAmount)).fill(undefined)
-    dispatch(setFriendsOnline({friendsOnline: friendsLoading}))
     while ((friendsOnline.length < maxFriendsAmount) && attempts) {
         page = latestFriendsMode
             ? page + 1
             : Math.round(1 + Math.random() * (totalCount - 1))
-        const response = await appAPI.getUsers(totalCount? page : 1, pageSize);
+        const response = await appAPI.getUsers(totalCount ? page : 1, pageSize);
         if (response) {
             if (!totalCount) {
-                totalCount = Math.ceil(response.totalCount/pageSize)
-            } else {
-                let friends = response.items.filter((u: UserType) => u.photos.large)
-                if (friends.length >= maxFriendsAmount) {
-                    if (!latestFriendsMode) {
-                        let indexes: number[] = []
-                        while ((friendsOnline.length < maxFriendsAmount)) {
-                            let randomIndex = Math.floor(Math.random() * friends.length)
-                            let isDouble = indexes.find(el => el === randomIndex)
-                            if (!isDouble && isDouble !== 0) {
-                                friendsOnline.push(friends[randomIndex])
-                                indexes.push(randomIndex)
-                            }
+                totalCount = Math.ceil(response.totalCount / pageSize)
+                continue
+            }
+            let friends = response.items.filter((u: UserType) => u.photos.large)
+            if (friends.length >= maxFriendsAmount) {
+                if (!latestFriendsMode) {
+                    let indexes: number[] = []
+                    while ((friendsOnline.length < maxFriendsAmount)) {
+                        let randomIndex = Math.floor(Math.random() * friends.length)
+                        let isDouble = indexes.find(el => el === randomIndex)
+                        if (!isDouble && isDouble !== 0) {
+                            friendsOnline.push(friends[randomIndex])
+                            indexes.push(randomIndex)
                         }
                     }
-                } else if (friends.length && latestFriendsMode) {
-                    friendsOnline.push(...friends)
                 }
-                if (friendsOnline.length > maxFriendsAmount) {
-                    friendsOnline.length = maxFriendsAmount
-                }
+            } else if (friends.length && latestFriendsMode) {
+                friendsOnline.push(...friends)
+            }
+            if (friendsOnline.length > maxFriendsAmount) {
+                friendsOnline.length = maxFriendsAmount
             }
             attempts--
         } else {

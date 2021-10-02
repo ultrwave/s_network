@@ -19,7 +19,6 @@ const styles: FriendsStylesType = {
     18: {width: '22px', margin: '2px'}
 }
 
-
 export function Friend ({friend}: FriendPropsType) {
 
     const friendsAmount = useSelector((state: StateType) => state.pageUsers.maxFriendsDisplay)
@@ -42,7 +41,7 @@ export function Friend ({friend}: FriendPropsType) {
                 />
             </div>
         </NavLink>
-        : <div className={Style.avatar}>
+        : <div className={Style.avatar} style={{position: 'relative', top: '0', left: '0'}}>
                 <img className={Style.friendAvatar}
                      style={responsiveStyle}
                      src={loader}

@@ -1,12 +1,20 @@
 import Style from '../Navbar.module.css'; // todo - add css module
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFriendsOnlineThunk, setFriendsOnline, setLatestFriendsMode} from '../../../redux/users-reducer';
+import {getFriendsOnlineThunk, setLatestFriendsMode} from '../../../redux/users-reducer';
 import {StateType, UserType} from '../../../types/types';
 import {Friend} from './Friend';
 
-export function FriendsOnline() {
+const userPlaceholder: UserType = {
+    id: 'loading',
+    name: 'Loading...',
+    status: null,
+    followed: false,
+    uniqueUrlName: null,
+    photos: {small: null, large: null}
+}
 
+export function FriendsOnline() {
     const dispatch = useDispatch()
     const latestFriends = useSelector((state: StateType) => state.pageUsers.showLatestFriends)
     const friendsAmount = useSelector((state: StateType) => state.pageUsers.maxFriendsDisplay)
@@ -37,8 +45,9 @@ export function FriendsOnline() {
                   onClick={toggleLatestFriends}>
                 {'Showing ' + (latestFriends ? 'latest' : 'random')}</span>
             <div className={Style.friendsOnline}>
-                {friends.map((f, i) =>
-                    <Friend friend={f} key={(f && f.id) || i}/>)}
+                {friends.map((f, i) => {
+                    console.log(`${f? f.name : i} mapped`);
+                    return <Friend friend={f} key={f ? f.id : i}/>})}
             </div>
         </div>
     )

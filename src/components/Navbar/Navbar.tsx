@@ -1,25 +1,9 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 import Style from './Navbar.module.css';
 import {FriendsOnline} from './FriendsOnline/FriendsOnline';
+import NavbarItem from './NavbarItem';
 
-type NavbarItemPropsType = {
-    to: string
-    title: string
-}
-
-export function Navbar() {
-
-    function NavbarItem(props: NavbarItemPropsType) {
-        return (
-            <div className={Style.item}>
-                <NavLink to={props.to}
-                         activeClassName={Style.activeLink}>
-                    {props.title}
-                </NavLink>
-            </div>
-        )
-    }
+function Navbar() {
 
     return (
         <nav className={Style.navbar}>
@@ -34,3 +18,5 @@ export function Navbar() {
         </nav>
     )
 }
+
+export default Navbar
