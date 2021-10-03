@@ -24,7 +24,7 @@ export function Friend ({friend}: FriendPropsType) {
     const friendsAmount = useSelector((state: StateType) => state.pageUsers.maxFriendsDisplay)
     const [avatarLoaded, setAvatarLoaded] = useState(false)
 
-    let avatar = new Image();
+    const avatar = new Image();
     avatar.onload = () => setAvatarLoaded(true)
     avatar.src = friend?.photos.large || ''
 
@@ -41,6 +41,8 @@ export function Friend ({friend}: FriendPropsType) {
             <div className={Style.avatar}>
                 <img className={Style.friendAvatar}
                      style={responsiveStyle}
+                     width={responsiveStyle.width}
+                     height={responsiveStyle.width}
                      src={friend.photos.large || userAvatarPlaceholder}
                      alt={friend.name}
                 />
@@ -49,6 +51,8 @@ export function Friend ({friend}: FriendPropsType) {
         : <div className={Style.avatar}>
                 <img className={Style.friendAvatar}
                      style={responsiveStyle}
+                     width={responsiveStyle.width}
+                     height={responsiveStyle.width}
                      src={loader}
                      alt={'loading...'}
                 />

@@ -189,24 +189,23 @@ export const getFriendsOnlineThunk = (latestFriendsMode: boolean = false): AppTh
             continue
         }
         let friends = response.items.filter((u: UserType) => u.photos.large)
-        if (friends.length >= maxFriendsAmount) {
-            if (!latestFriendsMode) {
-                let indexes: number[] = []
-                while ((friendsOnline.length < maxFriendsAmount)) {
-                    let randomIndex = Math.floor(Math.random() * friends.length)
-                    let isDouble = indexes.find(el => el === randomIndex)
-                    if (!isDouble && isDouble !== 0) {
-                        friendsOnline.push(friends[randomIndex])
-                        indexes.push(randomIndex)
-                    }
+        if ((maxFriendsAmount - friendsOnline.length < friends.length) && !latestFriendsMode)  {
+            let indexes: number[] = []
+            while (friendsOnline.length < maxFriendsAmount) {
+                let randomIndex = Math.floor(Math.random() * friends.length)
+                let isDouble = indexes.find(el => el === randomIndex)
+                if (!isDouble && isDouble !== 0) {
+                    friendsOnline.push(friends[randomIndex])
+                    indexes.push(randomIndex)
                 }
             }
-        } else if (friends.length && latestFriendsMode) {
+        } else if (friends.length) {
             friendsOnline.push(...friends)
         }
         if (friendsOnline.length > maxFriendsAmount) {
             friendsOnline.length = maxFriendsAmount
         }
+        await (new Promise(res => setTimeout(res, 350))) // throttling
         attempts--
     }
     dispatch(setFriendsOnline({friendsOnline}))
