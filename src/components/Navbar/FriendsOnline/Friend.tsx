@@ -1,7 +1,7 @@
 import Style from '../Navbar.module.css';
 import {NavLink} from 'react-router-dom';
 import userAvatarPlaceholder from '../../../assets/images/avatar_type_0_1.png';
-import React from 'react';
+import React, {useState} from 'react';
 import {StateType, UserType} from '../../../types/types';
 import loader from '../../../assets/images/loader.gif';
 import {useSelector} from 'react-redux';
@@ -22,6 +22,11 @@ const styles: FriendsStylesType = {
 export function Friend ({friend}: FriendPropsType) {
 
     const friendsAmount = useSelector((state: StateType) => state.pageUsers.maxFriendsDisplay)
+    const [avatarLoaded, setAvatarLoaded] = useState(false)
+
+    let avatar = new Image();
+    avatar.onload = () => setAvatarLoaded(true)
+    avatar.src = friend?.photos.large || ''
 
     const responsiveStyle = {
         border: `2px solid ${friend && +friend.id === 2 ? 'gold' : 'white'}`,
@@ -31,7 +36,7 @@ export function Friend ({friend}: FriendPropsType) {
     }
 
     return <div className={Style.friend}>
-        {friend
+        {friend && avatarLoaded
             ? <NavLink to={'/profile/' + friend.id}>
             <div className={Style.avatar}>
                 <img className={Style.friendAvatar}

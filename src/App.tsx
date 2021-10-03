@@ -31,7 +31,6 @@ class App extends React.Component<AppPropsType> {
 
     catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
         console.warn("unhandled promise rejection" + event.reason)
-        alert(event.reason)
     }
 
     componentDidMount() {

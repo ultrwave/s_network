@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import Style from './Navbar.module.css';
-import {FriendsOnline} from './FriendsOnline/FriendsOnline';
 
 type NavbarItemPropsType = {
     to: string
